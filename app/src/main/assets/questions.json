@@ -1,6 +1,266 @@
 {
   "questions": [
     {
+      "id": "calc-001",
+      "category": "calculus",
+      "question": "log(x²y³) を log x と log y で表したものはどれか（x, y > 0）。",
+      "choices": [
+        "2 log x + 3 log y",
+        "6 log x log y",
+        "log 2x + log 3y",
+        "(2 log x)(3 log y)"
+      ],
+      "answer": 0,
+      "explanation": "log(ab) = log a + log b、log aʳ = r log a より log x² + log y³ = 2 log x + 3 log y。尤度の積を対数で和に直すときの基本。"
+    },
+    {
+      "id": "calc-002",
+      "category": "calculus",
+      "question": "|r| < 1 のとき、無限等比級数 1 + r + r² + r³ + … の和はどれか。",
+      "choices": [
+        "1/(1 − r)",
+        "1/(1 + r)",
+        "r/(1 − r)",
+        "1/(1 − r)²"
+      ],
+      "answer": 0,
+      "explanation": "部分和 (1 − rⁿ)/(1 − r) で rⁿ → 0 なので 1/(1 − r)。1/(1 − r)² は Σ k r^(k−1)（幾何分布の期待値の計算）。"
+    },
+    {
+      "id": "calc-003",
+      "category": "calculus",
+      "question": "lim_(n→∞) (1 + 2/n)ⁿ の値はどれか。",
+      "choices": [
+        "e²",
+        "2e",
+        "1",
+        "∞"
+      ],
+      "answer": 0,
+      "explanation": "一般に (1 + x/n)ⁿ → eˣ。x = 2 で e²。二項分布 Bin(n, λ/n) → ポアソン分布の導出で (1 − λ/n)ⁿ → e^(−λ) として使う。"
+    },
+    {
+      "id": "calc-004",
+      "category": "calculus",
+      "question": "f(x) = e^(−x²/2) の導関数はどれか。",
+      "choices": [
+        "−x e^(−x²/2)",
+        "e^(−x²/2)",
+        "−(x²/2) e^(−x²/2)",
+        "−2x e^(−x²/2)"
+      ],
+      "answer": 0,
+      "explanation": "合成関数の微分（連鎖律）：(e^u)' = e^u·u'、u = −x²/2 より u' = −x。正規分布の密度の微分でよく使う。"
+    },
+    {
+      "id": "calc-005",
+      "category": "calculus",
+      "question": "対数尤度 ℓ(λ) = (Σxᵢ) log λ − nλ を最大にする λ はどれか。",
+      "choices": [
+        "Σxᵢ/n",
+        "n/Σxᵢ",
+        "Σxᵢ",
+        "e^(Σxᵢ/n)"
+      ],
+      "answer": 0,
+      "explanation": "ℓ'(λ) = Σxᵢ/λ − n = 0 より λ = Σxᵢ/n = x̄。ℓ''(λ) = −Σxᵢ/λ² < 0 で最大。ポアソン分布の最尤推定量。"
+    },
+    {
+      "id": "calc-006",
+      "category": "calculus",
+      "question": "∫₀^∞ x e^(−x) dx の値はどれか。",
+      "choices": [
+        "1",
+        "1/2",
+        "2",
+        "e"
+      ],
+      "answer": 0,
+      "explanation": "部分積分で [−x e^(−x)]₀^∞ + ∫₀^∞ e^(−x) dx = 0 + 1 = 1。Γ(2) = 1! = 1 とも一致する（Exp(1) の平均）。"
+    },
+    {
+      "id": "calc-007",
+      "category": "calculus",
+      "question": "ガンマ関数 Γ(α) = ∫₀^∞ x^(α−1) e^(−x) dx について、Γ(5) の値はどれか。",
+      "choices": [
+        "24",
+        "120",
+        "5",
+        "4"
+      ],
+      "answer": 0,
+      "explanation": "Γ(α + 1) = αΓ(α)、Γ(1) = 1 より自然数 n で Γ(n) = (n − 1)!。Γ(5) = 4! = 24。"
+    },
+    {
+      "id": "calc-008",
+      "category": "calculus",
+      "question": "x が 0 に近いとき、log(1 + x) の 1 次のテイラー近似はどれか。",
+      "choices": [
+        "x",
+        "1 + x",
+        "x − 1",
+        "1/(1 + x)"
+      ],
+      "answer": 0,
+      "explanation": "log(1 + x) = x − x²/2 + x³/3 − … の 1 次の項。例えば成長率が小さいとき、対数差分 log(y_t/y_(t−1)) は変化率 (y_t − y_(t−1))/y_(t−1) で近似できる。"
+    },
+    {
+      "id": "calc-009",
+      "category": "calculus",
+      "question": "∫_(−∞)^∞ e^(−x²/2) dx の値はどれか。",
+      "choices": [
+        "√(2π)",
+        "√π",
+        "2π",
+        "1"
+      ],
+      "answer": 0,
+      "explanation": "2 乗して極座標に変換すると I² = ∫₀^(2π)∫₀^∞ e^(−r²/2) r dr dθ = 2π。よって I = √(2π)。標準正規分布の密度の係数 1/√(2π) の由来。"
+    },
+    {
+      "id": "calc-010",
+      "category": "calculus",
+      "question": "変数変換 x = r cos θ, y = r sin θ（極座標）のヤコビアンの絶対値はどれか。",
+      "choices": [
+        "r",
+        "r²",
+        "1",
+        "1/r"
+      ],
+      "answer": 0,
+      "explanation": "J = det[[cos θ, −r sin θ], [sin θ, r cos θ]] = r cos²θ + r sin²θ = r。dx dy = r dr dθ。ボックス・ミュラー法やガウス積分の計算に使う。"
+    },
+    {
+      "id": "la-001",
+      "category": "linear_algebra",
+      "question": "データの偏差ベクトル x̃, ỹ を用いると、相関係数 r はどのように表せるか。",
+      "choices": [
+        "x̃ᵀỹ/(‖x̃‖‖ỹ‖)（偏差ベクトルのなす角の cos）",
+        "x̃ᵀỹ",
+        "‖x̃‖/‖ỹ‖",
+        "x̃ᵀỹ/n"
+      ],
+      "answer": 0,
+      "explanation": "r = Σ(xᵢ − x̄)(yᵢ − ȳ)/√(Σ(xᵢ − x̄)²Σ(yᵢ − ȳ)²) = cos θ。コーシー・シュワルツの不等式から |r| ≤ 1。x̃ᵀỹ/n は共分散。"
+    },
+    {
+      "id": "la-002",
+      "category": "linear_algebra",
+      "question": "行列の積の転置 (AB)ᵀ はどれに等しいか。",
+      "choices": [
+        "BᵀAᵀ",
+        "AᵀBᵀ",
+        "BA",
+        "AB"
+      ],
+      "answer": 0,
+      "explanation": "成分で比較すると ((AB)ᵀ)ᵢⱼ = Σaⱼₖbₖᵢ = (BᵀAᵀ)ᵢⱼ。順序が逆になる点に注意。逆行列でも (AB)⁻¹ = B⁻¹A⁻¹。"
+    },
+    {
+      "id": "la-003",
+      "category": "linear_algebra",
+      "question": "A = [[3, 1], [2, 1]] の逆行列はどれか。",
+      "choices": [
+        "[[1, −1], [−2, 3]]",
+        "[[1, 1], [2, 3]]",
+        "[[3, −1], [−2, 1]]",
+        "(1/5)[[1, −1], [−2, 3]]"
+      ],
+      "answer": 0,
+      "explanation": "det A = 3·1 − 1·2 = 1。A⁻¹ = (1/det A)[[d, −b], [−c, a]] = [[1, −1], [−2, 3]]。確認：AA⁻¹ = [[3 − 2, −3 + 3], [2 − 2, −2 + 3]] = I。"
+    },
+    {
+      "id": "la-004",
+      "category": "linear_algebra",
+      "question": "行列 [[4, 1], [2, 3]] の固有値はどれか。",
+      "choices": [
+        "5 と 2",
+        "4 と 3",
+        "6 と 1",
+        "7 と 0"
+      ],
+      "answer": 0,
+      "explanation": "固有方程式 (4 − λ)(3 − λ) − 2 = λ² − 7λ + 10 = 0 より λ = 5, 2。和 7 = トレース、積 10 = 行列式になっている。"
+    },
+    {
+      "id": "la-005",
+      "category": "linear_algebra",
+      "question": "実対称行列について誤っている記述はどれか。",
+      "choices": [
+        "固有値は複素数になることがある",
+        "異なる固有値に対応する固有ベクトルは直交する",
+        "直交行列 P で A = PΛPᵀ と対角化できる",
+        "固有値の和はトレースに等しい"
+      ],
+      "answer": 0,
+      "explanation": "実対称行列の固有値はすべて実数。分散共分散行列・相関行列は対称なので、主成分分析では実数の固有値と直交する主成分の方向が得られる。"
+    },
+    {
+      "id": "la-006",
+      "category": "linear_algebra",
+      "question": "分散共分散行列 Σ について常に成り立つ性質はどれか。",
+      "choices": [
+        "対称かつ半正定値",
+        "対角行列",
+        "正則",
+        "固有値がすべて 1 以上"
+      ],
+      "answer": 0,
+      "explanation": "Cov(Xᵢ, Xⱼ) = Cov(Xⱼ, Xᵢ) で対称。任意の a で aᵀΣa = Var(aᵀX) ≥ 0 なので半正定値。変数間に完全な 1 次関係があると正則にならない。"
+    },
+    {
+      "id": "la-007",
+      "category": "linear_algebra",
+      "question": "X が n × p 行列のとき、ハット行列 H = X(XᵀX)⁻¹Xᵀ について誤っている記述はどれか。",
+      "choices": [
+        "H の固有値はすべて 1 である",
+        "H は対称である",
+        "H² = H である",
+        "tr(H) = p である"
+      ],
+      "answer": 0,
+      "explanation": "H は X の列空間への射影行列で、固有値は 1（p 個）と 0（n − p 個）。tr(H) = tr((XᵀX)⁻¹XᵀX) = tr(I_p) = p（切片を含めて p 列の場合）。"
+    },
+    {
+      "id": "la-008",
+      "category": "linear_algebra",
+      "question": "A が対称行列のとき、二次形式 xᵀAx の x による勾配 ∂(xᵀAx)/∂x はどれか。",
+      "choices": [
+        "2Ax",
+        "Ax",
+        "xᵀA",
+        "2xᵀx"
+      ],
+      "answer": 0,
+      "explanation": "一般に ∂(xᵀAx)/∂x = (A + Aᵀ)x で、対称なら 2Ax。最小二乗法の正規方程式 XᵀXβ = Xᵀy は、この公式で ‖y − Xβ‖² を微分して得られる。"
+    },
+    {
+      "id": "la-009",
+      "category": "linear_algebra",
+      "question": "n 個のデータの中心化行列 J = I − (1/n)11ᵀ のランクはどれか。",
+      "choices": [
+        "n − 1",
+        "n",
+        "1",
+        "0"
+      ],
+      "answer": 0,
+      "explanation": "J は対称な射影行列なので rank = tr = n − 1。xᵀJx = Σ(xᵢ − x̄)² であり、不偏分散の分母 n − 1（自由度）はこのランクに対応する。"
+    },
+    {
+      "id": "la-010",
+      "category": "linear_algebra",
+      "question": "重回帰で最小二乗推定量 (XᵀX)⁻¹Xᵀy が一意に求まらない（XᵀX が正則でない）のはどのような場合か。",
+      "choices": [
+        "説明変数の間に完全な 1 次関係（完全な多重共線性）がある場合",
+        "説明変数どうしが無相関の場合",
+        "標本サイズが説明変数の数より十分大きい場合",
+        "目的変数が正規分布に従わない場合"
+      ],
+      "answer": 0,
+      "explanation": "X の列が 1 次従属だと Xv = 0 となる v ≠ 0 があり XᵀXv = 0。例：切片と全カテゴリのダミー変数を同時に入れる（ダミー変数の罠）。"
+    },
+    {
       "id": "prob-001",
       "category": "probability",
       "question": "X ~ Po(λ), Y ~ Po(μ) が独立のとき、X + Y = n が与えられたもとでの X の条件付き分布はどれか。",

@@ -47,6 +47,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.note0292.statprep.data.Category
+import com.note0292.statprep.data.CategoryKind
 import com.note0292.statprep.data.Chapter
 import com.note0292.statprep.data.Example
 import com.note0292.statprep.data.FormulaNotes
@@ -56,7 +57,11 @@ import com.note0292.statprep.data.Theorem
 import com.note0292.statprep.ui.theme.CorrectColor
 
 private fun chapterLabel(category: Category): String =
-    "第${category.ordinal + 1}章　${category.label}" + if (category.optional) "（発展）" else ""
+    category.chapterTitle + when (category.kind) {
+        CategoryKind.MATH -> "（準備）"
+        CategoryKind.ADVANCED -> "（発展）"
+        CategoryKind.CORE -> ""
+    }
 
 /** 章の一覧。 */
 @Composable
@@ -75,7 +80,7 @@ fun TextbookScreen(
         ) {
             item {
                 Text(
-                    "各章は「解説 → 定理と証明 → 例題」の順に構成されています。読み終えたら章末の練習問題で理解を確認しましょう。",
+                    "各章は「解説 → 定理と証明 → 例題」の順に構成されています。読み終えたら章末の練習問題で理解を確認しましょう。\n基礎1・2（微分積分・線形代数）は、統計で使う数学を高校レベルから大学レベルまで必要な部分に絞って解説した準備の章です。",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -138,7 +143,7 @@ fun ChapterScreen(
                         )
                         Spacer(Modifier.width(12.dp))
                         Column(Modifier.weight(1f)) {
-                            Text("${category.ordinal + 1}.${i + 1}　${lesson.title}", style = MaterialTheme.typography.titleSmall)
+                            Text("${category.number}.${i + 1}　${lesson.title}", style = MaterialTheme.typography.titleSmall)
                             val extras = buildList {
                                 if (lesson.theorems.isNotEmpty()) add("定理 ${lesson.theorems.size}")
                                 if (lesson.examples.isNotEmpty()) add("例題 ${lesson.examples.size}")
@@ -193,7 +198,7 @@ fun LessonScreen(
 ) {
     val lesson = chapter.lessons[index]
     val category = chapter.categoryEnum
-    val number = "${category.ordinal + 1}.${index + 1}"
+    val number = "${category.number}.${index + 1}"
     LaunchedEffect(lesson.id) { onRead(lesson.id) }
 
     Scaffold(topBar = { BackTopBar(category.label, onBack) }) { padding ->

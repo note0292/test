@@ -59,6 +59,21 @@ class QuizBuilderTest {
     }
 
     @Test
+    fun mockModeExcludesMathQuestions() {
+        val questions = Category.entries.flatMap { c -> (1..8).map { q("${c.id}-$it", c) } }
+        val items = QuizBuilder.build(QuizMode.Mock(30), questions, Progress(), Random(3))
+        assertEquals(30, items.size)
+        assertTrue(items.none { it.question.categoryEnum.kind == CategoryKind.MATH })
+    }
+
+    @Test
+    fun chapterNumbersRestartPerKind() {
+        assertEquals("基礎1", Category.CALCULUS.number)
+        assertEquals("第1章　確率・確率分布", Category.PROBABILITY.chapterTitle)
+        assertEquals("発展2", Category.CAUSAL.number)
+    }
+
+    @Test
     fun mockExamWithFewQuestionsReturnsAll() {
         val questions = (1..5).map { q("$it") }
         assertEquals(5, QuizBuilder.mockExam(questions, 30, Random(0)).size)

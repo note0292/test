@@ -81,7 +81,8 @@ object QuizBuilder {
             is QuizMode.ByCategory -> questions.filter { it.category == mode.category.id }.shuffled(random)
             QuizMode.Weak -> weakQuestions(questions, progress)
             QuizMode.Bookmarked -> questions.filter { it.id in progress.bookmarks }.shuffled(random)
-            is QuizMode.Mock -> mockExam(questions, mode.count, random)
+            // 模擬試験は本番の出題範囲に合わせ、基礎数学の問題を除く
+            is QuizMode.Mock -> mockExam(questions.filter { it.categoryEnum.kind != CategoryKind.MATH }, mode.count, random)
         }
         return selected.map { shuffleChoices(it, random) }
     }

@@ -119,7 +119,7 @@ fun HomeScreen(
             MenuItem(Icons.Filled.Bookmark, "ブックマーク", "保存した問題（${bookmarkCount}問）") {
                 onStartQuiz("bookmarked")
             }
-            MenuItem(Icons.Filled.Timer, "模擬試験（${MOCK_COUNT}問）", "全分野から出題・最後にまとめて採点") {
+            MenuItem(Icons.Filled.Timer, "模擬試験（${MOCK_COUNT}問）", "準1級の出題範囲の全分野から出題・最後にまとめて採点") {
                 onStartQuiz("mock")
             }
             MenuItem(Icons.Filled.BarChart, "学習記録", "分野別の正答率と進み具合", onStats)

@@ -5,6 +5,23 @@ data class Formula(val title: String, val body: String)
 /** 分野ごとの要点・公式まとめ。 */
 object FormulaNotes {
     val notes: Map<Category, List<Formula>> = mapOf(
+        Category.CALCULUS to listOf(
+            Formula("指数・対数", "log(xy) = log x + log y, log xʳ = r log x\nlog_a x = log_b x / log_b a\n(1 + x/n)ⁿ → eˣ"),
+            Formula("和", "Σk = n(n+1)/2, Σk² = n(n+1)(2n+1)/6\nΣ_{k≥0} rᵏ = 1/(1−r), Σ_{k≥1} k r^{k−1} = 1/(1−r)²（|r|<1）"),
+            Formula("微分", "(xⁿ)' = nxⁿ⁻¹, (eˣ)' = eˣ, (log x)' = 1/x\n積 (fg)' = f'g + fg'\n連鎖律 {f(g(x))}' = f'(g(x))g'(x)\n極大: f' = 0 かつ f'' < 0"),
+            Formula("積分", "∫xⁿdx = xⁿ⁺¹/(n+1), ∫1/x dx = log|x|\n部分積分 ∫fg' = fg − ∫f'g\nE[X] = ∫x f(x)dx"),
+            Formula("テイラー展開", "f(x) ≈ f(a) + f'(a)(x−a) + f''(a)(x−a)²/2\neˣ = Σxᵏ/k!, log(1+x) ≈ x"),
+            Formula("ガンマ・ベータ関数", "Γ(α) = ∫₀^∞ x^{α−1}e^{−x}dx, Γ(α+1) = αΓ(α)\nΓ(n) = (n−1)!, Γ(1/2) = √π\nB(a,b) = Γ(a)Γ(b)/Γ(a+b)"),
+            Formula("多変数", "∫e^{−x²/2}dx = √(2π)\ndx dy = |J| du dv（極座標: r dr dθ）\nラグランジュ: ∇f = λ∇g"),
+        ),
+        Category.LINEAR_ALGEBRA to listOf(
+            Formula("内積と相関", "xᵀy = Σxᵢyᵢ, ‖x‖ = √(xᵀx)\n|xᵀy| ≤ ‖x‖‖y‖\nr = x̃ᵀỹ/(‖x̃‖‖ỹ‖)"),
+            Formula("行列の演算", "(AB)ᵀ = BᵀAᵀ, (AB)⁻¹ = B⁻¹A⁻¹\ntr(AB) = tr(BA)\nVar(AX) = AΣAᵀ"),
+            Formula("2×2 の逆行列", "[[a,b],[c,d]]⁻¹ = (1/(ad−bc))[[d,−b],[−c,a]]"),
+            Formula("固有値", "Av = λv, det(A − λI) = 0\nΣλ = tr A, Πλ = det A\n対称行列: A = PΛPᵀ（実固有値・直交固有ベクトル）"),
+            Formula("正定値", "xᵀAx > 0（x ≠ 0）⇔ 固有値がすべて正\n分散共分散行列は半正定値"),
+            Formula("射影・微分", "P² = P, Pᵀ = P → 固有値 0/1, tr P = rank P\nJ = I − 11ᵀ/n, xᵀJx = Σ(xᵢ − x̄)²\n∂(aᵀx)/∂x = a, ∂(xᵀAx)/∂x = (A + Aᵀ)x"),
+        ),
         Category.PROBABILITY to listOf(
             Formula("主な離散分布", "Bin(n,p): 平均 np, 分散 np(1−p)\nPo(λ): 平均 λ, 分散 λ\nGeo(p)（試行回数）: 平均 1/p, 分散 (1−p)/p²\nNB(r,p)（失敗回数）: 平均 r(1−p)/p, 分散 r(1−p)/p²"),
             Formula("主な連続分布", "Exp(λ): 平均 1/λ, 分散 1/λ²\nGa(α,β)（率 β）: 平均 α/β, 分散 α/β²\nBe(a,b): 平均 a/(a+b), 分散 ab/((a+b)²(a+b+1))\nU(a,b): 平均 (a+b)/2, 分散 (b−a)²/12"),
