@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- 棒グラフ -->
+    <path android:fillColor="#80FFFFFF" android:pathData="M36,64h6v10h-6z" />
+    <path android:fillColor="#80FFFFFF" android:pathData="M44,52h6v22h-6z" />
+    <path android:fillColor="#80FFFFFF" android:pathData="M52,40h6v34h-6z" />
+    <path android:fillColor="#80FFFFFF" android:pathData="M60,50h6v24h-6z" />
+    <path android:fillColor="#80FFFFFF" android:pathData="M68,63h6v11h-6z" />
+    <!-- 正規分布の曲線 -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M30,72C40,72 44,36 55,36C66,36 70,72 80,72" />
+    <!-- 横軸 -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M30,76H80" />
+</vector>
