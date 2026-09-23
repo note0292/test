@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "StatPrep"
 include(":app")
+include(":pmapp")

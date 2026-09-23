@@ -1,0 +1,610 @@
+{
+  "terms": [
+    {
+      "term": "プロダクトマネージャー（PM）",
+      "reading": "ぷろだくとまねーじゃー",
+      "description": "プロダクトを通じてユーザーに価値を届け、事業の成果を出すことに責任を持つ職種。「何を・なぜ作るか」を決める。",
+      "stageId": "s01"
+    },
+    {
+      "term": "プロジェクトマネージャー（PjM）",
+      "reading": "ぷろじぇくとまねーじゃー",
+      "description": "決められたものを期限・予算・品質を守って完成させることに責任を持つ職種。",
+      "stageId": "s01"
+    },
+    {
+      "term": "ステークホルダー",
+      "reading": "",
+      "description": "プロダクトに利害や関心を持つ関係者。経営層、営業、CS、法務など。",
+      "stageId": "s01"
+    },
+    {
+      "term": "アウトプット",
+      "reading": "",
+      "description": "作ったもの（機能、成果物）そのもの。",
+      "stageId": "s01"
+    },
+    {
+      "term": "アウトカム",
+      "reading": "",
+      "description": "作ったものによって生まれた成果・変化（例：解約率の低下）。PM はアウトカムに責任を持つ。",
+      "stageId": "s01"
+    },
+    {
+      "term": "CS（カスタマーサポート）",
+      "reading": "かすたまーさぽーと",
+      "description": "ユーザーからの問い合わせに対応する部門。ユーザーの困りごとを最もよく知っている。",
+      "stageId": "s01"
+    },
+    {
+      "term": "QA",
+      "reading": "きゅーえー",
+      "description": "Quality Assurance（品質保証）。テストを計画・実行し、品質を確保する役割。",
+      "stageId": "s01"
+    },
+    {
+      "term": "EM（エンジニアリングマネージャー）",
+      "reading": "えんじにありんぐまねーじゃー",
+      "description": "エンジニアの採用・育成・チーム運営に責任を持つ職種。",
+      "stageId": "s01"
+    },
+    {
+      "term": "クライアント",
+      "reading": "",
+      "description": "サービスを利用する側。ブラウザやスマートフォンのアプリなど。",
+      "stageId": "s02"
+    },
+    {
+      "term": "サーバー",
+      "reading": "",
+      "description": "リクエストを受けて処理し、結果を返すコンピューター。",
+      "stageId": "s02"
+    },
+    {
+      "term": "HTTP / HTTPS",
+      "reading": "えいちてぃーてぃーぴー",
+      "description": "Web でクライアントとサーバーがやりとりするための決まりごと。HTTPS は暗号化された HTTP。",
+      "stageId": "s02"
+    },
+    {
+      "term": "ステータスコード",
+      "reading": "",
+      "description": "HTTP のレスポンスに付く番号。200 は成功、404 は見つからない、500 はサーバーエラー。",
+      "stageId": "s02"
+    },
+    {
+      "term": "フロントエンド",
+      "reading": "",
+      "description": "ユーザーが直接触れる画面の部分。",
+      "stageId": "s02"
+    },
+    {
+      "term": "バックエンド",
+      "reading": "",
+      "description": "サーバー側で動く処理。データの保存や計算、他システムとの連携など。",
+      "stageId": "s02"
+    },
+    {
+      "term": "API",
+      "reading": "えーぴーあい",
+      "description": "Application Programming Interface。ソフトウェア同士がデータや機能をやりとりするための窓口・約束ごと。",
+      "stageId": "s02"
+    },
+    {
+      "term": "データベース（DB）",
+      "reading": "",
+      "description": "大量のデータを整理して保存し、素早く取り出すための仕組み。",
+      "stageId": "s02"
+    },
+    {
+      "term": "テーブル",
+      "reading": "",
+      "description": "リレーショナルデータベースでデータを保存する表。カラム（列）とレコード（行）でできている。",
+      "stageId": "s02"
+    },
+    {
+      "term": "クラウド",
+      "reading": "",
+      "description": "インターネット経由でサーバーなどのインフラを必要な分だけ利用できるサービス。AWS、Google Cloud、Azure など。",
+      "stageId": "s02"
+    },
+    {
+      "term": "インフラ",
+      "reading": "",
+      "description": "サービスを動かすための土台。サーバー、ネットワーク、ストレージなど。",
+      "stageId": "s02"
+    },
+    {
+      "term": "可用性",
+      "reading": "かようせい",
+      "description": "サービスが使える状態である割合。稼働率で表す。",
+      "stageId": "s02"
+    },
+    {
+      "term": "認証と認可",
+      "reading": "にんしょうとにんか",
+      "description": "認証は本人であることの確認、認可はその操作をする権限があるかの確認。",
+      "stageId": "s02"
+    },
+    {
+      "term": "要件定義",
+      "reading": "ようけんていぎ",
+      "description": "何を作るか（必要な機能や条件）を決める工程。",
+      "stageId": "s03"
+    },
+    {
+      "term": "ウォーターフォール",
+      "reading": "",
+      "description": "工程を順番に 1 つずつ完了させて進める開発手法。",
+      "stageId": "s03"
+    },
+    {
+      "term": "アジャイル",
+      "reading": "",
+      "description": "短い期間で作って確かめることを繰り返し、変化に対応しながら進める開発手法。",
+      "stageId": "s03"
+    },
+    {
+      "term": "スクラム",
+      "reading": "",
+      "description": "アジャイル開発の代表的なフレームワーク。スプリントを繰り返して開発する。",
+      "stageId": "s03"
+    },
+    {
+      "term": "スプリント",
+      "reading": "",
+      "description": "スクラムで繰り返す 1〜4 週間の固定期間。",
+      "stageId": "s03"
+    },
+    {
+      "term": "プロダクトオーナー（PO）",
+      "reading": "ぷろだくとおーなー",
+      "description": "スクラムでプロダクトの価値の最大化に責任を持ち、バックログの優先順位を決める役割。",
+      "stageId": "s03"
+    },
+    {
+      "term": "プロダクトバックログ",
+      "reading": "",
+      "description": "プロダクトに必要なことを優先順位順に並べたリスト。",
+      "stageId": "s03"
+    },
+    {
+      "term": "完成の定義（Definition of Done）",
+      "reading": "かんせいのていぎ",
+      "description": "何をもって「完成」とするかの、チーム共通の基準。",
+      "stageId": "s03"
+    },
+    {
+      "term": "Git",
+      "reading": "ぎっと",
+      "description": "ソースコードの変更履歴を管理するツール。GitHub などのサービスと組み合わせて使う。",
+      "stageId": "s03"
+    },
+    {
+      "term": "プルリクエスト（PR）",
+      "reading": "",
+      "description": "自分の変更を本流に取り込んでもらうための依頼。コードレビューを経て取り込まれる。",
+      "stageId": "s03"
+    },
+    {
+      "term": "CI/CD",
+      "reading": "しーあいしーでぃー",
+      "description": "継続的インテグレーション／継続的デリバリー。テストやリリースを自動化する仕組み。",
+      "stageId": "s03"
+    },
+    {
+      "term": "デプロイ",
+      "reading": "",
+      "description": "作ったプログラムを本番環境などに反映して使える状態にすること。",
+      "stageId": "s03"
+    },
+    {
+      "term": "ステージング環境",
+      "reading": "すてーじんぐかんきょう",
+      "description": "本番とほぼ同じ構成で、リリース前の最終確認をする環境。",
+      "stageId": "s03"
+    },
+    {
+      "term": "バグ",
+      "reading": "",
+      "description": "プログラムの不具合。",
+      "stageId": "s03"
+    },
+    {
+      "term": "ジョブ理論（Jobs to be Done）",
+      "reading": "じょぶりろん",
+      "description": "顧客は自分の用事（ジョブ）を片付けるためにプロダクトを「雇う」という考え方。",
+      "stageId": "s04"
+    },
+    {
+      "term": "ユーザーインタビュー",
+      "reading": "",
+      "description": "ユーザーに直接話を聞き、行動や課題の理解を深める調査手法。",
+      "stageId": "s04"
+    },
+    {
+      "term": "ペルソナ",
+      "reading": "",
+      "description": "調査に基づいて描いた、代表的なユーザーの具体的な人物像。",
+      "stageId": "s04"
+    },
+    {
+      "term": "カスタマージャーニーマップ",
+      "reading": "",
+      "description": "ユーザーがプロダクトを知り、使い続けるまでの行動・感情・課題を時系列で可視化したもの。",
+      "stageId": "s04"
+    },
+    {
+      "term": "仮説検証",
+      "reading": "かせつけんしょう",
+      "description": "仮説を立て、実験やデータで正しいかを確かめること。",
+      "stageId": "s04"
+    },
+    {
+      "term": "MVP",
+      "reading": "えむぶいぴー",
+      "description": "Minimum Viable Product。仮説を検証するための、必要最小限の機能を備えた製品。",
+      "stageId": "s04"
+    },
+    {
+      "term": "ピボット",
+      "reading": "",
+      "description": "検証の結果をもとに、プロダクトの方向性を大きく転換すること。",
+      "stageId": "s04"
+    },
+    {
+      "term": "PMF（プロダクトマーケットフィット）",
+      "reading": "ぴーえむえふ",
+      "description": "プロダクトが市場のニーズに合致し、顧客に強く求められている状態。",
+      "stageId": "s04"
+    },
+    {
+      "term": "ビジョン",
+      "reading": "",
+      "description": "プロダクトが実現したい未来の姿。",
+      "stageId": "s05"
+    },
+    {
+      "term": "戦略",
+      "reading": "せんりゃく",
+      "description": "ビジョンを実現するために、どこで戦い、どう勝つかを決めたもの。何をやらないかを決めることが本質。",
+      "stageId": "s05"
+    },
+    {
+      "term": "OKR",
+      "reading": "おーけーあーる",
+      "description": "Objectives and Key Results。定性的な目標と、その達成度を測る定量的な指標で目標を管理する手法。",
+      "stageId": "s05"
+    },
+    {
+      "term": "3C 分析",
+      "reading": "すりーしーぶんせき",
+      "description": "顧客（Customer）・競合（Competitor）・自社（Company）の 3 つの視点で事業環境を整理するフレームワーク。",
+      "stageId": "s05"
+    },
+    {
+      "term": "TAM / SAM / SOM",
+      "reading": "たむ・さむ・そむ",
+      "description": "市場規模の考え方。理論上の最大市場／対象にできる市場／現実的に獲得できる市場。",
+      "stageId": "s05"
+    },
+    {
+      "term": "RICE",
+      "reading": "らいす",
+      "description": "Reach × Impact × Confidence ÷ Effort で優先順位をスコア化する手法。",
+      "stageId": "s05"
+    },
+    {
+      "term": "MoSCoW 分析",
+      "reading": "もすくわぶんせき",
+      "description": "要件を Must・Should・Could・Won't に分類する優先順位付けの手法。",
+      "stageId": "s05"
+    },
+    {
+      "term": "カノモデル",
+      "reading": "",
+      "description": "機能を当たり前品質・一元的品質・魅力的品質などに分類し、満足度への影響を考えるモデル。",
+      "stageId": "s05"
+    },
+    {
+      "term": "ロードマップ",
+      "reading": "",
+      "description": "プロダクトが今後進む方向を、時間軸とともに示した計画。",
+      "stageId": "s05"
+    },
+    {
+      "term": "PRD",
+      "reading": "ぴーあーるでぃー",
+      "description": "Product Requirements Document（プロダクト要求仕様書）。なぜ・誰のために・何を・どうなったら成功かをまとめた文書。",
+      "stageId": "s06"
+    },
+    {
+      "term": "ユーザーストーリー",
+      "reading": "",
+      "description": "「〜として、〜したい。なぜなら〜だから」の形で要件をユーザー視点で表現したもの。",
+      "stageId": "s06"
+    },
+    {
+      "term": "受け入れ条件",
+      "reading": "うけいれじょうけん",
+      "description": "ストーリーが完成したと判断するための具体的な条件。Given / When / Then で書くことが多い。",
+      "stageId": "s06"
+    },
+    {
+      "term": "エピック",
+      "reading": "",
+      "description": "複数のユーザーストーリーに分割される、大きな要件のまとまり。",
+      "stageId": "s06"
+    },
+    {
+      "term": "UI / UX",
+      "reading": "ゆーあい・ゆーえっくす",
+      "description": "UI は画面など目に見える接点、UX はプロダクトを通じた体験全体。",
+      "stageId": "s06"
+    },
+    {
+      "term": "ワイヤーフレーム",
+      "reading": "",
+      "description": "画面のどこに何を配置するかを簡単に描いた骨組み。",
+      "stageId": "s06"
+    },
+    {
+      "term": "プロトタイプ",
+      "reading": "",
+      "description": "実際に操作して画面遷移などを試せる試作品。",
+      "stageId": "s06"
+    },
+    {
+      "term": "ユーザビリティテスト",
+      "reading": "",
+      "description": "実際のユーザーにタスクをこなしてもらい、使いにくい点を観察して見つける方法。",
+      "stageId": "s06"
+    },
+    {
+      "term": "非機能要件",
+      "reading": "ひきのうようけん",
+      "description": "性能・可用性・セキュリティなど、システムがどのくらいの品質で動くかに関する要件。",
+      "stageId": "s06"
+    },
+    {
+      "term": "スコープ",
+      "reading": "",
+      "description": "プロジェクトや機能で対応する範囲。",
+      "stageId": "s06"
+    },
+    {
+      "term": "ストーリーポイント",
+      "reading": "",
+      "description": "作業の大きさを相対的に見積もる単位。",
+      "stageId": "s07"
+    },
+    {
+      "term": "ベロシティ",
+      "reading": "",
+      "description": "1 スプリントでチームが完了できたストーリーポイントの合計。",
+      "stageId": "s07"
+    },
+    {
+      "term": "プランニングポーカー",
+      "reading": "",
+      "description": "チーム全員がカードを出し合って見積もる手法。認識のずれに気づける。",
+      "stageId": "s07"
+    },
+    {
+      "term": "バックログリファインメント",
+      "reading": "",
+      "description": "バックログの上位項目を、次のスプリントで着手できる状態に整える活動。",
+      "stageId": "s07"
+    },
+    {
+      "term": "技術的負債",
+      "reading": "ぎじゅつてきふさい",
+      "description": "急いで作るなどして生じたコードの問題点。放置すると開発速度が落ちる。",
+      "stageId": "s07"
+    },
+    {
+      "term": "リファクタリング",
+      "reading": "",
+      "description": "外から見た動きを変えずに、プログラムの内部構造を改善すること。",
+      "stageId": "s07"
+    },
+    {
+      "term": "心理的安全性",
+      "reading": "しんりてきあんぜんせい",
+      "description": "チームの中で、率直に意見を言っても罰せられないと感じられる状態。",
+      "stageId": "s07"
+    },
+    {
+      "term": "1on1",
+      "reading": "わんおんわん",
+      "description": "上司と部下、またはメンバー同士が 1 対 1 で定期的に行う対話。",
+      "stageId": "s07"
+    },
+    {
+      "term": "KGI",
+      "reading": "けーじーあい",
+      "description": "Key Goal Indicator。最終的なゴールを表す指標。",
+      "stageId": "s08"
+    },
+    {
+      "term": "KPI",
+      "reading": "けーぴーあい",
+      "description": "Key Performance Indicator。KGI を達成するための途中の指標。",
+      "stageId": "s08"
+    },
+    {
+      "term": "北極星指標（ノーススターメトリック）",
+      "reading": "ほっきょくせいしひょう",
+      "description": "プロダクトがユーザーに届ける価値を最もよく表す 1 つの指標。",
+      "stageId": "s08"
+    },
+    {
+      "term": "アクティブユーザー",
+      "reading": "",
+      "description": "一定期間内にプロダクトを利用したユーザー。DAU（日次）、MAU（月次）など。",
+      "stageId": "s08"
+    },
+    {
+      "term": "継続率（リテンション）",
+      "reading": "けいぞくりつ",
+      "description": "一定期間後もプロダクトを使い続けているユーザーの割合。",
+      "stageId": "s08"
+    },
+    {
+      "term": "ファネル分析",
+      "reading": "ふぁねるぶんせき",
+      "description": "目的の行動までの段階ごとに、進んだ人と離脱した人を分析する方法。",
+      "stageId": "s08"
+    },
+    {
+      "term": "AARRR",
+      "reading": "",
+      "description": "獲得・活性化・継続・紹介・収益の 5 段階でユーザーの成長を考えるフレームワーク。海賊指標とも呼ばれる。",
+      "stageId": "s08"
+    },
+    {
+      "term": "コホート分析",
+      "reading": "こほーとぶんせき",
+      "description": "登録時期などでユーザーをグループに分け、その後の行動を比較する分析。",
+      "stageId": "s08"
+    },
+    {
+      "term": "A/B テスト",
+      "reading": "えーびーてすと",
+      "description": "ユーザーをランダムに分けて異なるものを見せ、どちらが良い結果になるかを比べる方法。",
+      "stageId": "s08"
+    },
+    {
+      "term": "統計的有意性",
+      "reading": "とうけいてきゆういせい",
+      "description": "観察された差が偶然ではないと判断できるかどうか。一般に p 値 0.05 未満を目安にする。",
+      "stageId": "s08"
+    },
+    {
+      "term": "SQL",
+      "reading": "えすきゅーえる",
+      "description": "データベースからデータを取り出したり集計したりするための言語。",
+      "stageId": "s08"
+    },
+    {
+      "term": "相関と因果",
+      "reading": "そうかんといんが",
+      "description": "相関は 2 つのものが一緒に変化する関係、因果は一方が原因で他方が変化する関係。相関があっても因果があるとは限らない。",
+      "stageId": "s08"
+    },
+    {
+      "term": "段階的リリース（ロールアウト）",
+      "reading": "だんかいてきりりーす",
+      "description": "新機能を公開するユーザーの割合を徐々に増やしていくリリース方法。",
+      "stageId": "s09"
+    },
+    {
+      "term": "フィーチャーフラグ",
+      "reading": "",
+      "description": "プログラムを変更せずに機能のオン／オフを切り替えられる仕組み。",
+      "stageId": "s09"
+    },
+    {
+      "term": "ロールバック",
+      "reading": "",
+      "description": "リリースした変更を取り消し、元の状態に戻すこと。",
+      "stageId": "s09"
+    },
+    {
+      "term": "Go-to-Market（GTM）",
+      "reading": "ごーとぅーまーけっと",
+      "description": "プロダクトや機能を市場に届けるための戦略と計画。",
+      "stageId": "s09"
+    },
+    {
+      "term": "サブスクリプション",
+      "reading": "",
+      "description": "月額・年額などで継続的に料金を受け取るビジネスモデル。",
+      "stageId": "s09"
+    },
+    {
+      "term": "フリーミアム",
+      "reading": "",
+      "description": "基本機能を無料で提供し、高度な機能を有料にするビジネスモデル。",
+      "stageId": "s09"
+    },
+    {
+      "term": "BtoB / BtoC",
+      "reading": "びーとぅーびー・びーとぅーしー",
+      "description": "企業向けのビジネス／個人向けのビジネス。",
+      "stageId": "s09"
+    },
+    {
+      "term": "SaaS",
+      "reading": "さーす",
+      "description": "Software as a Service。インターネット経由で利用するソフトウェアを、主にサブスクリプションで提供する形態。",
+      "stageId": "s09"
+    },
+    {
+      "term": "LTV",
+      "reading": "えるてぃーぶい",
+      "description": "Life Time Value（顧客生涯価値）。1 人の顧客が利用期間を通じて生み出す利益の合計。",
+      "stageId": "s09"
+    },
+    {
+      "term": "CAC",
+      "reading": "きゃっく",
+      "description": "Customer Acquisition Cost（顧客獲得コスト）。1 人の顧客を獲得するためにかかる費用。",
+      "stageId": "s09"
+    },
+    {
+      "term": "解約率（チャーンレート）",
+      "reading": "かいやくりつ",
+      "description": "一定期間に解約した顧客の割合。",
+      "stageId": "s09"
+    },
+    {
+      "term": "NPS",
+      "reading": "えぬぴーえす",
+      "description": "Net Promoter Score。「友人に勧めたいか」を 0〜10 で聞いて算出する顧客ロイヤルティの指標。",
+      "stageId": "s09"
+    },
+    {
+      "term": "ポストモーテム",
+      "reading": "",
+      "description": "障害などの後に、原因と再発防止策を話し合う振り返り。個人を責めない（ブレームレス）ことが重要。",
+      "stageId": "s09"
+    },
+    {
+      "term": "アソシエイト PM（APM）",
+      "reading": "あそしえいとぴーえむ",
+      "description": "新卒や若手向けの PM 育成ポジション。",
+      "stageId": "s10"
+    },
+    {
+      "term": "CPO",
+      "reading": "しーぴーおー",
+      "description": "Chief Product Officer（最高プロダクト責任者）。会社全体のプロダクト戦略と組織に責任を持つ役職。",
+      "stageId": "s10"
+    },
+    {
+      "term": "ポートフォリオ",
+      "reading": "",
+      "description": "これまでの取り組みや実績、その思考のプロセスをまとめた資料。",
+      "stageId": "s10"
+    },
+    {
+      "term": "STAR 法",
+      "reading": "すたーほう",
+      "description": "経験を Situation（状況）・Task（課題）・Action（行動）・Result（結果）の順で伝える方法。",
+      "stageId": "s10"
+    },
+    {
+      "term": "ノーコード",
+      "reading": "",
+      "description": "プログラミングをせずに、画面操作だけでアプリや Web サイトを作れるツールや手法。",
+      "stageId": "s10"
+    },
+    {
+      "term": "クイックウィン",
+      "reading": "",
+      "description": "少ない労力で素早く出せる成果。信頼構築の足がかりになる。",
+      "stageId": "s10"
+    }
+  ]
+}
