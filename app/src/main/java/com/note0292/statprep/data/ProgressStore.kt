@@ -14,6 +14,16 @@ class ProgressStore(context: Context) {
     private val _progress = MutableStateFlow(load())
     val progress: StateFlow<Progress> = _progress.asStateFlow()
 
+    private val _includeOptional = MutableStateFlow(prefs.getBoolean(KEY_OPTIONAL, false))
+
+    /** 発展分野（効果測定・因果推論）を学習対象に含めるか。学習記録のリセットでは消えない設定値。 */
+    val includeOptional: StateFlow<Boolean> = _includeOptional.asStateFlow()
+
+    fun setIncludeOptional(value: Boolean) {
+        _includeOptional.value = value
+        prefs.edit().putBoolean(KEY_OPTIONAL, value).apply()
+    }
+
     private fun load(): Progress {
         val raw = prefs.getString(KEY, null) ?: return Progress()
         return runCatching { json.decodeFromString<Progress>(raw) }.getOrDefault(Progress())
@@ -30,9 +40,12 @@ class ProgressStore(context: Context) {
 
     fun toggleBookmark(id: String) = update { it.toggleBookmark(id) }
 
+    fun markLessonRead(id: String) = update { it.markLessonRead(id, LocalDate.now()) }
+
     fun reset() = update { Progress() }
 
     private companion object {
         const val KEY = "progress_v1"
+        const val KEY_OPTIONAL = "include_optional"
     }
 }

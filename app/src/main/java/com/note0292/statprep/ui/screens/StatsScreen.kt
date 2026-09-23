@@ -32,6 +32,7 @@ import java.time.LocalDate
 
 @Composable
 fun StatsScreen(
+    categories: List<Category>,
     questions: List<Question>,
     progress: Progress,
     onReset: () -> Unit,
@@ -52,6 +53,7 @@ fun StatsScreen(
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text("学習日数: ${progress.studyDays.size}日（連続 ${progress.streak(LocalDate.now())}日）")
                     Text("のべ解答数: ${progress.stats.values.sumOf { it.attempts }}回")
+                    Text("読んだレッスン: ${progress.readLessons.size}")
                 }
             }
             Text("分野別の正答率", style = MaterialTheme.typography.titleMedium)
@@ -60,7 +62,7 @@ fun StatsScreen(
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
-            Category.entries.forEach { category ->
+            categories.forEach { category ->
                 val stats = questions.filter { it.category == category.id }.map { progress.stat(it.id) }
                 val attempts = stats.sumOf { it.attempts }
                 val accuracy = if (attempts == 0) null else stats.sumOf { it.correct }.toDouble() / attempts
@@ -86,7 +88,7 @@ fun StatsScreen(
         AlertDialog(
             onDismissRequest = { confirmReset = false },
             title = { Text("学習記録をリセット") },
-            text = { Text("解答履歴・ブックマーク・学習日数をすべて削除します。よろしいですか？") },
+            text = { Text("解答履歴・ブックマーク・読んだレッスン・学習日数をすべて削除します。よろしいですか？") },
             confirmButton = {
                 TextButton(onClick = { onReset(); confirmReset = false }) { Text("リセット") }
             },

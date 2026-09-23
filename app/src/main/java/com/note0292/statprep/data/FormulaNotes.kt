@@ -97,5 +97,21 @@ object FormulaNotes {
             Formula("不等確率抽出", "ホルヴィッツ・トンプソン推定量: Ŷ = Σ yᵢ/πᵢ"),
             Formula("欠測データ", "MCAR: 完全にランダム\nMAR: 観測値のみに依存\nMNAR: 欠測値自体に依存\n多重代入: T = W + (1 + 1/m)B（ルービンのルール）"),
         ),
+        Category.EFFECT to listOf(
+            Formula("比率の差の検定", "z = (p̂_B − p̂_A)/√(p̂(1−p̂)(1/n_A + 1/n_B))（p̂: 併合比率）"),
+            Formula("必要標本サイズ（1群あたり）", "n = 2(z_{α/2} + z_β)²σ²/δ²\nα=0.05, 検出力80% → n ≈ 16σ²/δ²"),
+            Formula("CUPED", "Y − θ(X − E[X]), θ = Cov(X,Y)/Var(X)\n分散は (1 − ρ²) 倍"),
+            Formula("比率指標のデルタ法", "Var(X̄/Ȳ) ≈ (1/(nμ_Y²))[σ_X² − 2(μ_X/μ_Y)σ_XY + (μ_X/μ_Y)²σ_Y²]"),
+            Formula("差の差分法", "DID = (処置後 − 処置前) − (対照後 − 対照前)\n回帰: D × Post の係数\n仮定: 平行トレンド"),
+            Formula("運用上の注意", "SRM（割り付け比の不一致）の確認\nピーキング禁止 or 逐次検定\n新奇性効果・干渉・多重比較"),
+        ),
+        Category.CAUSAL to listOf(
+            Formula("潜在結果", "Y = TY(1) + (1−T)Y(0)\nATE = E[Y(1) − Y(0)], ATT = E[Y(1) − Y(0) | T=1]\n単純比較 = ATT + セレクションバイアス"),
+            Formula("識別の仮定", "条件付き交換可能性 (Y(0),Y(1)) ⊥ T | X\n正値性 0 < e(X) < 1\n一致性・SUTVA"),
+            Formula("調整公式", "E[Y(t)] = Σₓ E[Y | T=t, X=x] P(X=x)"),
+            Formula("傾向スコア", "e(X) = P(T=1 | X), T ⊥ X | e(X)\nIPW: ATE = E[TY/e(X)] − E[(1−T)Y/(1−e(X))]"),
+            Formula("DAG", "連鎖 T→M→Y, 分岐 T←C→Y, 合流 T→S←Y\nバックドア基準: T の子孫を含まず、バックドアパスを遮断\n中間変数・コライダーで調整しない"),
+            Formula("操作変数", "β_IV = Cov(Z,Y)/Cov(Z,T)\n二値: ITT/(参加率の差) = LATE\n条件: 関連性・除外制約・外生性"),
+        ),
     )
 }

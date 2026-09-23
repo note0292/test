@@ -34,6 +34,7 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -49,6 +50,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.note0292.statprep.data.Category
 import com.note0292.statprep.data.Progress
 import com.note0292.statprep.data.ProgressStore
 import com.note0292.statprep.data.Question
@@ -82,6 +84,7 @@ fun QuizScreen(
     questions: List<Question>,
     progress: Progress,
     store: ProgressStore,
+    onOpenChapter: (Category) -> Unit,
     onExit: () -> Unit,
     vm: QuizViewModel = viewModel(),
 ) {
@@ -92,8 +95,8 @@ fun QuizScreen(
 
     when {
         vm.items.isEmpty() -> EmptyQuiz(title, mode, onExit)
-        vm.finished -> QuizResult(title, vm, progress, store, onExit)
-        else -> QuizQuestion(title, mode is QuizMode.Mock, vm, progress, store, onExit)
+        vm.finished -> QuizResult(title, vm, progress, store, onOpenChapter, onExit)
+        else -> QuizQuestion(title, mode is QuizMode.Mock, vm, progress, store, onOpenChapter, onExit)
     }
 }
 
@@ -118,6 +121,7 @@ private fun QuizQuestion(
     vm: QuizViewModel,
     progress: Progress,
     store: ProgressStore,
+    onOpenChapter: (Category) -> Unit,
     onExit: () -> Unit,
 ) {
     val item = vm.current ?: return
@@ -182,7 +186,12 @@ private fun QuizQuestion(
                 }
 
                 if (vm.revealed) {
-                    ExplanationCard(correct = vm.selected == item.answer, explanation = question.explanation)
+                    ExplanationCard(
+                        correct = vm.selected == item.answer,
+                        explanation = question.explanation,
+                        category = question.categoryEnum,
+                        onOpenChapter = onOpenChapter,
+                    )
                 }
             }
             Box(Modifier.padding(16.dp)) {
@@ -247,7 +256,12 @@ private fun ResultIcon(correct: Boolean) {
 }
 
 @Composable
-private fun ExplanationCard(correct: Boolean, explanation: String) {
+private fun ExplanationCard(
+    correct: Boolean,
+    explanation: String,
+    category: Category,
+    onOpenChapter: (Category) -> Unit,
+) {
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
         modifier = Modifier.fillMaxWidth(),
@@ -261,6 +275,7 @@ private fun ExplanationCard(correct: Boolean, explanation: String) {
             )
             Text("解説", style = MaterialTheme.typography.labelLarge)
             Text(explanation, style = MaterialTheme.typography.bodyMedium)
+            TextButton(onClick = { onOpenChapter(category) }) { Text("テキストで復習する（${category.label}）") }
         }
     }
 }
@@ -271,6 +286,7 @@ private fun QuizResult(
     vm: QuizViewModel,
     progress: Progress,
     store: ProgressStore,
+    onOpenChapter: (Category) -> Unit,
     onExit: () -> Unit,
 ) {
     val total = vm.items.size
@@ -325,6 +341,7 @@ private fun QuizResult(
                     bookmarked = item.question.id in progress.bookmarks,
                     onToggle = { expandedId = if (expandedId == item.question.id) null else item.question.id },
                     onBookmark = { store.toggleBookmark(item.question.id) },
+                    onOpenChapter = { onOpenChapter(item.question.categoryEnum) },
                 )
             }
         }
@@ -340,6 +357,7 @@ private fun ReviewRow(
     bookmarked: Boolean,
     onToggle: () -> Unit,
     onBookmark: () -> Unit,
+    onOpenChapter: () -> Unit,
 ) {
     val correct = chosen == item.answer
     Card(onClick = onToggle, modifier = Modifier.fillMaxWidth()) {
@@ -370,6 +388,7 @@ private fun ReviewRow(
                 }
                 Text("正解: ${item.choices[item.answer]}", color = CorrectColor, style = MaterialTheme.typography.bodyMedium)
                 Text(item.question.explanation, style = MaterialTheme.typography.bodyMedium, color = Color.Unspecified)
+                TextButton(onClick = onOpenChapter) { Text("テキストで復習する") }
             }
         }
     }

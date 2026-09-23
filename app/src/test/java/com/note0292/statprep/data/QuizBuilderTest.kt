@@ -77,6 +77,20 @@ class QuizBuilderTest {
     }
 
     @Test
+    fun markLessonReadRecordsStudyDay() {
+        val p = Progress().markLessonRead("prob-l1", today)
+        assertTrue("prob-l1" in p.readLessons)
+        assertEquals(1, p.streak(today))
+        assertEquals(p, p.markLessonRead("prob-l1", today))
+    }
+
+    @Test
+    fun optionalCategoriesAreHiddenByDefault() {
+        assertTrue(Category.active(includeOptional = false).none { it.optional })
+        assertEquals(Category.entries, Category.active(includeOptional = true))
+    }
+
+    @Test
     fun toggleBookmark() {
         val p = Progress().toggleBookmark("1")
         assertTrue("1" in p.bookmarks)

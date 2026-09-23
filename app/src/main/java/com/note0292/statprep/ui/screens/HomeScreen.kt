@@ -18,12 +18,14 @@ import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Replay
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -47,10 +49,13 @@ import java.time.LocalDate
 fun HomeScreen(
     questions: List<Question>,
     progress: Progress,
+    lessonsRead: Int,
+    lessonsTotal: Int,
     onStartQuiz: (String) -> Unit,
     onCategories: () -> Unit,
-    onNotes: () -> Unit,
+    onTextbook: () -> Unit,
     onStats: () -> Unit,
+    onSettings: () -> Unit,
 ) {
     val answered = questions.count { progress.stat(it.id).attempts > 0 }
     val totalCorrect = questions.sumOf { progress.stat(it.id).correct }
@@ -59,7 +64,16 @@ fun HomeScreen(
     val bookmarkCount = questions.count { it.id in progress.bookmarks }
     val streak = progress.streak(LocalDate.now())
 
-    Scaffold(topBar = { TopAppBar(title = { Text("統計検定準1級 対策") }) }) { padding ->
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("統計検定準1級 対策") },
+                actions = {
+                    IconButton(onClick = onSettings) { Icon(Icons.Filled.Settings, contentDescription = "設定") }
+                },
+            )
+        },
+    ) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -89,6 +103,12 @@ fun HomeScreen(
                 }
             }
 
+            MenuItem(
+                Icons.AutoMirrored.Filled.MenuBook,
+                "テキスト（解説・証明）",
+                "分野ごとの解説・定理の証明・例題（読了 $lessonsRead / $lessonsTotal）",
+                onTextbook,
+            )
             MenuItem(Icons.Filled.Shuffle, "ランダム${RANDOM_COUNT}問", "未回答の問題を優先して出題") {
                 onStartQuiz("random")
             }
@@ -102,7 +122,6 @@ fun HomeScreen(
             MenuItem(Icons.Filled.Timer, "模擬試験（${MOCK_COUNT}問）", "全分野から出題・最後にまとめて採点") {
                 onStartQuiz("mock")
             }
-            MenuItem(Icons.AutoMirrored.Filled.MenuBook, "公式・要点ノート", "分野ごとの重要公式をまとめて確認", onNotes)
             MenuItem(Icons.Filled.BarChart, "学習記録", "分野別の正答率と進み具合", onStats)
         }
     }

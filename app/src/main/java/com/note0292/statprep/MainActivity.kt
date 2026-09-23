@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
         val app = application as StatPrepApp
         setContent {
             StatPrepTheme {
-                AppNavigation(app.questionRepository, app.progressStore)
+                AppNavigation(app.questionRepository, app.textbookRepository, app.progressStore)
             }
         }
     }

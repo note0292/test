@@ -28,10 +28,11 @@ import com.note0292.statprep.data.Question
 
 @Composable
 fun CategoryScreen(
+    categories: List<Category>,
     questions: List<Question>,
     progress: Progress,
     onSelect: (Category) -> Unit,
-    onNotes: (Category) -> Unit,
+    onChapter: (Category) -> Unit,
     onBack: () -> Unit,
 ) {
     Scaffold(topBar = { BackTopBar("分野別に学習", onBack) }) { padding ->
@@ -40,7 +41,7 @@ fun CategoryScreen(
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            items(Category.entries) { category ->
+            items(categories) { category ->
                 val qs = questions.filter { it.category == category.id }
                 val stats = qs.map { progress.stat(it.id) }
                 val answered = stats.count { it.attempts > 0 }
@@ -61,8 +62,8 @@ fun CategoryScreen(
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                         }
-                        IconButton(onClick = { onNotes(category) }) {
-                            Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = "${category.label}のノート")
+                        IconButton(onClick = { onChapter(category) }) {
+                            Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = "${category.label}のテキスト")
                         }
                     }
                 }

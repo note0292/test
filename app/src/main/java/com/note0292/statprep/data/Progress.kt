@@ -20,6 +20,8 @@ data class Progress(
     val bookmarks: Set<String> = emptySet(),
     /** 学習した日付 (ISO-8601, yyyy-MM-dd)。連続学習日数の計算に使う。 */
     val studyDays: Set<String> = emptySet(),
+    /** 読み終えたテキストのレッスン id。 */
+    val readLessons: Set<String> = emptySet(),
 ) {
     fun stat(id: String): QuestionStat = stats[id] ?: QuestionStat()
 
@@ -33,6 +35,9 @@ data class Progress(
         )
         return copy(stats = stats + (id to updated), studyDays = studyDays + today.toString())
     }
+
+    fun markLessonRead(id: String, today: LocalDate): Progress =
+        if (id in readLessons) this else copy(readLessons = readLessons + id, studyDays = studyDays + today.toString())
 
     fun toggleBookmark(id: String): Progress =
         copy(bookmarks = if (id in bookmarks) bookmarks - id else bookmarks + id)
