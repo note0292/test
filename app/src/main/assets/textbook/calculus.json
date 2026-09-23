@@ -5,192 +5,222 @@
     {
       "id": "calc-l1",
       "title": "指数関数と対数関数【高校】",
-      "body": "指数法則（a > 0）\n・a^m a^n = a^(m+n)、(a^m)^n = a^(mn)、(ab)^n = a^n b^n\n・a^0 = 1、a^(−n) = 1/a^n、a^(1/n) = ⁿ√a\n\n対数 y = log_a x は a^y = x となる y のことです（a > 0, a ≠ 1, x > 0）。\n・log_a(xy) = log_a x + log_a y\n・log_a(x/y) = log_a x − log_a y\n・log_a x^r = r log_a x\n・底の変換：log_a x = log_b x / log_b a\n\n自然対数の底 e = 2.71828… は (1 + 1/n)^n の n → ∞ の極限です。大学以降・統計では、log は断りがなければ自然対数 log_e を表します（ln と書くこともあります）。\n\n関数 y = e^x と y = log x は互いに逆関数で、e^(log x) = x、log e^x = x です。log x は x > 0 で単調増加なので、「f を最大にする点」と「log f を最大にする点」は一致します。\n\n【統計での使いどころ】尤度は多数の確率の積 L = Πf(xᵢ) です。対数をとると和 Σlog f(xᵢ) になり、微分や計算が格段に楽になります（対数尤度）。オッズ比・ロジスティック回帰・ポアソン回帰の係数も対数で解釈します。",
+      "body": "指数法則（$a > 0$）\n$$a^m a^n = a^{m+n}, \\quad (a^m)^n = a^{mn}, \\quad (ab)^n = a^n b^n$$\n$$a^0 = 1, \\quad a^{-n} = \\frac{1}{a^n}, \\quad a^{\\frac{1}{n}} = \\sqrt[n]{a}$$\n\n対数 $y = \\log_a x$ は $a^y = x$ となる $y$ のことです（$a > 0,\\ a \\neq 1,\\ x > 0$）。\n$$\\log_a xy = \\log_a x + \\log_a y, \\qquad \\log_a \\frac{x}{y} = \\log_a x - \\log_a y$$\n$$\\log_a x^r = r \\log_a x, \\qquad \\log_a x = \\frac{\\log_b x}{\\log_b a} \\ \\text{(底の変換)}$$\n\n自然対数の底 $e = 2.71828\\cdots$ は $\\left(1 + \\frac{1}{n}\\right)^n$ の $n \\to \\infty$ の極限です。大学以降・統計では、$\\log$ は断りがなければ自然対数 $\\log_e$ を表します（$\\ln$ と書くこともあります）。\n\n関数 $y = e^x$ と $y = \\log x$ は互いに逆関数で、$e^{\\log x} = x,\\ \\log e^x = x$ です。$\\log x$ は $x > 0$ で単調増加なので、「$f$ を最大にする点」と「$\\log f$ を最大にする点」は一致します。\n\n【統計での使いどころ】尤度は多数の確率の積 $L = \\prod_{i} f(x_i)$ です。対数をとると和 $\\sum_{i} \\log f(x_i)$ になり、微分や計算が格段に楽になります（対数尤度）。オッズ比・ロジスティック回帰・ポアソン回帰の係数も対数で解釈します。",
       "theorems": [
         {
           "title": "積の対数は対数の和",
-          "statement": "log_a(xy) = log_a x + log_a y（x, y > 0）",
-          "proof": "p = log_a x, q = log_a y とおくと x = a^p, y = a^q。\n指数法則より xy = a^p a^q = a^(p+q)。\n対数の定義より log_a(xy) = p + q = log_a x + log_a y。"
+          "statement": "$x, y > 0$ のとき $\\log_a xy = \\log_a x + \\log_a y$",
+          "proof": "$p = \\log_a x,\\ q = \\log_a y$ とおくと $x = a^p,\\ y = a^q$。\n指数法則より $xy = a^p a^q = a^{p+q}$。\n対数の定義より $\\log_a xy = p + q = \\log_a x + \\log_a y$。"
         },
         {
           "title": "底の変換公式",
-          "statement": "log_a x = log_b x / log_b a",
-          "proof": "p = log_a x とおくと x = a^p。両辺の b を底とする対数をとると log_b x = log_b a^p = p log_b a。\na ≠ 1 より log_b a ≠ 0 なので p = log_b x / log_b a。"
+          "statement": "$$\\log_a x = \\frac{\\log_b x}{\\log_b a}$$",
+          "proof": "$p = \\log_a x$ とおくと $x = a^p$。両辺の $b$ を底とする対数をとると\n$$\\log_b x = \\log_b a^p = p \\log_b a$$\n$a \\neq 1$ より $\\log_b a \\neq 0$ なので $p = \\dfrac{\\log_b x}{\\log_b a}$。"
         }
       ],
       "examples": [
         {
-          "question": "L(p) = p³(1 − p)⁷ の対数を、和の形に書き直せ。",
-          "solution": "log L(p) = log p³ + log(1 − p)⁷ = 3 log p + 7 log(1 − p)。\n（二項分布で 10 回中 3 回成功したときの対数尤度（定数項を除く））"
+          "question": "$L(p) = p^3 (1-p)^7$ の対数を、和の形に書き直せ。",
+          "solution": "$$\\log L(p) = \\log p^3 + \\log (1-p)^7 = 3 \\log p + 7 \\log (1-p)$$\n（二項分布で 10 回中 3 回成功したときの対数尤度（定数項を除く））"
         },
         {
-          "question": "log₁₀ 2 = 0.3010 として、2^50 は何桁の数か。",
-          "solution": "log₁₀ 2^50 = 50 × 0.3010 = 15.05。10^15 ≤ 2^50 < 10^16 なので 16 桁。"
+          "question": "$\\log_{10} 2 = 0.3010$ として、$2^{50}$ は何桁の数か。",
+          "solution": "$\\log_{10} 2^{50} = 50 \\times 0.3010 = 15.05$。$10^{15} \\le 2^{50} < 10^{16}$ なので 16 桁。"
         }
       ]
     },
     {
       "id": "calc-l2",
       "title": "数列の和と極限【高校〜大学】",
-      "body": "和の記号 Σ\n・Σ_(k=1)^n c = nc\n・Σ_(k=1)^n k = n(n + 1)/2\n・Σ_(k=1)^n k² = n(n + 1)(2n + 1)/6\n・Σ(aₖ + bₖ) = Σaₖ + Σbₖ、Σcaₖ = cΣaₖ（線形性）\n\n等比数列の和：r ≠ 1 のとき\n  Σ_(k=0)^(n−1) r^k = (1 − r^n)/(1 − r)\n|r| < 1 なら n → ∞ で無限等比級数 Σ_(k=0)^∞ r^k = 1/(1 − r) に収束します。\n\n重要な極限\n・lim (1 + 1/n)^n = e、より一般に lim (1 + x/n)^n = e^x\n・lim_(x→0) (e^x − 1)/x = 1、lim_(x→0) log(1 + x)/x = 1\n・|r| < 1 なら lim r^n = 0\n\n【統計での使いどころ】\n・Σk, Σk² は離散一様分布や順位統計量（ウィルコクソン検定）の平均・分散に現れる\n・等比級数は幾何分布の確率の和や期待値、AR(1) の分散 σ²Σφ^(2j) = σ²/(1 − φ²) の計算に使う\n・(1 + x/n)^n → e^x は二項分布からポアソン分布への極限や、ブートストラップ（1 − 1/n)^n → e^(−1) に使う",
+      "body": "和の記号 $\\sum$ の基本公式\n$$\\sum_{k=1}^{n} c = nc, \\qquad \\sum_{k=1}^{n} k = \\frac{n(n+1)}{2}, \\qquad \\sum_{k=1}^{n} k^2 = \\frac{n(n+1)(2n+1)}{6}$$\n$$\\sum_{k} (a_k + b_k) = \\sum_{k} a_k + \\sum_{k} b_k, \\qquad \\sum_{k} c\\,a_k = c \\sum_{k} a_k \\ \\text{(線形性)}$$\n\n等比数列の和：$r \\neq 1$ のとき\n$$\\sum_{k=0}^{n-1} r^k = \\frac{1 - r^n}{1 - r}$$\n$|r| < 1$ なら $n \\to \\infty$ で無限等比級数 $\\displaystyle\\sum_{k=0}^{\\infty} r^k = \\frac{1}{1-r}$ に収束します。\n\n重要な極限\n$$\\lim_{n \\to \\infty} \\left(1 + \\frac{1}{n}\\right)^n = e, \\qquad \\lim_{n \\to \\infty} \\left(1 + \\frac{x}{n}\\right)^n = e^x$$\n$$\\lim_{x \\to 0} \\frac{e^x - 1}{x} = 1, \\qquad \\lim_{x \\to 0} \\frac{\\log(1+x)}{x} = 1, \\qquad |r| < 1 \\Rightarrow \\lim_{n \\to \\infty} r^n = 0$$\n\n【統計での使いどころ】\n・$\\sum k,\\ \\sum k^2$ は離散一様分布や順位統計量（ウィルコクソン検定）の平均・分散に現れる\n・等比級数は幾何分布の確率の和や期待値、AR(1) の分散 $\\sigma^2 \\sum_j \\phi^{2j} = \\frac{\\sigma^2}{1 - \\phi^2}$ の計算に使う\n・$\\left(1 + \\frac{x}{n}\\right)^n \\to e^x$ は二項分布からポアソン分布への極限や、ブートストラップの $\\left(1 - \\frac{1}{n}\\right)^n \\to e^{-1}$ に使う",
       "theorems": [
         {
           "title": "等比数列の和",
-          "statement": "r ≠ 1 のとき S = 1 + r + … + r^(n−1) = (1 − r^n)/(1 − r)。|r| < 1 なら Σ_(k=0)^∞ r^k = 1/(1 − r)。",
-          "proof": "rS = r + r² + … + r^n。S − rS = 1 − r^n なので (1 − r)S = 1 − r^n、r ≠ 1 で割って結論を得る。\n|r| < 1 なら r^n → 0 なので S → 1/(1 − r)。"
+          "statement": "$r \\neq 1$ のとき $S = 1 + r + \\cdots + r^{n-1} = \\dfrac{1 - r^n}{1 - r}$。$|r| < 1$ なら $\\displaystyle\\sum_{k=0}^{\\infty} r^k = \\frac{1}{1-r}$。",
+          "proof": "$rS = r + r^2 + \\cdots + r^n$ なので $S - rS = 1 - r^n$、すなわち $(1 - r)S = 1 - r^n$。$r \\neq 1$ で割って結論を得る。\n$|r| < 1$ なら $r^n \\to 0$ なので $S \\to \\dfrac{1}{1-r}$。"
         },
         {
           "title": "2 乗の和",
-          "statement": "Σ_(k=1)^n k² = n(n + 1)(2n + 1)/6",
-          "proof": "恒等式 (k + 1)³ − k³ = 3k² + 3k + 1 を k = 1, …, n について足すと、左辺は途中が打ち消し合って (n + 1)³ − 1 になる。\n(n + 1)³ − 1 = 3Σk² + 3·n(n + 1)/2 + n。\nこれを Σk² について解くと Σk² = [(n + 1)³ − 1 − 3n(n + 1)/2 − n]/3 = n(n + 1)(2n + 1)/6（展開して確かめられる）。"
+          "statement": "$$\\sum_{k=1}^{n} k^2 = \\frac{n(n+1)(2n+1)}{6}$$",
+          "proof": "恒等式 $(k+1)^3 - k^3 = 3k^2 + 3k + 1$ を $k = 1, \\dots, n$ について足すと、左辺は途中が打ち消し合って $(n+1)^3 - 1$ になる。\n$$(n+1)^3 - 1 = 3\\sum_{k=1}^{n} k^2 + 3 \\cdot \\frac{n(n+1)}{2} + n$$\nこれを $\\sum k^2$ について解いて整理すると $\\dfrac{n(n+1)(2n+1)}{6}$（展開して確かめられる）。"
         },
         {
-          "title": "k r^k の無限和（幾何分布の期待値）",
-          "statement": "|r| < 1 のとき Σ_(k=1)^∞ k r^(k−1) = 1/(1 − r)²。",
-          "proof": "S = Σ_(k=1)^∞ k r^(k−1) = 1 + 2r + 3r² + … とおく。\nrS = r + 2r² + 3r³ + … なので S − rS = 1 + r + r² + … = 1/(1 − r)。\nよって S = 1/(1 − r)²。（|r| < 1 で級数は絶対収束するので、この操作は正当化される）\n応用：幾何分布 P(X = k) = (1 − p)^(k−1)p の期待値は p·Σk(1 − p)^(k−1) = p/p² = 1/p。"
+          "title": "$k r^k$ の無限和（幾何分布の期待値）",
+          "statement": "$|r| < 1$ のとき $\\displaystyle\\sum_{k=1}^{\\infty} k r^{k-1} = \\frac{1}{(1-r)^2}$。",
+          "proof": "$S = \\sum_{k=1}^{\\infty} k r^{k-1} = 1 + 2r + 3r^2 + \\cdots$ とおく。\n$rS = r + 2r^2 + 3r^3 + \\cdots$ なので\n$$S - rS = 1 + r + r^2 + \\cdots = \\frac{1}{1-r}$$\nよって $S = \\dfrac{1}{(1-r)^2}$。（$|r| < 1$ で級数は絶対収束するので、この操作は正当化される）\n応用：幾何分布 $P(X = k) = (1-p)^{k-1} p$ の期待値は $p \\sum_{k} k(1-p)^{k-1} = \\dfrac{p}{p^2} = \\dfrac{1}{p}$。"
         }
       ],
       "examples": [
         {
-          "question": "1 から n までの整数を等確率でとる確率変数 X の平均と分散を求めよ。",
-          "solution": "E[X] = (1/n)Σk = (n + 1)/2。\nE[X²] = (1/n)Σk² = (n + 1)(2n + 1)/6。\nVar(X) = (n + 1)(2n + 1)/6 − (n + 1)²/4 = (n + 1)[2(2n + 1) − 3(n + 1)]/12 = (n + 1)(n − 1)/12 = (n² − 1)/12。"
+          "question": "1 から $n$ までの整数を等確率でとる確率変数 $X$ の平均と分散を求めよ。",
+          "solution": "$$E[X] = \\frac{1}{n}\\sum_{k=1}^{n} k = \\frac{n+1}{2}, \\qquad E[X^2] = \\frac{1}{n}\\sum_{k=1}^{n} k^2 = \\frac{(n+1)(2n+1)}{6}$$\n$$V[X] = \\frac{(n+1)(2n+1)}{6} - \\frac{(n+1)^2}{4} = \\frac{(n+1)(n-1)}{12} = \\frac{n^2 - 1}{12}$$"
         }
       ]
     },
     {
       "id": "calc-l3",
       "title": "微分と最大・最小【高校】",
-      "body": "関数 f の x における微分係数は\n  f'(x) = lim_(h→0) (f(x + h) − f(x))/h\nで、グラフの接線の傾きを表します。\n\n基本的な導関数\n・(x^n)' = nx^(n−1)（n は実数でもよい）\n・(e^x)' = e^x、(a^x)' = a^x log a\n・(log x)' = 1/x\n\n計算規則\n・和・定数倍：(af + bg)' = af' + bg'\n・積：(fg)' = f'g + fg'\n・商：(f/g)' = (f'g − fg')/g²\n・合成関数（連鎖律）：{f(g(x))}' = f'(g(x))·g'(x)\n  例：(e^(−x²/2))' = −x e^(−x²/2)、{log(1 − p)}' = −1/(1 − p)\n\n増減と極値：f'(x) > 0 の区間で増加、f'(x) < 0 で減少。f'(a) = 0 かつ f' が a の前後で正から負に変われば極大です。第 2 次導関数 f''(a) < 0 なら極大、f''(a) > 0 なら極小（f'' は凹凸を表す）。\n\n【統計での使いどころ】最尤推定量は対数尤度 ℓ(θ) を θ で微分して 0 とおいた方程式（尤度方程式）の解です。ℓ''(θ̂) < 0 で最大であることを確認します。フィッシャー情報量も −ℓ'' の期待値として定義されます。",
+      "body": "関数 $f$ の $x$ における微分係数は\n$$f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$$\nで、グラフの接線の傾きを表します。\n\n基本的な導関数\n$$(x^n)' = n x^{n-1}, \\qquad (e^x)' = e^x, \\qquad (a^x)' = a^x \\log a, \\qquad (\\log x)' = \\frac{1}{x}$$\n\n計算規則\n$$(fg)' = f'g + fg', \\qquad \\left(\\frac{f}{g}\\right)' = \\frac{f'g - fg'}{g^2}, \\qquad \\{f(g(x))\\}' = f'(g(x))\\, g'(x)$$\n最後の式を合成関数の微分（連鎖律）といいます。例：\n$$\\left(e^{-\\frac{x^2}{2}}\\right)' = -x e^{-\\frac{x^2}{2}}, \\qquad \\{\\log(1-p)\\}' = -\\frac{1}{1-p}$$\n\n増減と極値：$f'(x) > 0$ の区間で増加、$f'(x) < 0$ で減少。$f'(a) = 0$ かつ $f'$ が $a$ の前後で正から負に変われば極大です。第 2 次導関数について $f''(a) < 0$ なら極大、$f''(a) > 0$ なら極小（$f''$ は凹凸を表す）。\n\n【統計での使いどころ】最尤推定量は対数尤度 $\\ell(\\theta)$ を $\\theta$ で微分して 0 とおいた方程式（尤度方程式）の解です。$\\ell''(\\hat{\\theta}) < 0$ で最大であることを確認します。フィッシャー情報量も $-\\ell''$ の期待値として定義されます。",
       "theorems": [
         {
           "title": "積の微分",
-          "statement": "(f(x)g(x))' = f'(x)g(x) + f(x)g'(x)",
-          "proof": "f(x + h)g(x + h) − f(x)g(x) = [f(x + h) − f(x)]g(x + h) + f(x)[g(x + h) − g(x)]。\nh で割って h → 0 とすると、g の連続性（微分可能なら連続）より g(x + h) → g(x) なので、極限は f'(x)g(x) + f(x)g'(x)。"
+          "statement": "$$\\{f(x)g(x)\\}' = f'(x)g(x) + f(x)g'(x)$$",
+          "proof": "$$f(x+h)g(x+h) - f(x)g(x) = \\{f(x+h) - f(x)\\}g(x+h) + f(x)\\{g(x+h) - g(x)\\}$$\n$h$ で割って $h \\to 0$ とすると、$g$ の連続性（微分可能なら連続）より $g(x+h) \\to g(x)$ なので、極限は $f'(x)g(x) + f(x)g'(x)$。"
         },
         {
           "title": "対数関数の微分",
-          "statement": "(log x)' = 1/x（x > 0）",
-          "proof": "y = log x とおくと x = e^y。両辺を x で微分すると、連鎖律より 1 = e^y · y'。\nよって y' = 1/e^y = 1/x。\n（e^x の微分が e^x であることは、lim_(h→0)(e^h − 1)/h = 1 から (e^(x+h) − e^x)/h = e^x(e^h − 1)/h → e^x として示せる）"
+          "statement": "$x > 0$ のとき $(\\log x)' = \\dfrac{1}{x}$",
+          "proof": "$y = \\log x$ とおくと $x = e^y$。両辺を $x$ で微分すると、連鎖律より $1 = e^y \\cdot y'$。\nよって $y' = \\dfrac{1}{e^y} = \\dfrac{1}{x}$。\n（$e^x$ の微分が $e^x$ であることは、$\\lim_{h \\to 0} \\frac{e^h - 1}{h} = 1$ から $\\frac{e^{x+h} - e^x}{h} = e^x \\cdot \\frac{e^h - 1}{h} \\to e^x$ として示せる）"
         }
       ],
       "examples": [
         {
-          "question": "10 回中 3 回成功したときの二項分布の対数尤度 ℓ(p) = 3 log p + 7 log(1 − p) を最大にする p を求めよ。",
-          "solution": "ℓ'(p) = 3/p − 7/(1 − p) = 0 より 3(1 − p) = 7p、p = 3/10。\nℓ''(p) = −3/p² − 7/(1 − p)² < 0 なので最大。最尤推定値は標本比率 0.3 に一致する。"
+          "question": "10 回中 3 回成功したときの二項分布の対数尤度 $\\ell(p) = 3 \\log p + 7 \\log(1-p)$ を最大にする $p$ を求めよ。",
+          "solution": "$$\\ell'(p) = \\frac{3}{p} - \\frac{7}{1-p} = 0$$\nより $3(1-p) = 7p$、$p = \\frac{3}{10}$。\n$\\ell''(p) = -\\frac{3}{p^2} - \\frac{7}{(1-p)^2} < 0$ なので最大。最尤推定値は標本比率 0.3 に一致する。"
         },
         {
-          "question": "f(x) = e^(−x²/2) の極値と変曲点を求めよ。",
-          "solution": "f'(x) = −x e^(−x²/2) より x = 0 で極大（f(0) = 1）。\nf''(x) = (x² − 1)e^(−x²/2) より x = ±1 で凹凸が変わる（変曲点）。正規分布の密度は平均 ± 1 標準偏差の位置で変曲する。"
+          "question": "$f(x) = e^{-\\frac{x^2}{2}}$ の極値と変曲点を求めよ。",
+          "solution": "$f'(x) = -x e^{-\\frac{x^2}{2}}$ より $x = 0$ で極大（$f(0) = 1$）。\n$f''(x) = (x^2 - 1) e^{-\\frac{x^2}{2}}$ より $x = \\pm 1$ で凹凸が変わる（変曲点）。正規分布の密度は平均 ± 1 標準偏差の位置で変曲する。"
         }
       ]
     },
     {
       "id": "calc-l4",
       "title": "積分と期待値の計算【高校】",
-      "body": "F'(x) = f(x) となる F を f の原始関数（不定積分）といい、定積分は\n  ∫_a^b f(x) dx = F(b) − F(a)\nで計算できます（微分積分学の基本定理）。定積分はグラフと x 軸の間の（符号付き）面積です。\n\n基本的な不定積分（C は積分定数）\n・∫x^n dx = x^(n+1)/(n + 1) + C（n ≠ −1）\n・∫1/x dx = log|x| + C\n・∫e^(ax) dx = e^(ax)/a + C\n\n置換積分：x = g(t) とおくと ∫f(x)dx = ∫f(g(t))g'(t)dt。\n  例：∫x e^(−x²/2) dx は t = x²/2 とおいて −e^(−x²/2) + C。\n部分積分：∫f g' dx = fg − ∫f' g dx。\n  例：∫x e^(−x) dx = −x e^(−x) + ∫e^(−x) dx = −(x + 1)e^(−x) + C。\n\n【統計での使いどころ】連続確率変数では、確率 P(a ≤ X ≤ b) = ∫_a^b f(x)dx、期待値 E[X] = ∫x f(x)dx、分散 E[(X − μ)²] = ∫(x − μ)²f(x)dx がすべて積分です。密度関数は全体の積分が 1 になるので、定数 c を決める問題にもよく使います。分布関数 F(x) = ∫_(−∞)^x f(t)dt を微分すると密度 f(x) に戻ります。",
+      "body": "$F'(x) = f(x)$ となる $F$ を $f$ の原始関数（不定積分）といい、定積分は\n$$\\int_a^b f(x)\\,dx = F(b) - F(a)$$\nで計算できます（微分積分学の基本定理）。定積分はグラフと $x$ 軸の間の（符号付き）面積です。\n\n基本的な不定積分（$C$ は積分定数）\n$$\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C \\ (n \\neq -1), \\qquad \\int \\frac{1}{x}\\,dx = \\log|x| + C, \\qquad \\int e^{ax}\\,dx = \\frac{e^{ax}}{a} + C$$\n\n置換積分：$x = g(t)$ とおくと $\\displaystyle\\int f(x)\\,dx = \\int f(g(t))\\,g'(t)\\,dt$。\n例：$\\displaystyle\\int x e^{-\\frac{x^2}{2}}\\,dx$ は $t = \\frac{x^2}{2}$ とおいて $-e^{-\\frac{x^2}{2}} + C$。\n\n部分積分：$\\displaystyle\\int f g'\\,dx = fg - \\int f' g\\,dx$。\n例：$\\displaystyle\\int x e^{-x}\\,dx = -x e^{-x} + \\int e^{-x}\\,dx = -(x+1)e^{-x} + C$。\n\n【統計での使いどころ】連続確率変数では、次がすべて積分です。\n$$P(a \\le X \\le b) = \\int_a^b f(x)\\,dx, \\qquad E[X] = \\int x f(x)\\,dx, \\qquad V[X] = \\int (x - \\mu)^2 f(x)\\,dx$$\n密度関数は全体の積分が 1 になるので、定数 $c$ を決める問題にもよく使います。分布関数 $F(x) = \\int_{-\\infty}^{x} f(t)\\,dt$ を微分すると密度 $f(x)$ に戻ります。",
       "theorems": [
         {
           "title": "部分積分",
-          "statement": "∫_a^b f(x)g'(x) dx = [f(x)g(x)]_a^b − ∫_a^b f'(x)g(x) dx",
-          "proof": "積の微分 (fg)' = f'g + fg' の両辺を a から b まで積分すると、基本定理より\n[f(x)g(x)]_a^b = ∫_a^b f'g dx + ∫_a^b fg' dx。\n移項すれば主張の式。"
+          "statement": "$$\\int_a^b f(x) g'(x)\\,dx = \\Big[f(x) g(x)\\Big]_a^b - \\int_a^b f'(x) g(x)\\,dx$$",
+          "proof": "積の微分 $(fg)' = f'g + fg'$ の両辺を $a$ から $b$ まで積分すると、基本定理より\n$$\\Big[f(x)g(x)\\Big]_a^b = \\int_a^b f'g\\,dx + \\int_a^b fg'\\,dx$$\n移項すれば主張の式。"
         },
         {
           "title": "指数分布の平均と分散",
-          "statement": "密度 f(x) = λe^(−λx)（x > 0）の分布について E[X] = 1/λ、Var(X) = 1/λ²。",
-          "proof": "部分積分で E[X] = ∫₀^∞ xλe^(−λx) dx = [−x e^(−λx)]₀^∞ + ∫₀^∞ e^(−λx) dx = 0 + 1/λ。\n（x e^(−λx) → 0（x → ∞）を用いた）\n同様に E[X²] = ∫₀^∞ x²λe^(−λx) dx = [−x²e^(−λx)]₀^∞ + ∫₀^∞ 2x e^(−λx) dx = (2/λ)·E[X] = 2/λ²。\nVar(X) = 2/λ² − 1/λ² = 1/λ²。"
+          "statement": "密度 $f(x) = \\lambda e^{-\\lambda x}\\ (x > 0)$ の分布について $E[X] = \\dfrac{1}{\\lambda}$、$V[X] = \\dfrac{1}{\\lambda^2}$。",
+          "proof": "部分積分で\n$$E[X] = \\int_0^\\infty x \\lambda e^{-\\lambda x}\\,dx = \\Big[-x e^{-\\lambda x}\\Big]_0^\\infty + \\int_0^\\infty e^{-\\lambda x}\\,dx = 0 + \\frac{1}{\\lambda}$$\n（$x e^{-\\lambda x} \\to 0\\ (x \\to \\infty)$ を用いた）\n同様に\n$$E[X^2] = \\Big[-x^2 e^{-\\lambda x}\\Big]_0^\\infty + \\int_0^\\infty 2x e^{-\\lambda x}\\,dx = \\frac{2}{\\lambda} E[X] = \\frac{2}{\\lambda^2}$$\nよって $V[X] = \\dfrac{2}{\\lambda^2} - \\dfrac{1}{\\lambda^2} = \\dfrac{1}{\\lambda^2}$。"
         }
       ],
       "examples": [
         {
-          "question": "f(x) = cx(1 − x)（0 < x < 1）が密度関数となる c と、その平均を求めよ。",
-          "solution": "∫₀¹ x(1 − x) dx = 1/2 − 1/3 = 1/6 なので c = 6。\nE[X] = 6∫₀¹ x²(1 − x) dx = 6(1/3 − 1/4) = 1/2。（ベータ分布 Be(2, 2)）"
+          "question": "$f(x) = c\\,x(1-x)\\ (0 < x < 1)$ が密度関数となる $c$ と、その平均を求めよ。",
+          "solution": "$\\displaystyle\\int_0^1 x(1-x)\\,dx = \\frac{1}{2} - \\frac{1}{3} = \\frac{1}{6}$ なので $c = 6$。\n$$E[X] = 6\\int_0^1 x^2(1-x)\\,dx = 6\\left(\\frac{1}{3} - \\frac{1}{4}\\right) = \\frac{1}{2}$$\n（ベータ分布 $\\mathrm{Be}(2, 2)$）"
         },
         {
-          "question": "密度 f(x) = 2x（0 < x < 1）の分布関数と中央値を求めよ。",
-          "solution": "F(x) = ∫₀^x 2t dt = x²（0 ≤ x ≤ 1）。F(m) = 1/2 より中央値 m = 1/√2 ≈ 0.707。"
+          "question": "密度 $f(x) = 2x\\ (0 < x < 1)$ の分布関数と中央値を求めよ。",
+          "solution": "$F(x) = \\int_0^x 2t\\,dt = x^2\\ (0 \\le x \\le 1)$。$F(m) = \\frac{1}{2}$ より中央値 $m = \\frac{1}{\\sqrt{2}} \\approx 0.707$。"
         }
       ]
     },
     {
       "id": "calc-l5",
       "title": "テイラー展開と近似【高校〜大学】",
-      "body": "滑らかな関数は、ある点 a のまわりで多項式で近似できます（テイラー展開）。\n  f(x) = f(a) + f'(a)(x − a) + f''(a)(x − a)²/2! + … + f^(n)(a)(x − a)^n/n! + Rₙ\na = 0 の場合をマクローリン展開といいます。\n\n代表的な展開（x が 0 に近いとき）\n・e^x = 1 + x + x²/2! + x³/3! + …（すべての x で収束）\n・log(1 + x) = x − x²/2 + x³/3 − …（|x| < 1）\n・1/(1 − x) = 1 + x + x² + …（|x| < 1）\n・(1 + x)^α ≈ 1 + αx\n\n1 次の近似 f(x) ≈ f(a) + f'(a)(x − a) は「接線で近似する」ことで、x が a に近いほど正確です。2 次の項まで使うと、極値の近くでの関数の形（放物線）がわかります。\n\n平均値の定理：f が微分可能なら、a と x の間のある c で f(x) − f(a) = f'(c)(x − a)。\n\n【統計での使いどころ】\n・デルタ法：g(X̄) ≈ g(μ) + g'(μ)(X̄ − μ) から Var(g(X̄)) ≈ g'(μ)²Var(X̄)\n・中心極限定理の証明：積率母関数 M(t/√n) を 2 次まで展開\n・最尤推定量の漸近正規性、ウィルクスの定理：対数尤度を最尤推定値のまわりで 2 次まで展開\n・積率母関数 M(t) = E[e^(tX)] = Σ E[X^k] t^k/k!（e^x の展開から）",
+      "body": "滑らかな関数は、ある点 $a$ のまわりで多項式で近似できます（テイラー展開）。\n$$f(x) = f(a) + f'(a)(x-a) + \\frac{f''(a)}{2!}(x-a)^2 + \\cdots + \\frac{f^{(n)}(a)}{n!}(x-a)^n + R_n$$\n$a = 0$ の場合をマクローリン展開といいます。\n\n代表的な展開（$x$ が 0 に近いとき）\n$$e^x = 1 + x + \\frac{x^2}{2!} + \\frac{x^3}{3!} + \\cdots \\quad \\text{(すべての } x \\text{ で収束)}$$\n$$\\log(1+x) = x - \\frac{x^2}{2} + \\frac{x^3}{3} - \\cdots \\ (|x| < 1), \\qquad \\frac{1}{1-x} = 1 + x + x^2 + \\cdots \\ (|x| < 1)$$\n$$(1+x)^\\alpha \\approx 1 + \\alpha x$$\n\n1 次の近似 $f(x) \\approx f(a) + f'(a)(x-a)$ は「接線で近似する」ことで、$x$ が $a$ に近いほど正確です。2 次の項まで使うと、極値の近くでの関数の形（放物線）がわかります。\n\n平均値の定理：$f$ が微分可能なら、$a$ と $x$ の間のある $c$ で $f(x) - f(a) = f'(c)(x-a)$。\n\n【統計での使いどころ】\n・デルタ法：$g(\\bar{X}) \\approx g(\\mu) + g'(\\mu)(\\bar{X} - \\mu)$ から $V[g(\\bar{X})] \\approx g'(\\mu)^2\\, V[\\bar{X}]$\n・中心極限定理の証明：積率母関数 $M(t/\\sqrt{n})$ を 2 次まで展開\n・最尤推定量の漸近正規性、ウィルクスの定理：対数尤度を最尤推定値のまわりで 2 次まで展開\n・積率母関数 $M(t) = E[e^{tX}] = \\sum_{k} E[X^k] \\frac{t^k}{k!}$（$e^x$ の展開から）",
       "theorems": [
         {
           "title": "剰余項つきテイラーの定理（1 次）",
-          "statement": "f が 2 回連続微分可能なら f(x) = f(a) + f'(a)(x − a) + ∫_a^x (x − t)f''(t) dt。",
-          "proof": "基本定理より f(x) = f(a) + ∫_a^x f'(t) dt。\n右辺の積分を部分積分する。g(t) = −(x − t)（g'(t) = 1）とみて\n∫_a^x f'(t)·1 dt = [−(x − t)f'(t)]_a^x + ∫_a^x (x − t)f''(t) dt = (x − a)f'(a) + ∫_a^x (x − t)f''(t) dt。\n代入すると主張の式。同じ操作を繰り返すと高次の展開が得られる。\n|f''| ≤ M なら剰余項は M(x − a)²/2 以下で、x → a のとき 1 次の項より速く 0 に近づく。"
+          "statement": "$f$ が 2 回連続微分可能なら\n$$f(x) = f(a) + f'(a)(x-a) + \\int_a^x (x-t) f''(t)\\,dt$$",
+          "proof": "基本定理より $f(x) = f(a) + \\int_a^x f'(t)\\,dt$。\n右辺の積分を部分積分する。$g(t) = -(x - t)$（$g'(t) = 1$）とみて\n$$\\int_a^x f'(t) \\cdot 1\\,dt = \\Big[-(x-t) f'(t)\\Big]_a^x + \\int_a^x (x-t) f''(t)\\,dt = (x-a) f'(a) + \\int_a^x (x-t) f''(t)\\,dt$$\n代入すると主張の式。同じ操作を繰り返すと高次の展開が得られる。\n$|f''| \\le M$ なら剰余項は $\\frac{M(x-a)^2}{2}$ 以下で、$x \\to a$ のとき 1 次の項より速く 0 に近づく。"
         },
         {
           "title": "指数関数のマクローリン展開",
-          "statement": "e^x = Σ_(k=0)^∞ x^k/k!",
-          "proof": "f(x) = e^x はすべての階数の導関数が e^x で、f^(k)(0) = 1。よって n 次までのマクローリン多項式は Σ_(k=0)^n x^k/k!。\n剰余項は（高次のテイラーの定理より）e^c x^(n+1)/(n + 1)!（c は 0 と x の間）の形で、|x|^(n+1)/(n + 1)! → 0（n → ∞）なので、すべての x で級数は e^x に収束する。"
+          "statement": "$$e^x = \\sum_{k=0}^{\\infty} \\frac{x^k}{k!}$$",
+          "proof": "$f(x) = e^x$ はすべての階数の導関数が $e^x$ で、$f^{(k)}(0) = 1$。よって $n$ 次までのマクローリン多項式は $\\sum_{k=0}^{n} \\frac{x^k}{k!}$。\n剰余項は（高次のテイラーの定理より）$\\dfrac{e^c x^{n+1}}{(n+1)!}$（$c$ は 0 と $x$ の間）の形で、$\\dfrac{|x|^{n+1}}{(n+1)!} \\to 0\\ (n \\to \\infty)$ なので、すべての $x$ で級数は $e^x$ に収束する。"
         }
       ],
       "examples": [
         {
-          "question": "√(1.1) をテイラー展開の 1 次近似で求めよ。",
-          "solution": "f(x) = √(1 + x) ≈ 1 + x/2 に x = 0.1 を代入して 1.05。（真値 1.0488…）"
+          "question": "$\\sqrt{1.1}$ をテイラー展開の 1 次近似で求めよ。",
+          "solution": "$f(x) = \\sqrt{1 + x} \\approx 1 + \\frac{x}{2}$ に $x = 0.1$ を代入して $1.05$。（真値 $1.0488\\cdots$）"
         },
         {
-          "question": "X̄ の平均が μ = 2、分散が 0.01 のとき、log X̄ の分散をデルタ法で近似せよ。",
-          "solution": "g(x) = log x、g'(2) = 1/2。Var(log X̄) ≈ (1/2)² × 0.01 = 0.0025。"
+          "question": "$\\bar{X}$ の平均が $\\mu = 2$、分散が $0.01$ のとき、$\\log \\bar{X}$ の分散をデルタ法で近似せよ。",
+          "solution": "$g(x) = \\log x$、$g'(2) = \\frac{1}{2}$。\n$$V[\\log \\bar{X}] \\approx \\left(\\frac{1}{2}\\right)^2 \\times 0.01 = 0.0025$$"
         }
       ]
     },
     {
       "id": "calc-l6",
       "title": "広義積分・ガンマ関数・ベータ関数【大学】",
-      "body": "積分区間が無限であったり、被積分関数が端点で発散したりする積分を広義積分といい、極限で定義します。\n  ∫₀^∞ f(x)dx = lim_(b→∞) ∫₀^b f(x)dx\n例：∫₀^∞ e^(−x)dx = 1、∫₁^∞ 1/x² dx = 1、∫₁^∞ 1/x dx は発散。\n\nガンマ関数：α > 0 について\n  Γ(α) = ∫₀^∞ x^(α−1) e^(−x) dx\n性質\n・Γ(α + 1) = αΓ(α)\n・Γ(1) = 1、自然数 n について Γ(n) = (n − 1)!（階乗の一般化）\n・Γ(1/2) = √π\n\nベータ関数：a, b > 0 について\n  B(a, b) = ∫₀¹ x^(a−1)(1 − x)^(b−1) dx = Γ(a)Γ(b)/Γ(a + b)\n\n【統計での使いどころ】ガンマ分布 Ga(α, β) の密度 β^α x^(α−1)e^(−βx)/Γ(α)、ベータ分布 Be(a, b) の密度 x^(a−1)(1 − x)^(b−1)/B(a, b)、カイ二乗分布・t 分布・F 分布の密度の正規化定数に現れます。「密度の積分は 1」を使うと、多くの積分が計算なしで求まります。\n  例：∫₀^∞ x³e^(−2x)dx は Ga(4, 2) の密度の核なので Γ(4)/2⁴ = 6/16 = 3/8。",
+      "body": "積分区間が無限であったり、被積分関数が端点で発散したりする積分を広義積分といい、極限で定義します。\n$$\\int_0^\\infty f(x)\\,dx = \\lim_{b \\to \\infty} \\int_0^b f(x)\\,dx$$\n例：$\\int_0^\\infty e^{-x}\\,dx = 1$、$\\int_1^\\infty \\frac{1}{x^2}\\,dx = 1$、$\\int_1^\\infty \\frac{1}{x}\\,dx$ は発散。\n\nガンマ関数：$\\alpha > 0$ について\n$$\\Gamma(\\alpha) = \\int_0^\\infty x^{\\alpha - 1} e^{-x}\\,dx$$\n性質\n$$\\Gamma(\\alpha + 1) = \\alpha\\,\\Gamma(\\alpha), \\qquad \\Gamma(1) = 1, \\qquad \\Gamma(n) = (n-1)!, \\qquad \\Gamma\\!\\left(\\tfrac{1}{2}\\right) = \\sqrt{\\pi}$$\n$\\Gamma(n) = (n-1)!$ は自然数 $n$ についての式で、ガンマ関数は階乗の一般化です。\n\nベータ関数：$a, b > 0$ について\n$$B(a, b) = \\int_0^1 x^{a-1} (1-x)^{b-1}\\,dx = \\frac{\\Gamma(a)\\Gamma(b)}{\\Gamma(a+b)}$$\n\n【統計での使いどころ】ガンマ分布 $\\mathrm{Ga}(\\alpha, \\beta)$ の密度 $\\frac{\\beta^\\alpha}{\\Gamma(\\alpha)} x^{\\alpha-1} e^{-\\beta x}$、ベータ分布 $\\mathrm{Be}(a, b)$ の密度 $\\frac{x^{a-1}(1-x)^{b-1}}{B(a,b)}$、カイ二乗分布・$t$ 分布・$F$ 分布の密度の正規化定数に現れます。「密度の積分は 1」を使うと、多くの積分が計算なしで求まります。\n例：$\\int_0^\\infty x^3 e^{-2x}\\,dx$ は $\\mathrm{Ga}(4, 2)$ の密度の核なので $\\dfrac{\\Gamma(4)}{2^4} = \\dfrac{6}{16} = \\dfrac{3}{8}$。",
       "theorems": [
         {
           "title": "ガンマ関数の漸化式",
-          "statement": "Γ(α + 1) = αΓ(α)（α > 0）。したがって自然数 n について Γ(n) = (n − 1)!。",
-          "proof": "部分積分で Γ(α + 1) = ∫₀^∞ x^α e^(−x)dx = [−x^α e^(−x)]₀^∞ + α∫₀^∞ x^(α−1)e^(−x)dx = 0 + αΓ(α)。\n（x^α e^(−x) は x = 0 と x → ∞ で 0）\nΓ(1) = ∫₀^∞ e^(−x)dx = 1 なので、Γ(2) = 1、Γ(3) = 2·1、…、Γ(n) = (n − 1)!。"
+          "statement": "$\\alpha > 0$ のとき $\\Gamma(\\alpha + 1) = \\alpha\\,\\Gamma(\\alpha)$。したがって自然数 $n$ について $\\Gamma(n) = (n-1)!$。",
+          "proof": "部分積分で\n$$\\Gamma(\\alpha+1) = \\int_0^\\infty x^\\alpha e^{-x}\\,dx = \\Big[-x^\\alpha e^{-x}\\Big]_0^\\infty + \\alpha \\int_0^\\infty x^{\\alpha-1} e^{-x}\\,dx = 0 + \\alpha\\,\\Gamma(\\alpha)$$\n（$x^\\alpha e^{-x}$ は $x = 0$ と $x \\to \\infty$ で 0）\n$\\Gamma(1) = \\int_0^\\infty e^{-x}\\,dx = 1$ なので、$\\Gamma(2) = 1$、$\\Gamma(3) = 2 \\cdot 1$、…、$\\Gamma(n) = (n-1)!$。"
         },
         {
           "title": "ガンマ分布の積率",
-          "statement": "X ~ Ga(α, β)（率 β）なら E[X^k] = Γ(α + k)/(Γ(α)β^k)。特に E[X] = α/β、Var(X) = α/β²。",
-          "proof": "E[X^k] = ∫₀^∞ x^k β^α x^(α−1)e^(−βx)/Γ(α) dx = (β^α/Γ(α))∫₀^∞ x^(α+k−1)e^(−βx)dx。\nt = βx と置換すると ∫₀^∞ x^(α+k−1)e^(−βx)dx = Γ(α + k)/β^(α+k)。\nよって E[X^k] = Γ(α + k)/(Γ(α)β^k)。漸化式より E[X] = α/β、E[X²] = α(α + 1)/β²、Var(X) = α/β²。"
+          "statement": "$X \\sim \\mathrm{Ga}(\\alpha, \\beta)$（率 $\\beta$）なら $E[X^k] = \\dfrac{\\Gamma(\\alpha + k)}{\\Gamma(\\alpha)\\,\\beta^k}$。特に $E[X] = \\dfrac{\\alpha}{\\beta}$、$V[X] = \\dfrac{\\alpha}{\\beta^2}$。",
+          "proof": "$$E[X^k] = \\int_0^\\infty x^k \\frac{\\beta^\\alpha}{\\Gamma(\\alpha)} x^{\\alpha-1} e^{-\\beta x}\\,dx = \\frac{\\beta^\\alpha}{\\Gamma(\\alpha)} \\int_0^\\infty x^{\\alpha+k-1} e^{-\\beta x}\\,dx$$\n$t = \\beta x$ と置換すると $\\int_0^\\infty x^{\\alpha+k-1} e^{-\\beta x}\\,dx = \\dfrac{\\Gamma(\\alpha+k)}{\\beta^{\\alpha+k}}$。\nよって $E[X^k] = \\dfrac{\\Gamma(\\alpha+k)}{\\Gamma(\\alpha)\\,\\beta^k}$。漸化式より $E[X] = \\dfrac{\\alpha}{\\beta}$、$E[X^2] = \\dfrac{\\alpha(\\alpha+1)}{\\beta^2}$、$V[X] = \\dfrac{\\alpha}{\\beta^2}$。"
         }
       ],
       "examples": [
         {
-          "question": "∫₀¹ x⁴(1 − x)² dx を求めよ。",
-          "solution": "B(5, 3) = Γ(5)Γ(3)/Γ(8) = 4!·2!/7! = 48/5040 = 1/105。"
+          "question": "$\\displaystyle\\int_0^1 x^4 (1-x)^2\\,dx$ を求めよ。",
+          "solution": "$$B(5, 3) = \\frac{\\Gamma(5)\\Gamma(3)}{\\Gamma(8)} = \\frac{4! \\cdot 2!}{7!} = \\frac{48}{5040} = \\frac{1}{105}$$"
         },
         {
-          "question": "Γ(5/2) を求めよ。",
-          "solution": "Γ(5/2) = (3/2)Γ(3/2) = (3/2)(1/2)Γ(1/2) = (3/4)√π ≈ 1.329。"
+          "question": "$\\Gamma\\!\\left(\\frac{5}{2}\\right)$ を求めよ。",
+          "solution": "$$\\Gamma\\!\\left(\\tfrac{5}{2}\\right) = \\tfrac{3}{2}\\,\\Gamma\\!\\left(\\tfrac{3}{2}\\right) = \\tfrac{3}{2} \\cdot \\tfrac{1}{2}\\,\\Gamma\\!\\left(\\tfrac{1}{2}\\right) = \\tfrac{3}{4}\\sqrt{\\pi} \\approx 1.329$$"
         }
       ]
     },
     {
       "id": "calc-l7",
       "title": "多変数の微分積分【大学】",
-      "body": "偏微分：多変数関数 f(x, y) を、他の変数を定数とみて 1 つの変数で微分したものを偏導関数 ∂f/∂x, ∂f/∂y といいます。\n・勾配ベクトル ∇f = (∂f/∂x, ∂f/∂y)\n・ヘッセ行列 H = [[∂²f/∂x², ∂²f/∂x∂y], [∂²f/∂y∂x, ∂²f/∂y²]]\n極値の候補は ∇f = 0 となる点で、そこで H が負定値なら極大、正定値なら極小です。\n\nラグランジュの乗数法：制約 g(x, y) = 0 のもとで f を最大・最小にする点は\n  ∇f = λ∇g,  g = 0\nを満たします（L = f − λg とおいて ∂L/∂x = ∂L/∂y = ∂L/∂λ = 0 を解く）。\n\n重積分：∫∫_D f(x, y) dx dy は、累次積分 ∫(∫f dy)dx で計算できます（フビニの定理）。\n変数変換：x = x(u, v), y = y(u, v) のとき\n  dx dy = |J| du dv,  J = det[[∂x/∂u, ∂x/∂v], [∂y/∂u, ∂y/∂v]]（ヤコビアン）\n極座標 x = r cos θ, y = r sin θ では |J| = r。\n\n【統計での使いどころ】\n・正規分布など複数の母数をもつモデルの最尤推定：各母数で偏微分して 0\n・多項分布の最尤推定・PCA・ネイマン配分：制約付き最適化（ラグランジュ乗数法）\n・同時密度からの周辺密度 f_X(x) = ∫f(x, y)dy、独立性の判定\n・変数変換による分布の導出（和・比の分布、ボックス・ミュラー法）\n・正規分布の正規化定数 ∫e^(−x²/2)dx = √(2π)",
+      "body": "偏微分：多変数関数 $f(x, y)$ を、他の変数を定数とみて 1 つの変数で微分したものを偏導関数 $\\frac{\\partial f}{\\partial x},\\ \\frac{\\partial f}{\\partial y}$ といいます。\n$$\\nabla f = \\begin{pmatrix} \\frac{\\partial f}{\\partial x} \\\\ \\frac{\\partial f}{\\partial y} \\end{pmatrix} \\ \\text{(勾配)}, \\qquad H = \\begin{pmatrix} \\frac{\\partial^2 f}{\\partial x^2} & \\frac{\\partial^2 f}{\\partial x \\partial y} \\\\ \\frac{\\partial^2 f}{\\partial y \\partial x} & \\frac{\\partial^2 f}{\\partial y^2} \\end{pmatrix} \\ \\text{(ヘッセ行列)}$$\n極値の候補は $\\nabla f = \\mathbf{0}$ となる点で、そこで $H$ が負定値なら極大、正定値なら極小です。\n\nラグランジュの乗数法：制約 $g(x, y) = 0$ のもとで $f$ を最大・最小にする点は\n$$\\nabla f = \\lambda \\nabla g, \\qquad g = 0$$\nを満たします（$L = f - \\lambda g$ とおいて $\\frac{\\partial L}{\\partial x} = \\frac{\\partial L}{\\partial y} = \\frac{\\partial L}{\\partial \\lambda} = 0$ を解く）。\n\n重積分：$\\iint_D f(x, y)\\,dx\\,dy$ は、累次積分 $\\int \\left( \\int f\\,dy \\right) dx$ で計算できます（フビニの定理）。\n変数変換 $x = x(u, v),\\ y = y(u, v)$ では\n$$dx\\,dy = |J|\\,du\\,dv, \\qquad J = \\det \\begin{pmatrix} \\frac{\\partial x}{\\partial u} & \\frac{\\partial x}{\\partial v} \\\\ \\frac{\\partial y}{\\partial u} & \\frac{\\partial y}{\\partial v} \\end{pmatrix} \\ \\text{(ヤコビアン)}$$\n極座標 $x = r\\cos\\theta,\\ y = r\\sin\\theta$ では $|J| = r$。\n\n【統計での使いどころ】\n・正規分布など複数の母数をもつモデルの最尤推定：各母数で偏微分して 0\n・多項分布の最尤推定・主成分分析・ネイマン配分：制約付き最適化（ラグランジュ乗数法）\n・同時密度からの周辺密度 $f_X(x) = \\int f(x, y)\\,dy$、独立性の判定\n・変数変換による分布の導出（和・比の分布、ボックス・ミュラー法）\n・正規分布の正規化定数 $\\int_{-\\infty}^{\\infty} e^{-\\frac{x^2}{2}}\\,dx = \\sqrt{2\\pi}$",
       "theorems": [
         {
           "title": "ガウス積分",
-          "statement": "∫_(−∞)^∞ e^(−x²/2) dx = √(2π)",
-          "proof": "I = ∫e^(−x²/2)dx とおくと I² = ∫∫e^(−(x²+y²)/2) dx dy（全平面）。\n極座標に変換すると dx dy = r dr dθ なので\nI² = ∫₀^(2π)∫₀^∞ e^(−r²/2) r dr dθ = 2π·[−e^(−r²/2)]₀^∞ = 2π。\nI > 0 より I = √(2π)。これから N(0, 1) の密度 (1/√(2π))e^(−x²/2) の積分が 1 であることがわかる。また t = x²/2 と置換すると Γ(1/2) = √π も得られる。"
+          "statement": "$$\\int_{-\\infty}^{\\infty} e^{-\\frac{x^2}{2}}\\,dx = \\sqrt{2\\pi}$$",
+          "proof": "$I = \\int_{-\\infty}^{\\infty} e^{-\\frac{x^2}{2}}\\,dx$ とおくと、全平面での重積分として\n$$I^2 = \\iint e^{-\\frac{x^2 + y^2}{2}}\\,dx\\,dy$$\n極座標に変換すると $dx\\,dy = r\\,dr\\,d\\theta$ なので\n$$I^2 = \\int_0^{2\\pi} \\int_0^\\infty e^{-\\frac{r^2}{2}}\\, r\\,dr\\,d\\theta = 2\\pi \\Big[-e^{-\\frac{r^2}{2}}\\Big]_0^\\infty = 2\\pi$$\n$I > 0$ より $I = \\sqrt{2\\pi}$。これから $\\mathrm{N}(0, 1)$ の密度 $\\frac{1}{\\sqrt{2\\pi}} e^{-\\frac{x^2}{2}}$ の積分が 1 であることがわかる。また $t = \\frac{x^2}{2}$ と置換すると $\\Gamma\\!\\left(\\frac{1}{2}\\right) = \\sqrt{\\pi}$ も得られる。"
         },
         {
           "title": "多項分布の最尤推定（ラグランジュ乗数法）",
-          "statement": "カテゴリ j の度数を nⱼ（Σnⱼ = n）とするとき、制約 Σpⱼ = 1 のもとで Σnⱼ log pⱼ を最大にする pⱼ は nⱼ/n。",
-          "proof": "L = Σnⱼ log pⱼ − λ(Σpⱼ − 1) とおく。∂L/∂pⱼ = nⱼ/pⱼ − λ = 0 より pⱼ = nⱼ/λ。\n制約 Σpⱼ = 1 に代入すると Σnⱼ/λ = 1、すなわち λ = n。よって pⱼ = nⱼ/n。\n目的関数は各 pⱼ について凹（log は凹関数）なので、これが最大点である。"
+          "statement": "カテゴリ $j$ の度数を $n_j$（$\\sum_j n_j = n$）とするとき、制約 $\\sum_j p_j = 1$ のもとで $\\sum_j n_j \\log p_j$ を最大にする $p_j$ は $\\dfrac{n_j}{n}$。",
+          "proof": "$L = \\sum_j n_j \\log p_j - \\lambda \\left(\\sum_j p_j - 1\\right)$ とおく。\n$\\dfrac{\\partial L}{\\partial p_j} = \\dfrac{n_j}{p_j} - \\lambda = 0$ より $p_j = \\dfrac{n_j}{\\lambda}$。\n制約に代入すると $\\sum_j \\frac{n_j}{\\lambda} = 1$、すなわち $\\lambda = n$。よって $p_j = \\dfrac{n_j}{n}$。\n目的関数は各 $p_j$ について凹（$\\log$ は凹関数）なので、これが最大点である。"
         }
       ],
       "examples": [
         {
-          "question": "f(μ, σ²) = −(n/2)log σ² − S/(2σ²)（S > 0 は定数）を σ² で偏微分して最大点を求めよ。",
-          "solution": "∂f/∂σ² = −n/(2σ²) + S/(2σ⁴) = 0 より σ² = S/n。\n（正規分布の分散の最尤推定量 σ̂² = Σ(xᵢ − x̄)²/n の導出そのもの）"
+          "question": "$f(\\mu, \\sigma^2) = -\\frac{n}{2} \\log \\sigma^2 - \\frac{S}{2\\sigma^2}$（$S > 0$ は定数）を $\\sigma^2$ で偏微分して最大点を求めよ。",
+          "solution": "$$\\frac{\\partial f}{\\partial \\sigma^2} = -\\frac{n}{2\\sigma^2} + \\frac{S}{2\\sigma^4} = 0$$\nより $\\sigma^2 = \\frac{S}{n}$。\n（正規分布の分散の最尤推定量 $\\hat{\\sigma}^2 = \\frac{1}{n}\\sum_i (x_i - \\bar{x})^2$ の導出そのもの）"
         },
         {
-          "question": "X, Y が独立に Exp(1) に従うとき、U = X + Y, V = X/(X + Y) の同時密度を求めよ。",
-          "solution": "x = uv, y = u(1 − v)。J = det[[v, u], [1 − v, −u]] = −uv − u(1 − v) = −u、|J| = u。\nf(u, v) = e^(−u)·u（u > 0, 0 < v < 1）= [u e^(−u)]·[1]。\nU ~ Ga(2, 1) と V ~ U(0, 1) が独立であることがわかる。"
+          "question": "$X, Y$ が独立に $\\mathrm{Exp}(1)$ に従うとき、$U = X + Y,\\ V = \\frac{X}{X + Y}$ の同時密度を求めよ。",
+          "solution": "$x = uv,\\ y = u(1 - v)$。\n$$J = \\det \\begin{pmatrix} v & u \\\\ 1 - v & -u \\end{pmatrix} = -uv - u(1-v) = -u, \\qquad |J| = u$$\n$f(u, v) = e^{-u} \\cdot u = \\left[u e^{-u}\\right] \\cdot 1\\ (u > 0,\\ 0 < v < 1)$。\n$U \\sim \\mathrm{Ga}(2, 1)$ と $V \\sim \\mathrm{U}(0, 1)$ が独立であることがわかる。"
         }
       ]
+    }
+  ],
+  "formulas": [
+    {
+      "title": "指数・対数",
+      "body": "$\\log xy = \\log x + \\log y, \\quad \\log x^r = r \\log x$\n$\\log_a x = \\dfrac{\\log_b x}{\\log_b a}, \\quad \\left(1 + \\dfrac{x}{n}\\right)^n \\to e^x$"
+    },
+    {
+      "title": "和",
+      "body": "$\\sum_{k=1}^{n} k = \\dfrac{n(n+1)}{2}, \\quad \\sum_{k=1}^{n} k^2 = \\dfrac{n(n+1)(2n+1)}{6}$\n$\\sum_{k=0}^{\\infty} r^k = \\dfrac{1}{1-r}, \\quad \\sum_{k=1}^{\\infty} k r^{k-1} = \\dfrac{1}{(1-r)^2} \\quad (|r| < 1)$"
+    },
+    {
+      "title": "微分",
+      "body": "$(x^n)' = n x^{n-1}, \\quad (e^x)' = e^x, \\quad (\\log x)' = \\dfrac{1}{x}$\n$(fg)' = f'g + fg', \\quad \\{f(g(x))\\}' = f'(g(x))\\,g'(x)$\n極大：$f' = 0$ かつ $f'' < 0$"
+    },
+    {
+      "title": "積分",
+      "body": "$\\int x^n\\,dx = \\dfrac{x^{n+1}}{n+1}, \\quad \\int \\dfrac{1}{x}\\,dx = \\log|x|$\n$\\int f g' = fg - \\int f' g, \\quad E[X] = \\int x f(x)\\,dx$"
+    },
+    {
+      "title": "テイラー展開",
+      "body": "$f(x) \\approx f(a) + f'(a)(x - a) + \\dfrac{f''(a)}{2}(x - a)^2$\n$e^x = \\sum_{k} \\dfrac{x^k}{k!}, \\quad \\log(1 + x) \\approx x$"
+    },
+    {
+      "title": "ガンマ・ベータ関数",
+      "body": "$\\Gamma(\\alpha) = \\int_0^\\infty x^{\\alpha-1} e^{-x}\\,dx, \\quad \\Gamma(\\alpha+1) = \\alpha\\,\\Gamma(\\alpha)$\n$\\Gamma(n) = (n-1)!, \\quad \\Gamma\\!\\left(\\tfrac{1}{2}\\right) = \\sqrt{\\pi}, \\quad B(a,b) = \\dfrac{\\Gamma(a)\\Gamma(b)}{\\Gamma(a+b)}$"
+    },
+    {
+      "title": "多変数",
+      "body": "$\\int_{-\\infty}^{\\infty} e^{-\\frac{x^2}{2}}\\,dx = \\sqrt{2\\pi}$\n$dx\\,dy = |J|\\,du\\,dv$（極座標：$r\\,dr\\,d\\theta$）\nラグランジュ：$\\nabla f = \\lambda \\nabla g$"
     }
   ]
 }

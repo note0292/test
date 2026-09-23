@@ -15,11 +15,18 @@ jobs:
           distribution: temurin
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check TeX in study data
+        run: |
+          npm install --no-save katex@0.16.22
+          node tools/check-tex.js
       - name: Unit tests
         run: ./gradlew testDebugUnitTest
       - name: Build APK
         run: ./gradlew assembleDebug
       - uses: actions/upload-artifact@v4
         with:
-          name: statprep-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: statprep-tex-apk
+          path: app/build/outputs/apk/debug/statprep-tex-debug.apk

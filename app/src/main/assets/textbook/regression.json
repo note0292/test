@@ -5,135 +5,165 @@
     {
       "id": "reg-l1",
       "title": "最小二乗法と射影",
-      "body": "線形回帰モデル y = Xβ + ε を考えます。y は n 次元、X は n × (p + 1) の計画行列（第 1 列は定数項の 1）、E[ε] = 0, Var(ε) = σ²I とします。\n\n残差平方和 S(β) = ‖y − Xβ‖² を最小化すると、正規方程式\n  XᵀXβ = Xᵀy\nが得られ、X がフルランクなら β̂ = (XᵀX)⁻¹Xᵀy です。\n\n幾何学的には、当てはめ値 ŷ = Hy（H = X(XᵀX)⁻¹Xᵀ、ハット行列）は y を X の列空間へ直交射影したものです。H は対称（Hᵀ = H）かつべき等（H² = H）で、残差 e = (I − H)y は X の各列と直交します（Xᵀe = 0）。定数項を含めば残差の和は 0 になります。\n\n単回帰 y = β₀ + β₁x では β̂₁ = S_xy/S_xx、β̂₀ = ȳ − β̂₁x̄ で、回帰直線は (x̄, ȳ) を通ります。",
+      "body": "線形回帰モデル $\\boldsymbol{y} = X\\boldsymbol{\\beta} + \\boldsymbol{\\varepsilon}$ を考えます。$\\boldsymbol{y}$ は $n$ 次元、$X$ は $n \\times (p+1)$ の計画行列（第 1 列は定数項の 1）、$E[\\boldsymbol{\\varepsilon}] = \\boldsymbol{0},\\ V[\\boldsymbol{\\varepsilon}] = \\sigma^2 I$ とします。\n\n残差平方和 $S(\\boldsymbol{\\beta}) = \\|\\boldsymbol{y} - X\\boldsymbol{\\beta}\\|^2$ を最小化すると、正規方程式\n$$X^\\top X \\boldsymbol{\\beta} = X^\\top \\boldsymbol{y}$$\nが得られ、$X$ がフルランクなら $\\hat{\\boldsymbol{\\beta}} = (X^\\top X)^{-1} X^\\top \\boldsymbol{y}$ です。\n\n幾何学的には、当てはめ値 $\\hat{\\boldsymbol{y}} = H\\boldsymbol{y}$（$H = X(X^\\top X)^{-1}X^\\top$、ハット行列）は $\\boldsymbol{y}$ を $X$ の列空間へ直交射影したものです。$H$ は対称（$H^\\top = H$）かつべき等（$H^2 = H$）で、残差 $\\boldsymbol{e} = (I - H)\\boldsymbol{y}$ は $X$ の各列と直交します（$X^\\top \\boldsymbol{e} = \\boldsymbol{0}$）。定数項を含めば残差の和は 0 になります。\n\n単回帰 $y = \\beta_0 + \\beta_1 x$ では\n$$\\hat{\\beta}_1 = \\frac{S_{xy}}{S_{xx}}, \\qquad \\hat{\\beta}_0 = \\bar{y} - \\hat{\\beta}_1 \\bar{x}$$\nで、回帰直線は $(\\bar{x}, \\bar{y})$ を通ります。",
       "theorems": [
         {
           "title": "正規方程式",
-          "statement": "S(β) = ‖y − Xβ‖² を最小にする β は XᵀXβ = Xᵀy を満たす。X がフルランクなら唯一解 β̂ = (XᵀX)⁻¹Xᵀy をもつ。",
-          "proof": "S(β) = yᵀy − 2βᵀXᵀy + βᵀXᵀXβ を β で微分すると ∂S/∂β = −2Xᵀy + 2XᵀXβ。これを 0 とおくと正規方程式。\nX がフルランクなら XᵀX は正定値（vᵀXᵀXv = ‖Xv‖² > 0, v ≠ 0）で逆行列をもち、S は狭義凸なのでこれが唯一の最小点。"
+          "statement": "$S(\\boldsymbol{\\beta}) = \\|\\boldsymbol{y} - X\\boldsymbol{\\beta}\\|^2$ を最小にする $\\boldsymbol{\\beta}$ は $X^\\top X\\boldsymbol{\\beta} = X^\\top \\boldsymbol{y}$ を満たす。$X$ がフルランクなら唯一解 $\\hat{\\boldsymbol{\\beta}} = (X^\\top X)^{-1}X^\\top \\boldsymbol{y}$ をもつ。",
+          "proof": "$S(\\boldsymbol{\\beta}) = \\boldsymbol{y}^\\top \\boldsymbol{y} - 2\\boldsymbol{\\beta}^\\top X^\\top \\boldsymbol{y} + \\boldsymbol{\\beta}^\\top X^\\top X \\boldsymbol{\\beta}$ を $\\boldsymbol{\\beta}$ で微分すると\n$$\\frac{\\partial S}{\\partial \\boldsymbol{\\beta}} = -2X^\\top \\boldsymbol{y} + 2X^\\top X \\boldsymbol{\\beta}$$\nこれを $\\boldsymbol{0}$ とおくと正規方程式。\n$X$ がフルランクなら $X^\\top X$ は正定値（$\\boldsymbol{v}^\\top X^\\top X \\boldsymbol{v} = \\|X\\boldsymbol{v}\\|^2 > 0,\\ \\boldsymbol{v} \\neq \\boldsymbol{0}$）で逆行列をもち、$S$ は狭義凸なのでこれが唯一の最小点。"
         },
         {
           "title": "ハット行列の性質",
-          "statement": "H = X(XᵀX)⁻¹Xᵀ は対称・べき等であり、tr(H) = p + 1。また Xᵀ(I − H) = 0。",
-          "proof": "Hᵀ = X((XᵀX)⁻¹)ᵀXᵀ = H（XᵀX は対称）。\nH² = X(XᵀX)⁻¹XᵀX(XᵀX)⁻¹Xᵀ = H。\ntr(H) = tr((XᵀX)⁻¹XᵀX) = tr(I_(p+1)) = p + 1（tr(AB) = tr(BA)）。\nXᵀH = XᵀX(XᵀX)⁻¹Xᵀ = Xᵀ より Xᵀ(I − H) = 0。"
+          "statement": "$H = X(X^\\top X)^{-1}X^\\top$ は対称・べき等であり、$\\mathrm{tr}(H) = p + 1$。また $X^\\top(I - H) = O$。",
+          "proof": "$H^\\top = X\\left((X^\\top X)^{-1}\\right)^\\top X^\\top = H$（$X^\\top X$ は対称）。\n$H^2 = X(X^\\top X)^{-1}X^\\top X(X^\\top X)^{-1}X^\\top = H$。\n$\\mathrm{tr}(H) = \\mathrm{tr}\\left((X^\\top X)^{-1}X^\\top X\\right) = \\mathrm{tr}(I_{p+1}) = p + 1$（$\\mathrm{tr}(AB) = \\mathrm{tr}(BA)$）。\n$X^\\top H = X^\\top X(X^\\top X)^{-1}X^\\top = X^\\top$ より $X^\\top(I - H) = O$。"
         }
       ],
       "examples": [
         {
-          "question": "x = (1, 2, 3, 4), y = (2, 3, 5, 6) の単回帰直線を求めよ。",
-          "solution": "x̄ = 2.5, ȳ = 4。S_xx = 2.25 + 0.25 + 0.25 + 2.25 = 5。\nS_xy = (−1.5)(−2) + (−0.5)(−1) + (0.5)(1) + (1.5)(2) = 3 + 0.5 + 0.5 + 3 = 7。\nβ̂₁ = 7/5 = 1.4, β̂₀ = 4 − 1.4 × 2.5 = 0.5。ŷ = 0.5 + 1.4x。"
+          "question": "$x = (1, 2, 3, 4),\\ y = (2, 3, 5, 6)$ の単回帰直線を求めよ。",
+          "solution": "$\\bar{x} = 2.5,\\ \\bar{y} = 4$。\n$$S_{xx} = 2.25 + 0.25 + 0.25 + 2.25 = 5, \\qquad S_{xy} = (-1.5)(-2) + (-0.5)(-1) + (0.5)(1) + (1.5)(2) = 7$$\n$\\hat{\\beta}_1 = \\frac{7}{5} = 1.4$、$\\hat{\\beta}_0 = 4 - 1.4 \\times 2.5 = 0.5$。よって $\\hat{y} = 0.5 + 1.4x$。"
         }
       ]
     },
     {
       "id": "reg-l2",
       "title": "ガウス・マルコフの定理と推定量の分布",
-      "body": "E[ε] = 0, Var(ε) = σ²I（正規性は不要）のもとで\n・E[β̂] = β（不偏）\n・Var(β̂) = σ²(XᵀX)⁻¹\nとなります。ガウス・マルコフの定理は、β̂ が線形不偏推定量の中で分散最小（BLUE）であることを保証します。\n\nσ² の不偏推定量は σ̂² = RSS/(n − p − 1)（RSS = ‖e‖²）です。\n\nさらに ε ~ N(0, σ²I) なら\n・β̂ ~ N(β, σ²(XᵀX)⁻¹)\n・RSS/σ² ~ χ²(n − p − 1)、β̂ と独立\n・(β̂ⱼ − βⱼ)/SE(β̂ⱼ) ~ t(n − p − 1)、SE(β̂ⱼ) = σ̂√[(XᵀX)⁻¹]ⱼⱼ\n\n誤差が不均一分散や相関をもつ場合、Var(ε) = σ²V（V 既知）なら一般化最小二乗 β̂_GLS = (XᵀV⁻¹X)⁻¹XᵀV⁻¹y が BLUE になります。",
+      "body": "$E[\\boldsymbol{\\varepsilon}] = \\boldsymbol{0},\\ V[\\boldsymbol{\\varepsilon}] = \\sigma^2 I$（正規性は不要）のもとで\n$$E[\\hat{\\boldsymbol{\\beta}}] = \\boldsymbol{\\beta}, \\qquad V[\\hat{\\boldsymbol{\\beta}}] = \\sigma^2 (X^\\top X)^{-1}$$\nとなります。ガウス・マルコフの定理は、$\\hat{\\boldsymbol{\\beta}}$ が線形不偏推定量の中で分散最小（BLUE）であることを保証します。\n\n$\\sigma^2$ の不偏推定量は $\\hat{\\sigma}^2 = \\dfrac{\\mathrm{RSS}}{n - p - 1}$（$\\mathrm{RSS} = \\|\\boldsymbol{e}\\|^2$）です。\n\nさらに $\\boldsymbol{\\varepsilon} \\sim \\mathrm{N}(\\boldsymbol{0}, \\sigma^2 I)$ なら\n・$\\hat{\\boldsymbol{\\beta}} \\sim \\mathrm{N}\\left(\\boldsymbol{\\beta}, \\sigma^2(X^\\top X)^{-1}\\right)$\n・$\\dfrac{\\mathrm{RSS}}{\\sigma^2} \\sim \\chi^2(n - p - 1)$ で、$\\hat{\\boldsymbol{\\beta}}$ と独立\n・$\\dfrac{\\hat{\\beta}_j - \\beta_j}{\\mathrm{SE}(\\hat{\\beta}_j)} \\sim t(n - p - 1)$、$\\mathrm{SE}(\\hat{\\beta}_j) = \\hat{\\sigma}\\sqrt{\\left[(X^\\top X)^{-1}\\right]_{jj}}$\n\n誤差が不均一分散や相関をもつ場合、$V[\\boldsymbol{\\varepsilon}] = \\sigma^2 V$（$V$ 既知）なら一般化最小二乗 $\\hat{\\boldsymbol{\\beta}}_{\\mathrm{GLS}} = (X^\\top V^{-1} X)^{-1} X^\\top V^{-1}\\boldsymbol{y}$ が BLUE になります。",
       "theorems": [
         {
           "title": "最小二乗推定量の平均と分散",
-          "statement": "E[β̂] = β, Var(β̂) = σ²(XᵀX)⁻¹",
-          "proof": "A = (XᵀX)⁻¹Xᵀ とおくと β̂ = Ay = A(Xβ + ε) = β + Aε（AX = I）。\nE[β̂] = β + AE[ε] = β。\nVar(β̂) = A Var(ε) Aᵀ = σ²AAᵀ = σ²(XᵀX)⁻¹XᵀX(XᵀX)⁻¹ = σ²(XᵀX)⁻¹。"
+          "statement": "$$E[\\hat{\\boldsymbol{\\beta}}] = \\boldsymbol{\\beta}, \\qquad V[\\hat{\\boldsymbol{\\beta}}] = \\sigma^2 (X^\\top X)^{-1}$$",
+          "proof": "$A = (X^\\top X)^{-1}X^\\top$ とおくと $AX = I$ なので $\\hat{\\boldsymbol{\\beta}} = A\\boldsymbol{y} = A(X\\boldsymbol{\\beta} + \\boldsymbol{\\varepsilon}) = \\boldsymbol{\\beta} + A\\boldsymbol{\\varepsilon}$。\n$E[\\hat{\\boldsymbol{\\beta}}] = \\boldsymbol{\\beta} + AE[\\boldsymbol{\\varepsilon}] = \\boldsymbol{\\beta}$。\n$$V[\\hat{\\boldsymbol{\\beta}}] = A\\,V[\\boldsymbol{\\varepsilon}]\\,A^\\top = \\sigma^2 AA^\\top = \\sigma^2(X^\\top X)^{-1}X^\\top X(X^\\top X)^{-1} = \\sigma^2(X^\\top X)^{-1}$$"
         },
         {
           "title": "ガウス・マルコフの定理",
-          "statement": "任意の線形不偏推定量 β̃ = Cy について Var(β̃) − Var(β̂) は半正定値。",
-          "proof": "C = A + D と書く（A = (XᵀX)⁻¹Xᵀ）。不偏性 E[Cy] = CXβ = β がすべての β で成り立つので CX = I、したがって DX = 0。\nVar(β̃) = σ²CCᵀ = σ²(AAᵀ + ADᵀ + DAᵀ + DDᵀ)。\nADᵀ = (XᵀX)⁻¹(DX)ᵀ = 0 なので Var(β̃) = Var(β̂) + σ²DDᵀ。DDᵀ は半正定値。"
+          "statement": "任意の線形不偏推定量 $\\tilde{\\boldsymbol{\\beta}} = C\\boldsymbol{y}$ について $V[\\tilde{\\boldsymbol{\\beta}}] - V[\\hat{\\boldsymbol{\\beta}}]$ は半正定値。",
+          "proof": "$C = A + D$ と書く（$A = (X^\\top X)^{-1}X^\\top$）。不偏性 $E[C\\boldsymbol{y}] = CX\\boldsymbol{\\beta} = \\boldsymbol{\\beta}$ がすべての $\\boldsymbol{\\beta}$ で成り立つので $CX = I$、したがって $DX = O$。\n$$V[\\tilde{\\boldsymbol{\\beta}}] = \\sigma^2 CC^\\top = \\sigma^2\\left(AA^\\top + AD^\\top + DA^\\top + DD^\\top\\right)$$\n$AD^\\top = (X^\\top X)^{-1}(DX)^\\top = O$ なので $V[\\tilde{\\boldsymbol{\\beta}}] = V[\\hat{\\boldsymbol{\\beta}}] + \\sigma^2 DD^\\top$。$DD^\\top$ は半正定値。"
         },
         {
           "title": "残差平方和の期待値",
-          "statement": "E[RSS] = (n − p − 1)σ²",
-          "proof": "e = (I − H)y = (I − H)ε（(I − H)X = 0 より）。\nRSS = εᵀ(I − H)ᵀ(I − H)ε = εᵀ(I − H)ε（対称・べき等）。\nE[εᵀMε] = tr(M Var(ε)) = σ² tr(M) なので E[RSS] = σ² tr(I − H) = σ²(n − p − 1)。"
+          "statement": "$$E[\\mathrm{RSS}] = (n - p - 1)\\sigma^2$$",
+          "proof": "$(I - H)X = O$ より $\\boldsymbol{e} = (I - H)\\boldsymbol{y} = (I - H)\\boldsymbol{\\varepsilon}$。\n$I - H$ は対称・べき等なので $\\mathrm{RSS} = \\boldsymbol{\\varepsilon}^\\top (I - H)^\\top (I - H)\\boldsymbol{\\varepsilon} = \\boldsymbol{\\varepsilon}^\\top (I - H)\\boldsymbol{\\varepsilon}$。\n$E[\\boldsymbol{\\varepsilon}^\\top M \\boldsymbol{\\varepsilon}] = \\mathrm{tr}(M\\,V[\\boldsymbol{\\varepsilon}]) = \\sigma^2\\,\\mathrm{tr}(M)$ なので\n$$E[\\mathrm{RSS}] = \\sigma^2\\,\\mathrm{tr}(I - H) = \\sigma^2(n - p - 1)$$"
         }
       ],
       "examples": [
         {
-          "question": "単回帰で Var(β̂₁) を求めよ。",
-          "solution": "XᵀX = [[n, Σx], [Σx, Σx²]]、その逆行列の (2, 2) 成分は n/(nΣx² − (Σx)²) = 1/S_xx。\nよって Var(β̂₁) = σ²/S_xx。x のばらつきが大きいほど傾きは精度よく推定できる。"
+          "question": "単回帰で $V[\\hat{\\beta}_1]$ を求めよ。",
+          "solution": "$X^\\top X = \\begin{pmatrix} n & \\sum x_i \\\\ \\sum x_i & \\sum x_i^2 \\end{pmatrix}$ の逆行列の $(2, 2)$ 成分は $\\dfrac{n}{n\\sum x_i^2 - (\\sum x_i)^2} = \\dfrac{1}{S_{xx}}$。\nよって $V[\\hat{\\beta}_1] = \\dfrac{\\sigma^2}{S_{xx}}$。$x$ のばらつきが大きいほど傾きは精度よく推定できる。"
         }
       ]
     },
     {
       "id": "reg-l3",
       "title": "決定係数・F 検定・予測",
-      "body": "平方和の分解：TSS = Σ(yᵢ − ȳ)² = ESS + RSS（ESS = Σ(ŷᵢ − ȳ)²、定数項ありの場合）。\n\n・決定係数 R² = ESS/TSS = 1 − RSS/TSS。y と ŷ の相関係数の 2 乗に等しい。\n・自由度調整済み R̄² = 1 − (RSS/(n − p − 1))/(TSS/(n − 1))。\n\n全体の F 検定（H₀: β₁ = … = β_p = 0）\n  F = (ESS/p)/(RSS/(n − p − 1)) ~ F(p, n − p − 1)\n\n一般の線形制約（ネストしたモデルの比較）：制約付きモデルの残差平方和を RSS₀、制約の数を q とすると\n  F = ((RSS₀ − RSS)/q)/(RSS/(n − p − 1)) ~ F(q, n − p − 1)\n\n予測：新しい点 x₀ で\n・平均 x₀ᵀβ の信頼区間：x₀ᵀβ̂ ± t·σ̂√(x₀ᵀ(XᵀX)⁻¹x₀)\n・新しい観測値の予測区間：x₀ᵀβ̂ ± t·σ̂√(1 + x₀ᵀ(XᵀX)⁻¹x₀)\n予測区間は誤差 ε₀ の分だけ広くなります。",
+      "body": "平方和の分解（定数項ありの場合）：\n$$\\mathrm{TSS} = \\sum_i (y_i - \\bar{y})^2 = \\mathrm{ESS} + \\mathrm{RSS}, \\qquad \\mathrm{ESS} = \\sum_i (\\hat{y}_i - \\bar{y})^2$$\n\n・決定係数 $R^2 = \\dfrac{\\mathrm{ESS}}{\\mathrm{TSS}} = 1 - \\dfrac{\\mathrm{RSS}}{\\mathrm{TSS}}$。$y$ と $\\hat{y}$ の相関係数の 2 乗に等しい。\n・自由度調整済み決定係数 $\\bar{R}^2 = 1 - \\dfrac{\\mathrm{RSS}/(n - p - 1)}{\\mathrm{TSS}/(n - 1)}$。\n\n全体の $F$ 検定（$H_0: \\beta_1 = \\cdots = \\beta_p = 0$）\n$$F = \\frac{\\mathrm{ESS}/p}{\\mathrm{RSS}/(n - p - 1)} \\sim F(p,\\ n - p - 1)$$\n\n一般の線形制約（ネストしたモデルの比較）：制約付きモデルの残差平方和を $\\mathrm{RSS}_0$、制約の数を $q$ とすると\n$$F = \\frac{(\\mathrm{RSS}_0 - \\mathrm{RSS})/q}{\\mathrm{RSS}/(n - p - 1)} \\sim F(q,\\ n - p - 1)$$\n\n予測：新しい点 $\\boldsymbol{x}_0$ で\n・平均 $\\boldsymbol{x}_0^\\top \\boldsymbol{\\beta}$ の信頼区間：$\\boldsymbol{x}_0^\\top \\hat{\\boldsymbol{\\beta}} \\pm t\\,\\hat{\\sigma}\\sqrt{\\boldsymbol{x}_0^\\top (X^\\top X)^{-1}\\boldsymbol{x}_0}$\n・新しい観測値の予測区間：$\\boldsymbol{x}_0^\\top \\hat{\\boldsymbol{\\beta}} \\pm t\\,\\hat{\\sigma}\\sqrt{1 + \\boldsymbol{x}_0^\\top (X^\\top X)^{-1}\\boldsymbol{x}_0}$\n予測区間は誤差 $\\varepsilon_0$ の分だけ広くなります。",
       "theorems": [
         {
           "title": "平方和の分解",
-          "statement": "定数項を含むモデルでは TSS = ESS + RSS。",
-          "proof": "yᵢ − ȳ = (ŷᵢ − ȳ) + eᵢ。2 乗和の交差項は Σ(ŷᵢ − ȳ)eᵢ = Σŷᵢeᵢ − ȳΣeᵢ。\nŷ = Xβ̂ と Xᵀe = 0 より ŷᵀe = 0。定数項があるので Σeᵢ = 0（1 が X の列）。\nよって交差項は 0。"
+          "statement": "定数項を含むモデルでは $\\mathrm{TSS} = \\mathrm{ESS} + \\mathrm{RSS}$。",
+          "proof": "$y_i - \\bar{y} = (\\hat{y}_i - \\bar{y}) + e_i$。2 乗和の交差項は $\\sum_i (\\hat{y}_i - \\bar{y})e_i = \\sum_i \\hat{y}_i e_i - \\bar{y}\\sum_i e_i$。\n$\\hat{\\boldsymbol{y}} = X\\hat{\\boldsymbol{\\beta}}$ と $X^\\top \\boldsymbol{e} = \\boldsymbol{0}$ より $\\hat{\\boldsymbol{y}}^\\top \\boldsymbol{e} = 0$。定数項があるので $\\sum_i e_i = 0$（$\\boldsymbol{1}$ が $X$ の列）。\nよって交差項は 0。"
         },
         {
           "title": "自由度調整済み決定係数",
-          "statement": "R̄² = 1 − (1 − R²)(n − 1)/(n − p − 1)",
-          "proof": "R̄² = 1 − (RSS/(n − p − 1))/(TSS/(n − 1)) = 1 − (RSS/TSS)·(n − 1)/(n − p − 1)。\nRSS/TSS = 1 − R² を代入すればよい。"
+          "statement": "$$\\bar{R}^2 = 1 - (1 - R^2)\\frac{n - 1}{n - p - 1}$$",
+          "proof": "$$\\bar{R}^2 = 1 - \\frac{\\mathrm{RSS}/(n - p - 1)}{\\mathrm{TSS}/(n - 1)} = 1 - \\frac{\\mathrm{RSS}}{\\mathrm{TSS}} \\cdot \\frac{n - 1}{n - p - 1}$$\n$\\dfrac{\\mathrm{RSS}}{\\mathrm{TSS}} = 1 - R^2$ を代入すればよい。"
         }
       ],
       "examples": [
         {
-          "question": "n = 30, p = 3 の回帰で R² = 0.40 のとき、全体の F 統計量を求めよ。",
-          "solution": "F = (R²/p)/((1 − R²)/(n − p − 1)) = (0.40/3)/(0.60/26) = 0.1333/0.02308 ≈ 5.78。\nF(3, 26) の上側 5% 点は約 2.98 なので有意。"
+          "question": "$n = 30,\\ p = 3$ の回帰で $R^2 = 0.40$ のとき、全体の $F$ 統計量を求めよ。",
+          "solution": "$$F = \\frac{R^2/p}{(1 - R^2)/(n - p - 1)} = \\frac{0.40/3}{0.60/26} = \\frac{0.1333}{0.02308} \\approx 5.78$$\n$F(3, 26)$ の上側 5% 点は約 2.98 なので有意。"
         }
       ]
     },
     {
       "id": "reg-l4",
       "title": "回帰診断",
-      "body": "・残差の分散：Var(e) = σ²(I − H) なので Var(eᵢ) = σ²(1 − hᵢᵢ)。てこ比 hᵢᵢ が大きい点ほど残差は小さく出やすい。\n・標準化残差 rᵢ = eᵢ/(σ̂√(1 − hᵢᵢ))。|rᵢ| > 2〜3 は外れ値の候補。\n・てこ比：0 ≤ hᵢᵢ ≤ 1、平均は (p + 1)/n。2(p + 1)/n を超えると高てこ比の目安。\n・クックの距離 Dᵢ = rᵢ² hᵢᵢ/((p + 1)(1 − hᵢᵢ))：観測 i を除いたときの推定値の変化。\n・多重共線性：VIFⱼ = 1/(1 − Rⱼ²)。10 以上は要注意。係数の符号が直観に反する、標準誤差が大きいなどの症状が出る。\n・自己相関：ダービン・ワトソン統計量 DW = Σ(eₜ − eₜ₋₁)²/Σeₜ² ≈ 2(1 − ρ̂)。\n・不均一分散：残差プロット、ブロイシュ・ペイガン検定。対策は変数変換、加重最小二乗、頑健な標準誤差（ホワイト）。\n・正規性：Q-Q プロット、シャピロ・ウィルク検定。",
+      "body": "・残差の分散：$V[\\boldsymbol{e}] = \\sigma^2(I - H)$ なので $V[e_i] = \\sigma^2(1 - h_{ii})$。てこ比 $h_{ii}$ が大きい点ほど残差は小さく出やすい。\n・標準化残差 $r_i = \\dfrac{e_i}{\\hat{\\sigma}\\sqrt{1 - h_{ii}}}$。$|r_i| > 2$〜$3$ は外れ値の候補。\n・てこ比：$0 \\le h_{ii} \\le 1$、平均は $\\frac{p+1}{n}$。$\\frac{2(p+1)}{n}$ を超えると高てこ比の目安。\n・クックの距離 $D_i = \\dfrac{r_i^2\\, h_{ii}}{(p+1)(1 - h_{ii})}$：観測 $i$ を除いたときの推定値の変化。\n・多重共線性：$\\mathrm{VIF}_j = \\dfrac{1}{1 - R_j^2}$。10 以上は要注意。係数の符号が直観に反する、標準誤差が大きいなどの症状が出る。\n・自己相関：ダービン・ワトソン統計量 $\\mathrm{DW} = \\dfrac{\\sum_t (e_t - e_{t-1})^2}{\\sum_t e_t^2} \\approx 2(1 - \\hat{\\rho})$。\n・不均一分散：残差プロット、ブロイシュ・ペイガン検定。対策は変数変換、加重最小二乗、頑健な標準誤差（ホワイト）。\n・正規性：Q-Q プロット、シャピロ・ウィルク検定。",
       "theorems": [
         {
           "title": "残差の分散",
-          "statement": "Var(e) = σ²(I − H)。特に Var(eᵢ) = σ²(1 − hᵢᵢ)。",
-          "proof": "e = (I − H)ε より Var(e) = (I − H)σ²I(I − H)ᵀ = σ²(I − H)² = σ²(I − H)（対称・べき等）。"
+          "statement": "$V[\\boldsymbol{e}] = \\sigma^2(I - H)$。特に $V[e_i] = \\sigma^2(1 - h_{ii})$。",
+          "proof": "$\\boldsymbol{e} = (I - H)\\boldsymbol{\\varepsilon}$ より、$I - H$ が対称・べき等であることを用いて\n$$V[\\boldsymbol{e}] = (I - H)\\,\\sigma^2 I\\,(I - H)^\\top = \\sigma^2(I - H)^2 = \\sigma^2(I - H)$$"
         },
         {
           "title": "VIF の意味",
-          "statement": "Var(β̂ⱼ) = σ²/(S_jj(1 − Rⱼ²))。ここで S_jj = Σ(xᵢⱼ − x̄ⱼ)²、Rⱼ² は xⱼ を他の説明変数（と定数項）で回帰した決定係数。",
-          "proof": "FWL（フリッシュ・ウォー・ロベル）定理より、β̂ⱼ は xⱼ を他の変数に回帰した残差 x̃ⱼ に y を回帰した係数に等しく、Var(β̂ⱼ) = σ²/‖x̃ⱼ‖²。\n‖x̃ⱼ‖² はその補助回帰の残差平方和であり、S_jj(1 − Rⱼ²) に等しい。\n他と無相関（Rⱼ² = 0）なら σ²/S_jj なので、VIF = 1/(1 − Rⱼ²) は分散の膨張倍率である。"
+          "statement": "$V[\\hat{\\beta}_j] = \\dfrac{\\sigma^2}{S_{jj}(1 - R_j^2)}$。ここで $S_{jj} = \\sum_i (x_{ij} - \\bar{x}_j)^2$、$R_j^2$ は $x_j$ を他の説明変数（と定数項）で回帰した決定係数。",
+          "proof": "FWL（フリッシュ・ウォー・ロベル）定理より、$\\hat{\\beta}_j$ は $x_j$ を他の変数に回帰した残差 $\\tilde{\\boldsymbol{x}}_j$ に $\\boldsymbol{y}$ を回帰した係数に等しく、$V[\\hat{\\beta}_j] = \\dfrac{\\sigma^2}{\\|\\tilde{\\boldsymbol{x}}_j\\|^2}$。\n$\\|\\tilde{\\boldsymbol{x}}_j\\|^2$ はその補助回帰の残差平方和であり、$S_{jj}(1 - R_j^2)$ に等しい。\n他と無相関（$R_j^2 = 0$）なら $\\frac{\\sigma^2}{S_{jj}}$ なので、$\\mathrm{VIF} = \\frac{1}{1 - R_j^2}$ は分散の膨張倍率である。"
         }
       ],
       "examples": [
         {
           "question": "ある説明変数を他の変数で回帰した決定係数が 0.95 だった。この係数の標準誤差は無相関の場合の何倍か。",
-          "solution": "VIF = 1/(1 − 0.95) = 20。標準誤差は √20 ≈ 4.47 倍。"
+          "solution": "$\\mathrm{VIF} = \\dfrac{1}{1 - 0.95} = 20$。標準誤差は $\\sqrt{20} \\approx 4.47$ 倍。"
         }
       ]
     },
     {
       "id": "reg-l5",
       "title": "モデル選択と正則化",
-      "body": "変数を増やすと当てはまり（RSS）は必ず改善しますが、予測精度は悪化することがあります（過学習）。予測誤差 = 偏り² + 分散 + ノイズ のトレードオフを考えます。\n\n情報量規準（小さいほど良い）\n・AIC = −2 log L̂ + 2k：予測（カルバック・ライブラー情報量）の観点。\n・BIC = −2 log L̂ + k log n：事後確率の近似。n が大きいと AIC より小さいモデルを選ぶ。真のモデルがあれば一致性をもつ。\n・マローズの C_p = RSS_p/σ̂² − n + 2(p + 1)。\n\n交差検証：データを K 分割し、1 つを検証、残りで学習を繰り返して予測誤差を推定。\n\n正則化（罰則付き回帰）\n・リッジ：RSS + λ‖β‖²。β̂ = (XᵀX + λI)⁻¹Xᵀy。多重共線性に強い。\n・Lasso：RSS + λΣ|βⱼ|。L1 罰則の角で一部の係数がちょうど 0 になる（変数選択）。\n・エラスティックネット：両者の組み合わせ。\n説明変数は標準化してから罰則をかけるのが普通です。λ は交差検証で選びます。",
+      "body": "変数を増やすと当てはまり（RSS）は必ず改善しますが、予測精度は悪化することがあります（過学習）。予測誤差は「偏りの 2 乗 + 分散 + ノイズ」に分解でき、この 3 つのトレードオフを考えます。\n\n情報量規準（小さいほど良い、$k$ はパラメータ数）\n$$\\mathrm{AIC} = -2\\log\\hat{L} + 2k, \\qquad \\mathrm{BIC} = -2\\log\\hat{L} + k\\log n$$\nAIC は予測（カルバック・ライブラー情報量）の観点、BIC は事後確率の近似です。$n$ が大きいと BIC は AIC より小さいモデルを選び、真のモデルがあれば一致性をもちます。マローズの $C_p = \\dfrac{\\mathrm{RSS}_p}{\\hat{\\sigma}^2} - n + 2(p+1)$ も使われます。\n\n交差検証：データを $K$ 分割し、1 つを検証、残りで学習を繰り返して予測誤差を推定。\n\n正則化（罰則付き回帰）\n・リッジ：$\\mathrm{RSS} + \\lambda\\|\\boldsymbol{\\beta}\\|^2$。$\\hat{\\boldsymbol{\\beta}} = (X^\\top X + \\lambda I)^{-1}X^\\top \\boldsymbol{y}$。多重共線性に強い。\n・Lasso：$\\mathrm{RSS} + \\lambda\\sum_j |\\beta_j|$。L1 罰則の角で一部の係数がちょうど 0 になる（変数選択）。\n・エラスティックネット：両者の組み合わせ。\n説明変数は標準化してから罰則をかけるのが普通です。$\\lambda$ は交差検証で選びます。",
       "theorems": [
         {
           "title": "リッジ推定量",
-          "statement": "RSS + λ‖β‖²（λ > 0）の最小解は β̂_R = (XᵀX + λI)⁻¹Xᵀy であり、E[β̂_R] = (XᵀX + λI)⁻¹XᵀXβ ≠ β（一般に偏りをもつ）。",
-          "proof": "目的関数を β で微分すると −2Xᵀy + 2XᵀXβ + 2λβ = 0。XᵀX + λI は正定値（λ > 0）なので可逆で、解は β̂_R = (XᵀX + λI)⁻¹Xᵀy。\nE[y] = Xβ を代入すると E[β̂_R] = (XᵀX + λI)⁻¹XᵀXβ。\nXᵀX = I（直交計画）の場合は β̂_R = β̂/(1 + λ) となり、最小二乗推定量を一律に 0 へ縮小していることがわかる。"
+          "statement": "$\\mathrm{RSS} + \\lambda\\|\\boldsymbol{\\beta}\\|^2\\ (\\lambda > 0)$ の最小解は $\\hat{\\boldsymbol{\\beta}}_R = (X^\\top X + \\lambda I)^{-1}X^\\top \\boldsymbol{y}$ であり、$E[\\hat{\\boldsymbol{\\beta}}_R] = (X^\\top X + \\lambda I)^{-1}X^\\top X\\boldsymbol{\\beta}$（一般に $\\boldsymbol{\\beta}$ と異なり偏りをもつ）。",
+          "proof": "目的関数を $\\boldsymbol{\\beta}$ で微分すると $-2X^\\top \\boldsymbol{y} + 2X^\\top X\\boldsymbol{\\beta} + 2\\lambda\\boldsymbol{\\beta} = \\boldsymbol{0}$。$X^\\top X + \\lambda I$ は正定値（$\\lambda > 0$）なので可逆で、解は $\\hat{\\boldsymbol{\\beta}}_R = (X^\\top X + \\lambda I)^{-1}X^\\top \\boldsymbol{y}$。\n$E[\\boldsymbol{y}] = X\\boldsymbol{\\beta}$ を代入すると $E[\\hat{\\boldsymbol{\\beta}}_R] = (X^\\top X + \\lambda I)^{-1}X^\\top X\\boldsymbol{\\beta}$。\n$X^\\top X = I$（直交計画）の場合は $\\hat{\\boldsymbol{\\beta}}_R = \\dfrac{\\hat{\\boldsymbol{\\beta}}}{1 + \\lambda}$ となり、最小二乗推定量を一律に 0 へ縮小していることがわかる。"
         }
       ],
       "examples": [
         {
-          "question": "直交計画（XᵀX = I）で Lasso の解を求めよ。",
-          "solution": "目的関数は各成分に分離し、(βⱼ − β̂ⱼ)² + λ|βⱼ| を最小化すればよい（β̂ⱼ は最小二乗推定値）。\n解は軟閾値関数 βⱼ = sign(β̂ⱼ) max(|β̂ⱼ| − λ/2, 0)。|β̂ⱼ| ≤ λ/2 の係数はちょうど 0 になる。"
+          "question": "直交計画（$X^\\top X = I$）で Lasso の解を求めよ。",
+          "solution": "目的関数は各成分に分離し、$(\\beta_j - \\hat{\\beta}_j)^2 + \\lambda|\\beta_j|$ を最小化すればよい（$\\hat{\\beta}_j$ は最小二乗推定値）。解は軟閾値関数\n$$\\beta_j = \\mathrm{sign}(\\hat{\\beta}_j)\\max\\left(|\\hat{\\beta}_j| - \\frac{\\lambda}{2},\\ 0\\right)$$\n$|\\hat{\\beta}_j| \\le \\frac{\\lambda}{2}$ の係数はちょうど 0 になる。"
         }
       ]
     },
     {
       "id": "reg-l6",
       "title": "一般化線形モデル",
-      "body": "一般化線形モデル（GLM）は 3 要素からなります。\n(1) 確率分布：指数型分布族（正規、二項、ポアソン、ガンマなど）\n(2) 線形予測子：η = xᵀβ\n(3) リンク関数：g(μ) = η（μ = E[Y]）\n\n代表例\n・ロジスティック回帰：Y ~ Ber(p)、log(p/(1 − p)) = xᵀβ。e^(βⱼ) はオッズ比。\n・プロビット回帰：Φ⁻¹(p) = xᵀβ。\n・ポアソン回帰：Y ~ Po(μ)、log μ = xᵀβ。e^(βⱼ) は率比。観測期間 t が異なるときは log t をオフセットとして加える。\n\n推定は最尤法で、反復重み付き最小二乗法（IRLS、フィッシャーのスコア法）で解きます。\n\n逸脱度 D = 2(ℓ_飽和 − ℓ_モデル)。ネストしたモデルの逸脱度の差は近似的に χ²（自由度 = パラメータ数の差）。ポアソン回帰で逸脱度/自由度が 1 を大きく超えるときは過分散を疑い、準ポアソンや負の二項回帰を検討します。",
+      "body": "一般化線形モデル（GLM）は 3 要素からなります。\n(1) 確率分布：指数型分布族（正規、二項、ポアソン、ガンマなど）\n(2) 線形予測子：$\\eta = \\boldsymbol{x}^\\top \\boldsymbol{\\beta}$\n(3) リンク関数：$g(\\mu) = \\eta$（$\\mu = E[Y]$）\n\n代表例\n・ロジスティック回帰：$Y \\sim \\mathrm{Ber}(p)$、$\\log\\dfrac{p}{1-p} = \\boldsymbol{x}^\\top \\boldsymbol{\\beta}$。$e^{\\beta_j}$ はオッズ比。\n・プロビット回帰：$\\Phi^{-1}(p) = \\boldsymbol{x}^\\top \\boldsymbol{\\beta}$。\n・ポアソン回帰：$Y \\sim \\mathrm{Po}(\\mu)$、$\\log\\mu = \\boldsymbol{x}^\\top \\boldsymbol{\\beta}$。$e^{\\beta_j}$ は率比。観測期間 $t$ が異なるときは $\\log t$ をオフセットとして加える。\n\n推定は最尤法で、反復重み付き最小二乗法（IRLS、フィッシャーのスコア法）で解きます。\n\n逸脱度 $D = 2(\\ell_{\\text{飽和}} - \\ell_{\\text{モデル}})$。ネストしたモデルの逸脱度の差は近似的に $\\chi^2$（自由度 = パラメータ数の差）に従います。ポアソン回帰で逸脱度/自由度が 1 を大きく超えるときは過分散を疑い、準ポアソンや負の二項回帰を検討します。",
       "theorems": [
         {
           "title": "正準リンクのスコア方程式",
-          "statement": "ロジスティック回帰の尤度方程式は Xᵀ(y − p) = 0（p = (p₁, …, pₙ)、pᵢ = 1/(1 + e^(−xᵢᵀβ))）である。",
-          "proof": "ℓ(β) = Σ[yᵢ log pᵢ + (1 − yᵢ) log(1 − pᵢ)] = Σ[yᵢηᵢ − log(1 + e^(ηᵢ))]（ηᵢ = xᵢᵀβ, log(pᵢ/(1 − pᵢ)) = ηᵢ, log(1 − pᵢ) = −log(1 + e^(ηᵢ))）。\n∂ℓ/∂β = Σ[yᵢ − e^(ηᵢ)/(1 + e^(ηᵢ))]xᵢ = Σ(yᵢ − pᵢ)xᵢ = Xᵀ(y − p)。\n定数項を含めば Σyᵢ = Σp̂ᵢ（観測度数と予測度数の合計が一致）となる。ポアソン回帰（対数リンク）でも同じ形 Xᵀ(y − μ) = 0 になる。"
+          "statement": "ロジスティック回帰の尤度方程式は $X^\\top(\\boldsymbol{y} - \\boldsymbol{p}) = \\boldsymbol{0}$（$p_i = \\dfrac{1}{1 + e^{-\\boldsymbol{x}_i^\\top \\boldsymbol{\\beta}}}$）である。",
+          "proof": "$\\eta_i = \\boldsymbol{x}_i^\\top \\boldsymbol{\\beta}$ とすると $\\log\\frac{p_i}{1 - p_i} = \\eta_i$、$\\log(1 - p_i) = -\\log(1 + e^{\\eta_i})$ なので\n$$\\ell(\\boldsymbol{\\beta}) = \\sum_i \\left[y_i\\log p_i + (1 - y_i)\\log(1 - p_i)\\right] = \\sum_i \\left[y_i\\eta_i - \\log(1 + e^{\\eta_i})\\right]$$\n$$\\frac{\\partial \\ell}{\\partial \\boldsymbol{\\beta}} = \\sum_i \\left(y_i - \\frac{e^{\\eta_i}}{1 + e^{\\eta_i}}\\right)\\boldsymbol{x}_i = \\sum_i (y_i - p_i)\\boldsymbol{x}_i = X^\\top(\\boldsymbol{y} - \\boldsymbol{p})$$\n定数項を含めば $\\sum_i y_i = \\sum_i \\hat{p}_i$（観測度数と予測度数の合計が一致）となる。ポアソン回帰（対数リンク）でも同じ形 $X^\\top(\\boldsymbol{y} - \\boldsymbol{\\mu}) = \\boldsymbol{0}$ になる。"
         }
       ],
       "examples": [
         {
           "question": "ロジスティック回帰で喫煙（1/0）の係数が 0.693 だった。解釈を述べよ。",
-          "solution": "e^0.693 ≈ 2。他の変数を固定したとき、喫煙者は非喫煙者に比べてオッズが約 2 倍。確率が 2 倍になるわけではない点に注意。"
+          "solution": "$e^{0.693} \\approx 2$。他の変数を固定したとき、喫煙者は非喫煙者に比べてオッズが約 2 倍。確率が 2 倍になるわけではない点に注意。"
         }
       ]
+    }
+  ],
+  "formulas": [
+    {
+      "title": "最小二乗推定",
+      "body": "$\\hat{\\boldsymbol{\\beta}} = (X^\\top X)^{-1}X^\\top \\boldsymbol{y}, \\quad V[\\hat{\\boldsymbol{\\beta}}] = \\sigma^2(X^\\top X)^{-1}$\n$\\hat{\\sigma}^2 = \\dfrac{\\mathrm{RSS}}{n - p - 1}$"
+    },
+    {
+      "title": "決定係数",
+      "body": "$R^2 = 1 - \\dfrac{\\mathrm{RSS}}{\\mathrm{TSS}}, \\quad \\bar{R}^2 = 1 - (1 - R^2)\\dfrac{n - 1}{n - p - 1}$"
+    },
+    {
+      "title": "係数の検定",
+      "body": "$t = \\dfrac{\\hat{\\beta}_j}{\\mathrm{SE}(\\hat{\\beta}_j)} \\sim t(n - p - 1)$\n全体：$F = \\dfrac{\\mathrm{ESS}/p}{\\mathrm{RSS}/(n - p - 1)} \\sim F(p,\\ n - p - 1)$"
+    },
+    {
+      "title": "情報量規準",
+      "body": "$\\mathrm{AIC} = -2\\log\\hat{L} + 2k, \\quad \\mathrm{BIC} = -2\\log\\hat{L} + k\\log n$"
+    },
+    {
+      "title": "診断",
+      "body": "$H = X(X^\\top X)^{-1}X^\\top,\\ \\mathrm{tr}(H) = p + 1$\n$\\mathrm{VIF}_j = \\dfrac{1}{1 - R_j^2}, \\quad \\mathrm{DW} \\approx 2(1 - \\hat{\\rho})$\nクックの距離で影響の大きい観測を検出"
+    },
+    {
+      "title": "一般化線形モデル",
+      "body": "ロジスティック：$\\log\\dfrac{p}{1-p} = \\boldsymbol{x}^\\top \\boldsymbol{\\beta}$、オッズ比 $e^{\\beta}$\nポアソン：$\\log\\mu = \\boldsymbol{x}^\\top \\boldsymbol{\\beta}$\n逸脱度 $D = 2(\\ell_{\\text{飽和}} - \\ell_{\\text{モデル}})$"
+    },
+    {
+      "title": "罰則付き回帰",
+      "body": "リッジ：$\\hat{\\boldsymbol{\\beta}} = (X^\\top X + \\lambda I)^{-1}X^\\top \\boldsymbol{y}$\nLasso：$\\mathrm{RSS} + \\lambda\\sum_j |\\beta_j|$（スパースな解）"
     }
   ]
 }

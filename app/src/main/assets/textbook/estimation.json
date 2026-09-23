@@ -5,140 +5,170 @@
     {
       "id": "est-l1",
       "title": "推定量の良さ：不偏性と平均二乗誤差",
-      "body": "母数 θ の推定量 θ̂ はデータの関数（確率変数）です。良さの基準として次があります。\n・不偏性：E[θ̂] = θ\n・一致性：θ̂ₙ → θ（確率収束）\n・平均二乗誤差：MSE(θ̂) = E[(θ̂ − θ)²] = Var(θ̂) + bias²\n・有効性：不偏推定量の中で分散が最小\n\n不偏性は便利な性質ですが絶対ではありません。偏りを少し許して分散を大きく減らせば MSE は小さくなり得ます（リッジ回帰、縮小推定）。\n\n母分散の推定では、偏差平方和を n − 1 で割る不偏分散 s² が不偏です。n で割ると平均を X̄ で推定した分だけ偏差平方和が小さくなるため、過小推定になります。",
+      "body": "母数 $\\theta$ の推定量 $\\hat{\\theta}$ はデータの関数（確率変数）です。良さの基準として次があります。\n・不偏性：$E[\\hat{\\theta}] = \\theta$\n・一致性：$\\hat{\\theta}_n \\xrightarrow{p} \\theta$（確率収束）\n・平均二乗誤差：$\\mathrm{MSE}(\\hat{\\theta}) = E\\left[(\\hat{\\theta} - \\theta)^2\\right] = V[\\hat{\\theta}] + (\\text{バイアス})^2$\n・有効性：不偏推定量の中で分散が最小\n\n不偏性は便利な性質ですが絶対ではありません。偏りを少し許して分散を大きく減らせば MSE は小さくなり得ます（リッジ回帰、縮小推定）。\n\n母分散の推定では、偏差平方和を $n - 1$ で割る不偏分散\n$$s^2 = \\frac{1}{n-1}\\sum_{i=1}^{n}(X_i - \\bar{X})^2$$\nが不偏です。$n$ で割ると、平均を $\\bar{X}$ で推定した分だけ偏差平方和が小さくなるため、過小推定になります。",
       "theorems": [
         {
           "title": "MSE の分解",
-          "statement": "MSE(θ̂) = Var(θ̂) + (E[θ̂] − θ)²",
-          "proof": "m = E[θ̂] とおくと θ̂ − θ = (θ̂ − m) + (m − θ)。\n2 乗して期待値をとると、交差項は 2(m − θ)E[θ̂ − m] = 0 なので\nE[(θ̂ − θ)²] = E[(θ̂ − m)²] + (m − θ)² = Var(θ̂) + bias²。"
+          "statement": "$$\\mathrm{MSE}(\\hat{\\theta}) = V[\\hat{\\theta}] + \\left(E[\\hat{\\theta}] - \\theta\\right)^2$$",
+          "proof": "$m = E[\\hat{\\theta}]$ とおくと $\\hat{\\theta} - \\theta = (\\hat{\\theta} - m) + (m - \\theta)$。\n2 乗して期待値をとると、交差項は $2(m - \\theta)E[\\hat{\\theta} - m] = 0$ なので\n$$E\\left[(\\hat{\\theta} - \\theta)^2\\right] = E\\left[(\\hat{\\theta} - m)^2\\right] + (m - \\theta)^2 = V[\\hat{\\theta}] + (\\text{バイアス})^2$$"
         },
         {
           "title": "不偏分散の不偏性",
-          "statement": "X₁, …, Xₙ が独立に平均 μ、分散 σ² の分布に従うとき、s² = Σ(Xᵢ − X̄)²/(n − 1) について E[s²] = σ²。",
-          "proof": "Σ(Xᵢ − X̄)² = Σ(Xᵢ − μ)² − n(X̄ − μ)²（(Xᵢ − μ) = (Xᵢ − X̄) + (X̄ − μ) を代入して展開すると、交差項は Σ(Xᵢ − X̄) = 0 で消える）。\n期待値をとると nσ² − n·(σ²/n) = (n − 1)σ²。\nよって E[s²] = σ²。正規性は不要である。"
+          "statement": "$X_1, \\dots, X_n$ が独立に平均 $\\mu$、分散 $\\sigma^2$ の分布に従うとき、$E[s^2] = \\sigma^2$。",
+          "proof": "$X_i - \\mu = (X_i - \\bar{X}) + (\\bar{X} - \\mu)$ を代入して展開すると、交差項は $\\sum_i (X_i - \\bar{X}) = 0$ で消えて\n$$\\sum_{i=1}^{n}(X_i - \\bar{X})^2 = \\sum_{i=1}^{n}(X_i - \\mu)^2 - n(\\bar{X} - \\mu)^2$$\n期待値をとると $n\\sigma^2 - n \\cdot \\frac{\\sigma^2}{n} = (n-1)\\sigma^2$。よって $E[s^2] = \\sigma^2$。正規性は不要である。"
         }
       ],
       "examples": [
         {
-          "question": "X₁, …, Xₙ ~ U(0, θ) で、θ の推定量 T₁ = 2X̄ と T₂ = ((n + 1)/n) max Xᵢ の分散を比較せよ。",
-          "solution": "どちらも不偏。Var(T₁) = 4 · (θ²/12)/n = θ²/(3n)。\nM = max Xᵢ の密度は n m^(n−1)/θ^n で、E[M²] = nθ²/(n + 2)、E[M] = nθ/(n + 1)。\nVar(M) = nθ²/((n + 1)²(n + 2)) なので Var(T₂) = θ²/(n(n + 2))。\nn ≥ 2 では n(n + 2) > 3n なので T₂ の方が分散が小さい（n = 1 では両者は一致）。分散が 1/n² のオーダーで減るのは、台が θ に依存する非正則な場合の特徴。"
+          "question": "$X_1, \\dots, X_n \\sim \\mathrm{U}(0, \\theta)$ で、$\\theta$ の推定量 $T_1 = 2\\bar{X}$ と $T_2 = \\frac{n+1}{n}\\max_i X_i$ の分散を比較せよ。",
+          "solution": "どちらも不偏。$V[T_1] = 4 \\cdot \\dfrac{\\theta^2/12}{n} = \\dfrac{\\theta^2}{3n}$。\n$M = \\max_i X_i$ の密度は $\\dfrac{n m^{n-1}}{\\theta^n}$ で、$E[M] = \\dfrac{n\\theta}{n+1}$、$E[M^2] = \\dfrac{n\\theta^2}{n+2}$。\n$$V[M] = \\frac{n\\theta^2}{(n+1)^2(n+2)}, \\qquad V[T_2] = \\frac{\\theta^2}{n(n+2)}$$\n$n \\ge 2$ では $n(n+2) > 3n$ なので $T_2$ の方が分散が小さい（$n = 1$ では両者は一致）。分散が $\\frac{1}{n^2}$ のオーダーで減るのは、台が $\\theta$ に依存する非正則な場合の特徴。"
         }
       ]
     },
     {
       "id": "est-l2",
       "title": "最尤法",
-      "body": "観測値 x を固定し、同時密度（確率）を θ の関数とみたものを尤度 L(θ) といいます。L(θ) を最大にする θ̂ が最尤推定量（MLE）です。実際には対数尤度 ℓ(θ) = log L(θ) を微分し、尤度方程式 ℓ'(θ) = 0 を解きます。\n\n代表例\n・Ber(p)：p̂ = X̄\n・Po(λ)：λ̂ = X̄\n・Exp(λ)：λ̂ = 1/X̄\n・N(μ, σ²)：μ̂ = X̄, σ̂² = (1/n)Σ(Xᵢ − X̄)²\n・U(0, θ)：θ̂ = max Xᵢ（尤度が微分可能でない例。単調性から求める）\n\n不変性：g(θ) の MLE は g(θ̂)。例えば正規分布の標準偏差の MLE は √σ̂²。\n\nモーメント法は、母集団モーメントを標本モーメントと等置して解く方法です。計算は簡単ですが一般に最尤法より効率が劣ります。",
+      "body": "観測値 $x$ を固定し、同時密度（確率）を $\\theta$ の関数とみたものを尤度 $L(\\theta)$ といいます。$L(\\theta)$ を最大にする $\\hat{\\theta}$ が最尤推定量（MLE）です。実際には対数尤度 $\\ell(\\theta) = \\log L(\\theta)$ を微分し、尤度方程式 $\\ell'(\\theta) = 0$ を解きます。\n\n代表例\n・$\\mathrm{Ber}(p)$：$\\hat{p} = \\bar{X}$\n・$\\mathrm{Po}(\\lambda)$：$\\hat{\\lambda} = \\bar{X}$\n・$\\mathrm{Exp}(\\lambda)$：$\\hat{\\lambda} = \\dfrac{1}{\\bar{X}}$\n・$\\mathrm{N}(\\mu, \\sigma^2)$：$\\hat{\\mu} = \\bar{X},\\ \\hat{\\sigma}^2 = \\dfrac{1}{n}\\sum_i (X_i - \\bar{X})^2$\n・$\\mathrm{U}(0, \\theta)$：$\\hat{\\theta} = \\max_i X_i$（尤度が微分可能でない例。単調性から求める）\n\n不変性：$g(\\theta)$ の MLE は $g(\\hat{\\theta})$。例えば正規分布の標準偏差の MLE は $\\sqrt{\\hat{\\sigma}^2}$。\n\nモーメント法は、母集団モーメントを標本モーメントと等置して解く方法です。計算は簡単ですが一般に最尤法より効率が劣ります。",
       "theorems": [
         {
           "title": "正規分布の最尤推定量",
-          "statement": "X₁, …, Xₙ ~ N(μ, σ²) のとき、μ̂ = X̄, σ̂² = (1/n)Σ(Xᵢ − X̄)²。",
-          "proof": "ℓ(μ, σ²) = −(n/2) log(2πσ²) − Σ(Xᵢ − μ)²/(2σ²)。\n∂ℓ/∂μ = Σ(Xᵢ − μ)/σ² = 0 より μ̂ = X̄。\n∂ℓ/∂σ² = −n/(2σ²) + Σ(Xᵢ − μ)²/(2σ⁴) = 0 に μ = X̄ を代入して σ̂² = Σ(Xᵢ − X̄)²/n。\nμ については任意の σ² で Σ(Xᵢ − μ)² を最小にするのが X̄ であり、σ² についてはプロファイル尤度 −(n/2) log σ² − nσ̂²/(2σ²) が σ² = σ̂² で最大になるので、これは最大点である。"
+          "statement": "$X_1, \\dots, X_n \\sim \\mathrm{N}(\\mu, \\sigma^2)$ のとき、$\\hat{\\mu} = \\bar{X},\\ \\hat{\\sigma}^2 = \\dfrac{1}{n}\\sum_i (X_i - \\bar{X})^2$。",
+          "proof": "$$\\ell(\\mu, \\sigma^2) = -\\frac{n}{2}\\log(2\\pi\\sigma^2) - \\frac{1}{2\\sigma^2}\\sum_i (X_i - \\mu)^2$$\n$\\dfrac{\\partial \\ell}{\\partial \\mu} = \\dfrac{1}{\\sigma^2}\\sum_i (X_i - \\mu) = 0$ より $\\hat{\\mu} = \\bar{X}$。\n$\\dfrac{\\partial \\ell}{\\partial \\sigma^2} = -\\dfrac{n}{2\\sigma^2} + \\dfrac{1}{2\\sigma^4}\\sum_i (X_i - \\mu)^2 = 0$ に $\\mu = \\bar{X}$ を代入して $\\hat{\\sigma}^2 = \\dfrac{1}{n}\\sum_i (X_i - \\bar{X})^2$。\n$\\mu$ については任意の $\\sigma^2$ で $\\sum_i (X_i - \\mu)^2$ を最小にするのが $\\bar{X}$ であり、$\\sigma^2$ についてはプロファイル尤度 $-\\frac{n}{2}\\log\\sigma^2 - \\frac{n\\hat{\\sigma}^2}{2\\sigma^2}$ が $\\sigma^2 = \\hat{\\sigma}^2$ で最大になるので、これは最大点である。"
         },
         {
-          "title": "一様分布 U(0, θ) の最尤推定量",
-          "statement": "X₁, …, Xₙ ~ U(0, θ) のとき θ̂ = max Xᵢ。",
-          "proof": "L(θ) = Π (1/θ)·1{0 ≤ Xᵢ ≤ θ} = θ^(−n)·1{θ ≥ max Xᵢ}。\nθ < max Xᵢ では L = 0、θ ≥ max Xᵢ では θ^(−n) は θ の減少関数。よって最大点は θ = max Xᵢ。"
+          "title": "一様分布の最尤推定量",
+          "statement": "$X_1, \\dots, X_n \\sim \\mathrm{U}(0, \\theta)$ のとき $\\hat{\\theta} = \\max_i X_i$。",
+          "proof": "$$L(\\theta) = \\prod_i \\frac{1}{\\theta}\\,1\\{0 \\le X_i \\le \\theta\\} = \\theta^{-n}\\,1\\{\\theta \\ge \\max_i X_i\\}$$\n$\\theta < \\max_i X_i$ では $L = 0$、$\\theta \\ge \\max_i X_i$ では $\\theta^{-n}$ は $\\theta$ の減少関数。よって最大点は $\\theta = \\max_i X_i$。"
         }
       ],
       "examples": [
         {
-          "question": "X₁, …, Xₙ が密度 f(x; θ) = θx^(θ−1)（0 < x < 1, θ > 0）に従う。θ の MLE を求めよ。",
-          "solution": "ℓ(θ) = n log θ + (θ − 1)Σ log Xᵢ。\nℓ'(θ) = n/θ + Σ log Xᵢ = 0 より θ̂ = −n/Σ log Xᵢ。\nℓ''(θ) = −n/θ² < 0 なので最大。"
+          "question": "$X_1, \\dots, X_n$ が密度 $f(x; \\theta) = \\theta x^{\\theta - 1}\\ (0 < x < 1,\\ \\theta > 0)$ に従う。$\\theta$ の MLE を求めよ。",
+          "solution": "$$\\ell(\\theta) = n\\log\\theta + (\\theta - 1)\\sum_i \\log X_i, \\qquad \\ell'(\\theta) = \\frac{n}{\\theta} + \\sum_i \\log X_i = 0$$\nより $\\hat{\\theta} = -\\dfrac{n}{\\sum_i \\log X_i}$。$\\ell''(\\theta) = -\\frac{n}{\\theta^2} < 0$ なので最大。"
         }
       ]
     },
     {
       "id": "est-l3",
       "title": "フィッシャー情報量とクラメール・ラオの不等式",
-      "body": "スコア関数を S(θ) = ∂/∂θ log f(X; θ) と定義します。フィッシャー情報量は\n  I(θ) = E[S(θ)²] = −E[∂²/∂θ² log f(X; θ)]\nで、データが θ についてもつ情報の量を表します。独立な n 個の観測では nI(θ) です。\n\nクラメール・ラオの不等式：正則条件（台が θ に依存しない、微分と積分の交換が可能など）のもとで、θ の任意の不偏推定量 T について\n  Var(T) ≥ 1/(nI(θ))\nが成り立ちます。下限を達成する不偏推定量を有効推定量といいます。\n\n代表的な情報量（1 観測あたり）\n・Ber(p)：1/(p(1 − p))\n・Po(λ)：1/λ\n・N(μ, σ²) の μ：1/σ²\n・Exp(λ)：1/λ²\n\nU(0, θ) のように台が θ に依存する場合は正則条件が成り立たず、下限より小さい分散の推定量が存在し得ます。",
+      "body": "スコア関数を $S(\\theta) = \\dfrac{\\partial}{\\partial\\theta}\\log f(X; \\theta)$ と定義します。フィッシャー情報量は\n$$I(\\theta) = E\\left[S(\\theta)^2\\right] = -E\\left[\\frac{\\partial^2}{\\partial\\theta^2}\\log f(X; \\theta)\\right]$$\nで、データが $\\theta$ についてもつ情報の量を表します。独立な $n$ 個の観測では $nI(\\theta)$ です。\n\nクラメール・ラオの不等式：正則条件（台が $\\theta$ に依存しない、微分と積分の交換が可能など）のもとで、$\\theta$ の任意の不偏推定量 $T$ について\n$$V[T] \\ge \\frac{1}{nI(\\theta)}$$\nが成り立ちます。下限を達成する不偏推定量を有効推定量といいます。\n\n代表的な情報量（1 観測あたり）\n$$\\mathrm{Ber}(p):\\ \\frac{1}{p(1-p)}, \\qquad \\mathrm{Po}(\\lambda):\\ \\frac{1}{\\lambda}, \\qquad \\mathrm{N}(\\mu, \\sigma^2) \\text{ の } \\mu:\\ \\frac{1}{\\sigma^2}, \\qquad \\mathrm{Exp}(\\lambda):\\ \\frac{1}{\\lambda^2}$$\n\n$\\mathrm{U}(0, \\theta)$ のように台が $\\theta$ に依存する場合は正則条件が成り立たず、下限より小さい分散の推定量が存在し得ます。",
       "theorems": [
         {
           "title": "スコアの期待値は 0",
-          "statement": "正則条件のもとで E[S(θ)] = 0。",
-          "proof": "∫ f(x; θ) dx = 1 の両辺を θ で微分し、微分と積分を交換すると ∫ ∂f/∂θ dx = 0。\n∂f/∂θ = (∂ log f/∂θ) f なので、これは E[S(θ)] = 0 を意味する。"
+          "statement": "正則条件のもとで $E[S(\\theta)] = 0$。",
+          "proof": "$\\int f(x; \\theta)\\,dx = 1$ の両辺を $\\theta$ で微分し、微分と積分を交換すると $\\int \\frac{\\partial f}{\\partial\\theta}\\,dx = 0$。\n$\\frac{\\partial f}{\\partial\\theta} = \\frac{\\partial \\log f}{\\partial\\theta} f$ なので、これは $E[S(\\theta)] = 0$ を意味する。"
         },
         {
           "title": "情報量の 2 通りの表現",
-          "statement": "I(θ) = E[S(θ)²] = −E[∂²/∂θ² log f(X; θ)]",
-          "proof": "∫ (∂ log f/∂θ) f dx = 0 をもう一度 θ で微分すると\n∫ (∂² log f/∂θ²) f dx + ∫ (∂ log f/∂θ)(∂f/∂θ) dx = 0。\n第 2 項は ∫ (∂ log f/∂θ)² f dx = E[S²]。よって E[S²] = −E[∂² log f/∂θ²]。"
+          "statement": "$$I(\\theta) = E\\left[S(\\theta)^2\\right] = -E\\left[\\frac{\\partial^2}{\\partial\\theta^2}\\log f(X; \\theta)\\right]$$",
+          "proof": "$\\int \\frac{\\partial \\log f}{\\partial\\theta} f\\,dx = 0$ をもう一度 $\\theta$ で微分すると\n$$\\int \\frac{\\partial^2 \\log f}{\\partial\\theta^2} f\\,dx + \\int \\frac{\\partial \\log f}{\\partial\\theta}\\frac{\\partial f}{\\partial\\theta}\\,dx = 0$$\n第 2 項は $\\int \\left(\\frac{\\partial \\log f}{\\partial\\theta}\\right)^2 f\\,dx = E[S^2]$。よって $E[S^2] = -E\\left[\\frac{\\partial^2 \\log f}{\\partial\\theta^2}\\right]$。"
         },
         {
           "title": "クラメール・ラオの不等式",
-          "statement": "T が θ の不偏推定量なら Var(T) ≥ 1/(nI(θ))。",
-          "proof": "n 個の観測の同時密度を f_n、スコアを Sₙ = ∂ log f_n/∂θ とすると、独立性より Var(Sₙ) = nI(θ)、E[Sₙ] = 0。\nE[T] = ∫ T f_n dx = θ を θ で微分すると ∫ T (∂ log f_n/∂θ) f_n dx = 1、すなわち E[T Sₙ] = 1。E[Sₙ] = 0 なので Cov(T, Sₙ) = 1。\nコーシー・シュワルツの不等式より 1 = Cov(T, Sₙ)² ≤ Var(T)Var(Sₙ) = Var(T)·nI(θ)。"
+          "statement": "$T$ が $\\theta$ の不偏推定量なら $V[T] \\ge \\dfrac{1}{nI(\\theta)}$。",
+          "proof": "$n$ 個の観測の同時密度を $f_n$、スコアを $S_n = \\frac{\\partial \\log f_n}{\\partial\\theta}$ とすると、独立性より $V[S_n] = nI(\\theta)$、$E[S_n] = 0$。\n$E[T] = \\int T f_n\\,dx = \\theta$ を $\\theta$ で微分すると $\\int T \\frac{\\partial \\log f_n}{\\partial\\theta} f_n\\,dx = 1$、すなわち $E[T S_n] = 1$。$E[S_n] = 0$ なので $\\mathrm{Cov}[T, S_n] = 1$。\nコーシー・シュワルツの不等式より\n$$1 = \\mathrm{Cov}[T, S_n]^2 \\le V[T]\\,V[S_n] = V[T] \\cdot nI(\\theta)$$"
         }
       ],
       "examples": [
         {
-          "question": "X₁, …, Xₙ ~ Po(λ) で、X̄ が λ の有効推定量であることを示せ。",
-          "solution": "log f = x log λ − λ − log x!、∂²/∂λ² log f = −x/λ²。\nI(λ) = E[X]/λ² = 1/λ。下限は λ/n。\nVar(X̄) = λ/n で、X̄ は不偏なので下限を達成しており有効推定量である。"
+          "question": "$X_1, \\dots, X_n \\sim \\mathrm{Po}(\\lambda)$ で、$\\bar{X}$ が $\\lambda$ の有効推定量であることを示せ。",
+          "solution": "$\\log f = x\\log\\lambda - \\lambda - \\log x!$、$\\dfrac{\\partial^2}{\\partial\\lambda^2}\\log f = -\\dfrac{x}{\\lambda^2}$。\n$I(\\lambda) = \\dfrac{E[X]}{\\lambda^2} = \\dfrac{1}{\\lambda}$ なので下限は $\\dfrac{\\lambda}{n}$。\n$V[\\bar{X}] = \\dfrac{\\lambda}{n}$ で、$\\bar{X}$ は不偏なので下限を達成しており有効推定量である。"
         }
       ]
     },
     {
       "id": "est-l4",
       "title": "十分統計量とラオ・ブラックウェルの定理",
-      "body": "統計量 T(X) を与えたときの X の条件付き分布が θ に依存しないとき、T は十分統計量といいます。T を知れば、θ の推測に関して元のデータ以上の情報は残っていません。\n\nフィッシャー・ネイマンの分解定理：T が十分であることは、同時密度が\n  f(x; θ) = g(T(x); θ) h(x)\nと分解できることと同値です。\n\n例：\n・Ber(p), Po(λ)：ΣXᵢ\n・N(μ, σ²)：(ΣXᵢ, ΣXᵢ²)\n・U(0, θ)：max Xᵢ\n\nラオ・ブラックウェルの定理：任意の不偏推定量 θ̃ を十分統計量 T で条件付けた E[θ̃ | T] は不偏で、分散は θ̃ 以下になります。さらに T が完備なら、これが一様最小分散不偏推定量（UMVUE）になります（レーマン・シェフェの定理）。",
+      "body": "統計量 $T(X)$ を与えたときの $X$ の条件付き分布が $\\theta$ に依存しないとき、$T$ は十分統計量といいます。$T$ を知れば、$\\theta$ の推測に関して元のデータ以上の情報は残っていません。\n\nフィッシャー・ネイマンの分解定理：$T$ が十分であることは、同時密度が\n$$f(x; \\theta) = g(T(x); \\theta)\\,h(x)$$\nと分解できることと同値です。\n\n例：$\\mathrm{Ber}(p),\\ \\mathrm{Po}(\\lambda)$ では $\\sum_i X_i$、$\\mathrm{N}(\\mu, \\sigma^2)$ では $\\left(\\sum_i X_i, \\sum_i X_i^2\\right)$、$\\mathrm{U}(0, \\theta)$ では $\\max_i X_i$。\n\nラオ・ブラックウェルの定理：任意の不偏推定量 $\\tilde{\\theta}$ を十分統計量 $T$ で条件付けた $E[\\tilde{\\theta} \\mid T]$ は不偏で、分散は $\\tilde{\\theta}$ 以下になります。さらに $T$ が完備なら、これが一様最小分散不偏推定量（UMVUE）になります（レーマン・シェフェの定理）。",
       "theorems": [
         {
           "title": "分解定理（離散の場合）",
-          "statement": "T が十分統計量 ⇔ f(x; θ) = g(T(x); θ) h(x) と分解できる。",
-          "proof": "(⇐) T(x) = t となる x について\nP(X = x | T = t) = f(x; θ)/Σ_{y: T(y)=t} f(y; θ) = g(t; θ)h(x)/(g(t; θ)Σ h(y)) = h(x)/Σ_{y: T(y)=t} h(y)\nとなり θ によらない。\n(⇒) T が十分なら P(X = x | T = t) = k(x) は θ によらない。f(x; θ) = P(T = T(x); θ)·k(x) なので g(t; θ) = P(T = t; θ), h = k とおけばよい。"
+          "statement": "$T$ が十分統計量 $\\iff$ $f(x; \\theta) = g(T(x); \\theta)\\,h(x)$ と分解できる。",
+          "proof": "（十分性）$T(x) = t$ となる $x$ について\n$$P(X = x \\mid T = t) = \\frac{f(x; \\theta)}{\\sum_{y: T(y) = t} f(y; \\theta)} = \\frac{g(t; \\theta)h(x)}{g(t; \\theta)\\sum_{y: T(y) = t} h(y)} = \\frac{h(x)}{\\sum_{y: T(y) = t} h(y)}$$\nとなり $\\theta$ によらない。\n（必要性）$T$ が十分なら $P(X = x \\mid T = t) = k(x)$ は $\\theta$ によらない。$f(x; \\theta) = P(T = T(x); \\theta) \\cdot k(x)$ なので $g(t; \\theta) = P(T = t; \\theta),\\ h = k$ とおけばよい。"
         },
         {
           "title": "ラオ・ブラックウェルの定理",
-          "statement": "θ̃ を θ の不偏推定量、T を十分統計量とし、θ* = E[θ̃ | T] とおく。θ* は推定量（θ に依存しない）で不偏であり、Var(θ*) ≤ Var(θ̃)。",
-          "proof": "T が十分なので、T を与えた θ̃ の条件付き分布は θ によらず、θ* はデータだけから計算できる。\nタワー則より E[θ*] = E[θ̃] = θ で不偏。\n全分散の公式より Var(θ̃) = E[Var(θ̃ | T)] + Var(E[θ̃ | T]) ≥ Var(θ*)。"
+          "statement": "$\\tilde{\\theta}$ を $\\theta$ の不偏推定量、$T$ を十分統計量とし、$\\theta^* = E[\\tilde{\\theta} \\mid T]$ とおく。$\\theta^*$ は推定量（$\\theta$ に依存しない）で不偏であり、$V[\\theta^*] \\le V[\\tilde{\\theta}]$。",
+          "proof": "$T$ が十分なので、$T$ を与えた $\\tilde{\\theta}$ の条件付き分布は $\\theta$ によらず、$\\theta^*$ はデータだけから計算できる。\nタワー則より $E[\\theta^*] = E[\\tilde{\\theta}] = \\theta$ で不偏。\n全分散の公式より\n$$V[\\tilde{\\theta}] = E\\big[V[\\tilde{\\theta} \\mid T]\\big] + V\\big[E[\\tilde{\\theta} \\mid T]\\big] \\ge V[\\theta^*]$$"
         }
       ],
       "examples": [
         {
-          "question": "X₁, …, Xₙ ~ Po(λ) で、e^(−λ) = P(X = 0) の不偏推定量 1{X₁ = 0} を T = ΣXᵢ で改良せよ。",
-          "solution": "T = t のとき X₁ は Bin(t, 1/n) に従う（ポアソン分布の条件付き分布）。\nE[1{X₁ = 0} | T = t] = (1 − 1/n)^t。\nよって改良した推定量は (1 − 1/n)^T。T は完備十分統計量なので、これが UMVUE である。"
+          "question": "$X_1, \\dots, X_n \\sim \\mathrm{Po}(\\lambda)$ で、$e^{-\\lambda} = P(X = 0)$ の不偏推定量 $1\\{X_1 = 0\\}$ を $T = \\sum_i X_i$ で改良せよ。",
+          "solution": "$T = t$ のとき $X_1$ は $\\mathrm{Bin}\\left(t, \\frac{1}{n}\\right)$ に従う（ポアソン分布の条件付き分布）。\n$$E\\left[1\\{X_1 = 0\\} \\mid T = t\\right] = \\left(1 - \\frac{1}{n}\\right)^t$$\nよって改良した推定量は $\\left(1 - \\frac{1}{n}\\right)^T$。$T$ は完備十分統計量なので、これが UMVUE である。"
         }
       ]
     },
     {
       "id": "est-l5",
       "title": "最尤推定量の漸近理論とデルタ法",
-      "body": "正則条件のもとで、最尤推定量は次の漸近的性質をもちます。\n・一致性：θ̂ₙ → θ\n・漸近正規性：√n(θ̂ₙ − θ) →d N(0, 1/I(θ))\n・漸近有効性：漸近分散がクラメール・ラオの下限に一致する\n\n実際には I(θ) を I(θ̂) や観測情報量 −ℓ''(θ̂)/n で置き換えて標準誤差を求めます。\n\nデルタ法：√n(Tₙ − θ) →d N(0, σ²) で g が θ で微分可能（g'(θ) ≠ 0）なら\n  √n(g(Tₙ) − g(θ)) →d N(0, g'(θ)²σ²)\nオッズ・対数オッズ・比率の変換などの標準誤差の計算に使います。\n\n分散安定化変換：Var が平均に依存するとき、g'(θ) ∝ 1/σ(θ) となる g を選ぶと漸近分散が一定になります（ポアソン：√x、二項比率：arcsin√p、相関係数：フィッシャーの z 変換）。",
+      "body": "正則条件のもとで、最尤推定量は次の漸近的性質をもちます。\n・一致性：$\\hat{\\theta}_n \\xrightarrow{p} \\theta$\n・漸近正規性：$\\sqrt{n}(\\hat{\\theta}_n - \\theta) \\xrightarrow{d} \\mathrm{N}\\left(0, \\dfrac{1}{I(\\theta)}\\right)$\n・漸近有効性：漸近分散がクラメール・ラオの下限に一致する\n\n実際には $I(\\theta)$ を $I(\\hat{\\theta})$ や観測情報量 $-\\frac{1}{n}\\ell''(\\hat{\\theta})$ で置き換えて標準誤差を求めます。\n\nデルタ法：$\\sqrt{n}(T_n - \\theta) \\xrightarrow{d} \\mathrm{N}(0, \\sigma^2)$ で $g$ が $\\theta$ で微分可能（$g'(\\theta) \\neq 0$）なら\n$$\\sqrt{n}\\left(g(T_n) - g(\\theta)\\right) \\xrightarrow{d} \\mathrm{N}\\left(0,\\ g'(\\theta)^2\\sigma^2\\right)$$\nオッズ・対数オッズ・比率の変換などの標準誤差の計算に使います。\n\n分散安定化変換：分散が平均に依存するとき、$g'(\\theta) \\propto \\frac{1}{\\sigma(\\theta)}$ となる $g$ を選ぶと漸近分散が一定になります（ポアソン：$\\sqrt{x}$、二項比率：$\\arcsin\\sqrt{p}$、相関係数：フィッシャーの $z$ 変換）。",
       "theorems": [
         {
           "title": "最尤推定量の漸近正規性（略証）",
-          "statement": "正則条件のもとで √n(θ̂ₙ − θ₀) →d N(0, 1/I(θ₀))。",
-          "proof": "尤度方程式 ℓ'(θ̂) = 0 を θ₀ のまわりでテイラー展開すると\n0 = ℓ'(θ₀) + ℓ''(θ*)(θ̂ − θ₀)（θ* は θ̂ と θ₀ の間）。\nよって √n(θ̂ − θ₀) = [ℓ'(θ₀)/√n] / [−ℓ''(θ*)/n]。\n分子はスコアの和を √n で割ったもので、スコアの平均 0・分散 I(θ₀) と中心極限定理より N(0, I(θ₀)) に分布収束する。\n分母は一致性と大数の法則により I(θ₀) に確率収束する。\nスルツキーの定理より全体は N(0, I(θ₀)/I(θ₀)²) = N(0, 1/I(θ₀)) に分布収束する。"
+          "statement": "正則条件のもとで $\\sqrt{n}(\\hat{\\theta}_n - \\theta_0) \\xrightarrow{d} \\mathrm{N}\\left(0, \\dfrac{1}{I(\\theta_0)}\\right)$。",
+          "proof": "尤度方程式 $\\ell'(\\hat{\\theta}) = 0$ を $\\theta_0$ のまわりでテイラー展開すると\n$$0 = \\ell'(\\theta_0) + \\ell''(\\theta^*)(\\hat{\\theta} - \\theta_0) \\quad (\\theta^* \\text{ は } \\hat{\\theta} \\text{ と } \\theta_0 \\text{ の間})$$\nよって\n$$\\sqrt{n}(\\hat{\\theta} - \\theta_0) = \\frac{\\ell'(\\theta_0)/\\sqrt{n}}{-\\ell''(\\theta^*)/n}$$\n分子はスコアの和を $\\sqrt{n}$ で割ったもので、スコアの平均 0・分散 $I(\\theta_0)$ と中心極限定理より $\\mathrm{N}(0, I(\\theta_0))$ に分布収束する。\n分母は一致性と大数の法則により $I(\\theta_0)$ に確率収束する。\nスルツキーの定理より全体は $\\mathrm{N}\\left(0, \\frac{I(\\theta_0)}{I(\\theta_0)^2}\\right) = \\mathrm{N}\\left(0, \\frac{1}{I(\\theta_0)}\\right)$ に分布収束する。"
         },
         {
           "title": "デルタ法",
-          "statement": "√n(Tₙ − θ) →d N(0, σ²)、g が θ で微分可能なら √n(g(Tₙ) − g(θ)) →d N(0, g'(θ)²σ²)。",
-          "proof": "平均値の定理より g(Tₙ) − g(θ) = g'(θ̃ₙ)(Tₙ − θ)（θ̃ₙ は Tₙ と θ の間）。\nTₙ → θ（確率収束）なので θ̃ₙ → θ、g' の連続性（一般には微分可能性だけで足りる）から g'(θ̃ₙ) → g'(θ)。\nスルツキーの定理より √n(g(Tₙ) − g(θ)) = g'(θ̃ₙ)·√n(Tₙ − θ) →d g'(θ)·N(0, σ²)。"
+          "statement": "$\\sqrt{n}(T_n - \\theta) \\xrightarrow{d} \\mathrm{N}(0, \\sigma^2)$、$g$ が $\\theta$ で微分可能なら $\\sqrt{n}\\left(g(T_n) - g(\\theta)\\right) \\xrightarrow{d} \\mathrm{N}\\left(0, g'(\\theta)^2\\sigma^2\\right)$。",
+          "proof": "平均値の定理より $g(T_n) - g(\\theta) = g'(\\tilde{\\theta}_n)(T_n - \\theta)$（$\\tilde{\\theta}_n$ は $T_n$ と $\\theta$ の間）。\n$T_n \\xrightarrow{p} \\theta$ なので $\\tilde{\\theta}_n \\xrightarrow{p} \\theta$、$g'$ の連続性（一般には微分可能性だけで足りる）から $g'(\\tilde{\\theta}_n) \\xrightarrow{p} g'(\\theta)$。\nスルツキーの定理より\n$$\\sqrt{n}\\left(g(T_n) - g(\\theta)\\right) = g'(\\tilde{\\theta}_n) \\cdot \\sqrt{n}(T_n - \\theta) \\xrightarrow{d} g'(\\theta) \\cdot \\mathrm{N}(0, \\sigma^2)$$"
         }
       ],
       "examples": [
         {
-          "question": "X₁, …, Xₙ ~ Ber(p)。対数オッズ log(p̂/(1 − p̂)) の漸近分散を求めよ。",
-          "solution": "√n(p̂ − p) →d N(0, p(1 − p))。g(p) = log(p/(1 − p)) の微分は g'(p) = 1/(p(1 − p))。\n漸近分散は p(1 − p)/(p(1 − p))² / n = 1/(np(1 − p))。"
+          "question": "$X_1, \\dots, X_n \\sim \\mathrm{Ber}(p)$。対数オッズ $\\log\\dfrac{\\hat{p}}{1 - \\hat{p}}$ の漸近分散を求めよ。",
+          "solution": "$\\sqrt{n}(\\hat{p} - p) \\xrightarrow{d} \\mathrm{N}(0, p(1-p))$。$g(p) = \\log\\frac{p}{1-p}$ の微分は $g'(p) = \\frac{1}{p(1-p)}$。\n漸近分散は\n$$\\frac{1}{n} \\cdot \\frac{p(1-p)}{\\{p(1-p)\\}^2} = \\frac{1}{np(1-p)}$$"
         }
       ]
     },
     {
       "id": "est-l6",
       "title": "区間推定",
-      "body": "区間推定では、θ に依存するが分布が θ によらない量（枢軸量）を使います。\n\n正規母集団 N(μ, σ²) での代表的な 100(1 − α)% 信頼区間\n・μ（σ 既知）：X̄ ± z_(α/2) σ/√n\n・μ（σ 未知）：X̄ ± t_(α/2)(n − 1) s/√n\n・σ²：[(n − 1)s²/χ²_(α/2)(n − 1), (n − 1)s²/χ²_(1−α/2)(n − 1)]（χ²_a は上側 a 点）\n・2 標本の平均差（等分散）：X̄ − Ȳ ± t_(α/2)(m + n − 2) s_p √(1/m + 1/n)\n\n大標本では MLE の漸近正規性から θ̂ ± z_(α/2)·SE(θ̂)（ワルド型区間）が使えます。比率では p̂ ± z_(α/2)√(p̂(1 − p̂)/n)。\n\n解釈の注意：頻度論では θ は定数で区間が確率変数です。「同じ手続きを繰り返すと区間の 100(1 − α)% が θ を含む」という意味であり、「得られた区間に θ が入る確率」ではありません。",
+      "body": "区間推定では、$\\theta$ に依存するが分布が $\\theta$ によらない量（枢軸量）を使います。\n\n正規母集団 $\\mathrm{N}(\\mu, \\sigma^2)$ での代表的な $100(1 - \\alpha)\\%$ 信頼区間（$\\chi^2_a$ は上側 $a$ 点）\n・$\\mu$（$\\sigma$ 既知）：$\\bar{X} \\pm z_{\\alpha/2}\\dfrac{\\sigma}{\\sqrt{n}}$\n・$\\mu$（$\\sigma$ 未知）：$\\bar{X} \\pm t_{\\alpha/2}(n-1)\\dfrac{s}{\\sqrt{n}}$\n・$\\sigma^2$：$\\left[\\dfrac{(n-1)s^2}{\\chi^2_{\\alpha/2}(n-1)},\\ \\dfrac{(n-1)s^2}{\\chi^2_{1-\\alpha/2}(n-1)}\\right]$\n・2 標本の平均差（等分散）：$\\bar{X} - \\bar{Y} \\pm t_{\\alpha/2}(m + n - 2)\\, s_p\\sqrt{\\dfrac{1}{m} + \\dfrac{1}{n}}$\n\n大標本では MLE の漸近正規性から $\\hat{\\theta} \\pm z_{\\alpha/2}\\,\\mathrm{SE}(\\hat{\\theta})$（ワルド型区間）が使えます。比率では $\\hat{p} \\pm z_{\\alpha/2}\\sqrt{\\dfrac{\\hat{p}(1 - \\hat{p})}{n}}$。\n\n解釈の注意：頻度論では $\\theta$ は定数で区間が確率変数です。「同じ手続きを繰り返すと区間の $100(1 - \\alpha)\\%$ が $\\theta$ を含む」という意味であり、「得られた区間に $\\theta$ が入る確率」ではありません。",
       "theorems": [
         {
           "title": "分散の信頼区間",
-          "statement": "正規母集団で [(n − 1)s²/χ²_(α/2)(n − 1), (n − 1)s²/χ²_(1−α/2)(n − 1)] は σ² の 100(1 − α)% 信頼区間である。",
-          "proof": "V = (n − 1)s²/σ² ~ χ²(n − 1) は σ² によらない分布をもつ枢軸量である。\nP(χ²_(1−α/2) ≤ V ≤ χ²_(α/2)) = 1 − α。\n不等式 χ²_(1−α/2) ≤ (n − 1)s²/σ² ≤ χ²_(α/2) を σ² について解くと主張の区間になる。"
+          "statement": "正規母集団で $\\left[\\dfrac{(n-1)s^2}{\\chi^2_{\\alpha/2}(n-1)},\\ \\dfrac{(n-1)s^2}{\\chi^2_{1-\\alpha/2}(n-1)}\\right]$ は $\\sigma^2$ の $100(1 - \\alpha)\\%$ 信頼区間である。",
+          "proof": "$V = \\dfrac{(n-1)s^2}{\\sigma^2} \\sim \\chi^2(n-1)$ は $\\sigma^2$ によらない分布をもつ枢軸量である。\n$$P\\left(\\chi^2_{1-\\alpha/2} \\le V \\le \\chi^2_{\\alpha/2}\\right) = 1 - \\alpha$$\n不等式 $\\chi^2_{1-\\alpha/2} \\le \\dfrac{(n-1)s^2}{\\sigma^2} \\le \\chi^2_{\\alpha/2}$ を $\\sigma^2$ について解くと主張の区間になる。"
         }
       ],
       "examples": [
         {
-          "question": "n = 16 の正規標本で X̄ = 50, s = 8 のとき、μ の 95% 信頼区間を求めよ（t₀.₀₂₅(15) = 2.131）。",
-          "solution": "標準誤差 s/√n = 8/4 = 2。\n50 ± 2.131 × 2 = 50 ± 4.262、すなわち [45.74, 54.26]。"
+          "question": "$n = 16$ の正規標本で $\\bar{X} = 50,\\ s = 8$ のとき、$\\mu$ の 95% 信頼区間を求めよ（$t_{0.025}(15) = 2.131$）。",
+          "solution": "標準誤差 $\\frac{s}{\\sqrt{n}} = \\frac{8}{4} = 2$。\n$$50 \\pm 2.131 \\times 2 = 50 \\pm 4.262, \\quad \\text{すなわち } [45.74,\\ 54.26]$$"
         }
       ]
+    }
+  ],
+  "formulas": [
+    {
+      "title": "フィッシャー情報量",
+      "body": "$I(\\theta) = E\\left[\\left(\\dfrac{\\partial}{\\partial\\theta}\\log f\\right)^2\\right] = -E\\left[\\dfrac{\\partial^2}{\\partial\\theta^2}\\log f\\right]$\nクラメール・ラオ下限：$V[\\hat{\\theta}] \\ge \\dfrac{1}{nI(\\theta)}$"
+    },
+    {
+      "title": "代表的な MLE",
+      "body": "$\\mathrm{N}(\\mu, \\sigma^2)$：$\\hat{\\mu} = \\bar{X},\\ \\hat{\\sigma}^2 = \\frac{1}{n}\\sum_i (X_i - \\bar{X})^2$\n$\\mathrm{Po}(\\lambda)$：$\\hat{\\lambda} = \\bar{X}$、$\\mathrm{Exp}(\\lambda)$：$\\hat{\\lambda} = \\frac{1}{\\bar{X}}$、$\\mathrm{U}(0, \\theta)$：$\\hat{\\theta} = \\max_i X_i$"
+    },
+    {
+      "title": "MLE の漸近正規性",
+      "body": "$\\sqrt{n}(\\hat{\\theta} - \\theta) \\xrightarrow{d} \\mathrm{N}\\left(0, \\dfrac{1}{I(\\theta)}\\right)$"
+    },
+    {
+      "title": "デルタ法",
+      "body": "$\\sqrt{n}\\left(g(\\hat{\\theta}) - g(\\theta)\\right) \\xrightarrow{d} \\mathrm{N}\\left(0, \\dfrac{g'(\\theta)^2}{I(\\theta)}\\right)$"
+    },
+    {
+      "title": "MSE",
+      "body": "$\\mathrm{MSE}(\\hat{\\theta}) = V[\\hat{\\theta}] + \\left(E[\\hat{\\theta}] - \\theta\\right)^2$"
+    },
+    {
+      "title": "十分統計量",
+      "body": "分解定理：$f(x; \\theta) = g(T(x); \\theta)\\,h(x)$\nラオ・ブラックウェル：$E[\\tilde{\\theta} \\mid T]$ は分散を改善"
+    },
+    {
+      "title": "区間推定",
+      "body": "平均（$\\sigma$ 未知）：$\\bar{X} \\pm t_{\\alpha/2}(n-1)\\dfrac{s}{\\sqrt{n}}$\n分散：$\\left[\\dfrac{(n-1)s^2}{\\chi^2_{\\alpha/2}(n-1)},\\ \\dfrac{(n-1)s^2}{\\chi^2_{1-\\alpha/2}(n-1)}\\right]$\n比率：$\\hat{p} \\pm z_{\\alpha/2}\\sqrt{\\dfrac{\\hat{p}(1-\\hat{p})}{n}}$"
     }
   ]
 }

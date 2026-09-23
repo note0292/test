@@ -5,165 +5,195 @@
     {
       "id": "prob-l1",
       "title": "期待値と分散の基本性質",
-      "body": "確率変数 X の期待値 E[X] は、離散なら Σ x P(X=x)、連続なら ∫ x f(x) dx で定義されます。期待値は線形です：\n  E[aX + bY + c] = aE[X] + bE[Y] + c\nこれは X と Y が独立でなくても成り立つ点が重要です。\n\n分散は Var(X) = E[(X − E[X])²]、共分散は Cov(X, Y) = E[(X − E[X])(Y − E[Y])] です。相関係数 ρ = Cov(X, Y)/√(Var(X)Var(Y)) は −1 以上 1 以下の値をとります。\n\n分散の計算では次の性質を多用します。\n・Var(aX + b) = a²Var(X)\n・Var(X + Y) = Var(X) + Var(Y) + 2Cov(X, Y)\n・X, Y が独立なら Cov(X, Y) = 0（逆は一般に成り立たない）",
+      "body": "確率変数 $X$ の期待値 $E[X]$ は、離散なら $\\sum_x x\\,P(X = x)$、連続なら $\\int x f(x)\\,dx$ で定義されます。期待値は線形です：\n$$E[aX + bY + c] = aE[X] + bE[Y] + c$$\nこれは $X$ と $Y$ が独立でなくても成り立つ点が重要です。\n\n分散・共分散・相関係数は\n$$V[X] = E\\left[(X - E[X])^2\\right], \\qquad \\mathrm{Cov}[X, Y] = E\\left[(X - E[X])(Y - E[Y])\\right], \\qquad \\rho = \\frac{\\mathrm{Cov}[X, Y]}{\\sqrt{V[X]\\,V[Y]}}$$\nで、相関係数は $-1 \\le \\rho \\le 1$ を満たします。\n\n分散の計算では次の性質を多用します。\n$$V[aX + b] = a^2 V[X], \\qquad V[X + Y] = V[X] + V[Y] + 2\\,\\mathrm{Cov}[X, Y]$$\n$X, Y$ が独立なら $\\mathrm{Cov}[X, Y] = 0$（逆は一般に成り立たない）。",
       "theorems": [
         {
           "title": "分散の計算公式",
-          "statement": "Var(X) = E[X²] − (E[X])²",
-          "proof": "μ = E[X] とおく。(X − μ)² = X² − 2μX + μ² を展開し、期待値の線形性を使うと\nVar(X) = E[X²] − 2μE[X] + μ² = E[X²] − 2μ² + μ² = E[X²] − μ²。"
+          "statement": "$$V[X] = E[X^2] - (E[X])^2$$",
+          "proof": "$\\mu = E[X]$ とおく。$(X - \\mu)^2 = X^2 - 2\\mu X + \\mu^2$ を展開し、期待値の線形性を使うと\n$$V[X] = E[X^2] - 2\\mu E[X] + \\mu^2 = E[X^2] - 2\\mu^2 + \\mu^2 = E[X^2] - \\mu^2$$"
         },
         {
           "title": "和の分散",
-          "statement": "Var(X + Y) = Var(X) + Var(Y) + 2Cov(X, Y)。特に X, Y が独立なら Var(X + Y) = Var(X) + Var(Y)。",
-          "proof": "μX = E[X], μY = E[Y] とすると\n(X + Y − μX − μY)² = (X − μX)² + (Y − μY)² + 2(X − μX)(Y − μY)。\n両辺の期待値をとれば前半が従う。\nX, Y が独立なら E[XY] = E[X]E[Y] なので Cov(X, Y) = E[XY] − E[X]E[Y] = 0 となり、後半が従う。"
+          "statement": "$V[X + Y] = V[X] + V[Y] + 2\\,\\mathrm{Cov}[X, Y]$。特に $X, Y$ が独立なら $V[X + Y] = V[X] + V[Y]$。",
+          "proof": "$\\mu_X = E[X],\\ \\mu_Y = E[Y]$ とすると\n$$(X + Y - \\mu_X - \\mu_Y)^2 = (X - \\mu_X)^2 + (Y - \\mu_Y)^2 + 2(X - \\mu_X)(Y - \\mu_Y)$$\n両辺の期待値をとれば前半が従う。\n$X, Y$ が独立なら $E[XY] = E[X]E[Y]$ なので $\\mathrm{Cov}[X, Y] = E[XY] - E[X]E[Y] = 0$ となり、後半が従う。"
         },
         {
           "title": "相関係数の範囲",
-          "statement": "|ρ(X, Y)| ≤ 1。等号は Y が X の 1 次式（確率 1 で）のときに限る。",
-          "proof": "任意の実数 t について Var(Y − tX) ≥ 0 なので\nVar(Y) − 2t Cov(X, Y) + t² Var(X) ≥ 0。\nこれが t の 2 次式としてつねに非負だから判別式は 0 以下：\nCov(X, Y)² − Var(X)Var(Y) ≤ 0。\nよって ρ² ≤ 1。等号は Var(Y − tX) = 0 となる t が存在すること、すなわち Y − tX が定数であることと同値。"
+          "statement": "$|\\rho(X, Y)| \\le 1$。等号は $Y$ が $X$ の 1 次式（確率 1 で）のときに限る。",
+          "proof": "任意の実数 $t$ について $V[Y - tX] \\ge 0$ なので\n$$V[Y] - 2t\\,\\mathrm{Cov}[X, Y] + t^2 V[X] \\ge 0$$\nこれが $t$ の 2 次式としてつねに非負だから判別式は 0 以下：$\\mathrm{Cov}[X, Y]^2 - V[X]V[Y] \\le 0$。よって $\\rho^2 \\le 1$。\n等号は $V[Y - tX] = 0$ となる $t$ が存在すること、すなわち $Y - tX$ が定数であることと同値。"
         }
       ],
       "examples": [
         {
-          "question": "X, Y は独立で Var(X) = 4, Var(Y) = 9 とする。Var(2X − Y + 5) と Cov(X + Y, X − Y) を求めよ。",
-          "solution": "Var(2X − Y + 5) = 4Var(X) + Var(Y) = 16 + 9 = 25。\nCov(X + Y, X − Y) = Var(X) − Cov(X, Y) + Cov(Y, X) − Var(Y) = 4 − 9 = −5。"
+          "question": "$X, Y$ は独立で $V[X] = 4,\\ V[Y] = 9$ とする。$V[2X - Y + 5]$ と $\\mathrm{Cov}[X + Y, X - Y]$ を求めよ。",
+          "solution": "$$V[2X - Y + 5] = 4V[X] + V[Y] = 16 + 9 = 25$$\n$$\\mathrm{Cov}[X + Y, X - Y] = V[X] - \\mathrm{Cov}[X, Y] + \\mathrm{Cov}[Y, X] - V[Y] = 4 - 9 = -5$$"
         }
       ]
     },
     {
       "id": "prob-l2",
       "title": "積率母関数と再生性",
-      "body": "積率母関数（moment generating function）を M_X(t) = E[e^(tX)] と定義します。0 の近傍で存在すれば\n  M_X^(k)(0) = E[X^k]\nとなり、k 次モーメントが微分で得られます（e^(tX) = Σ t^k X^k / k! を項別に期待値をとるため）。\n\n最も重要な性質は次の 2 つです。\n(1) 一意性：0 の近傍で積率母関数が一致すれば分布も一致する。\n(2) 独立和：X, Y が独立なら M_(X+Y)(t) = M_X(t) M_Y(t)。\n\nこの 2 つを組み合わせると、「独立な和がどの分布に従うか」を積率母関数の形から判定できます。和が同じ分布族にとどまる性質を再生性といい、二項分布（p 共通）、ポアソン分布、正規分布、ガンマ分布（率共通）、カイ二乗分布がもちます。\n\n代表的な積率母関数\n・Bin(n, p)：(1 − p + pe^t)^n\n・Po(λ)：exp(λ(e^t − 1))\n・N(μ, σ²)：exp(μt + σ²t²/2)\n・Ga(α, β)（率 β）：(β/(β − t))^α（t < β）",
+      "body": "積率母関数（moment generating function）を\n$$M_X(t) = E\\left[e^{tX}\\right]$$\nと定義します。0 の近傍で存在すれば $M_X^{(k)}(0) = E[X^k]$ となり、$k$ 次モーメントが微分で得られます（$e^{tX} = \\sum_k \\frac{t^k X^k}{k!}$ を項別に期待値をとるため）。\n\n最も重要な性質は次の 2 つです。\n(1) 一意性：0 の近傍で積率母関数が一致すれば分布も一致する。\n(2) 独立和：$X, Y$ が独立なら $M_{X+Y}(t) = M_X(t)\\,M_Y(t)$。\n\nこの 2 つを組み合わせると、「独立な和がどの分布に従うか」を積率母関数の形から判定できます。和が同じ分布族にとどまる性質を再生性といい、二項分布（$p$ 共通）、ポアソン分布、正規分布、ガンマ分布（率共通）、カイ二乗分布がもちます。\n\n代表的な積率母関数\n$$\\mathrm{Bin}(n, p):\\ (1 - p + pe^t)^n, \\qquad \\mathrm{Po}(\\lambda):\\ \\exp\\{\\lambda(e^t - 1)\\}$$\n$$\\mathrm{N}(\\mu, \\sigma^2):\\ \\exp\\left(\\mu t + \\frac{\\sigma^2 t^2}{2}\\right), \\qquad \\mathrm{Ga}(\\alpha, \\beta):\\ \\left(\\frac{\\beta}{\\beta - t}\\right)^\\alpha \\ (t < \\beta)$$",
       "theorems": [
         {
           "title": "独立和の積率母関数",
-          "statement": "X, Y が独立なら M_(X+Y)(t) = M_X(t) M_Y(t)。",
-          "proof": "e^(tX) と e^(tY) は独立な確率変数の関数なので独立であり、\nE[e^(t(X+Y))] = E[e^(tX) e^(tY)] = E[e^(tX)] E[e^(tY)]。"
+          "statement": "$X, Y$ が独立なら $M_{X+Y}(t) = M_X(t)\\,M_Y(t)$。",
+          "proof": "$e^{tX}$ と $e^{tY}$ は独立な確率変数の関数なので独立であり、\n$$E\\left[e^{t(X+Y)}\\right] = E\\left[e^{tX} e^{tY}\\right] = E\\left[e^{tX}\\right] E\\left[e^{tY}\\right]$$"
         },
         {
           "title": "ポアソン分布の再生性",
-          "statement": "X ~ Po(λ), Y ~ Po(μ) が独立なら X + Y ~ Po(λ + μ)。",
-          "proof": "M_X(t) = Σ_k e^(tk) e^(−λ) λ^k / k! = e^(−λ) Σ_k (λe^t)^k / k! = exp(λ(e^t − 1))。\nよって M_(X+Y)(t) = exp(λ(e^t − 1)) exp(μ(e^t − 1)) = exp((λ + μ)(e^t − 1))。\nこれは Po(λ + μ) の積率母関数なので、一意性より X + Y ~ Po(λ + μ)。"
+          "statement": "$X \\sim \\mathrm{Po}(\\lambda),\\ Y \\sim \\mathrm{Po}(\\mu)$ が独立なら $X + Y \\sim \\mathrm{Po}(\\lambda + \\mu)$。",
+          "proof": "$$M_X(t) = \\sum_{k=0}^{\\infty} e^{tk} \\frac{e^{-\\lambda}\\lambda^k}{k!} = e^{-\\lambda} \\sum_{k=0}^{\\infty} \\frac{(\\lambda e^t)^k}{k!} = \\exp\\{\\lambda(e^t - 1)\\}$$\nよって $M_{X+Y}(t) = \\exp\\{\\lambda(e^t - 1)\\}\\exp\\{\\mu(e^t - 1)\\} = \\exp\\{(\\lambda + \\mu)(e^t - 1)\\}$。\nこれは $\\mathrm{Po}(\\lambda + \\mu)$ の積率母関数なので、一意性より $X + Y \\sim \\mathrm{Po}(\\lambda + \\mu)$。"
         },
         {
           "title": "正規分布の 1 次結合",
-          "statement": "X ~ N(μ₁, σ₁²), Y ~ N(μ₂, σ₂²) が独立なら aX + bY ~ N(aμ₁ + bμ₂, a²σ₁² + b²σ₂²)。",
-          "proof": "M_(aX)(t) = E[e^(taX)] = M_X(at) = exp(aμ₁t + a²σ₁²t²/2)。同様に M_(bY)(t) = exp(bμ₂t + b²σ₂²t²/2)。\n積をとると exp((aμ₁ + bμ₂)t + (a²σ₁² + b²σ₂²)t²/2) となり、これは主張の正規分布の積率母関数である。"
+          "statement": "$X \\sim \\mathrm{N}(\\mu_1, \\sigma_1^2),\\ Y \\sim \\mathrm{N}(\\mu_2, \\sigma_2^2)$ が独立なら $aX + bY \\sim \\mathrm{N}(a\\mu_1 + b\\mu_2,\\ a^2\\sigma_1^2 + b^2\\sigma_2^2)$。",
+          "proof": "$M_{aX}(t) = E[e^{taX}] = M_X(at) = \\exp\\left(a\\mu_1 t + \\frac{a^2\\sigma_1^2 t^2}{2}\\right)$。同様に $M_{bY}(t) = \\exp\\left(b\\mu_2 t + \\frac{b^2\\sigma_2^2 t^2}{2}\\right)$。\n積をとると\n$$\\exp\\left\\{(a\\mu_1 + b\\mu_2)t + \\frac{(a^2\\sigma_1^2 + b^2\\sigma_2^2)t^2}{2}\\right\\}$$\nとなり、これは主張の正規分布の積率母関数である。"
         }
       ],
       "examples": [
         {
-          "question": "X ~ Po(λ) の平均と分散を積率母関数から求めよ。",
-          "solution": "M(t) = exp(λ(e^t − 1))。\nM'(t) = λe^t M(t) より E[X] = M'(0) = λ。\nM''(t) = λe^t M(t) + (λe^t)² M(t) より E[X²] = λ + λ²。\nVar(X) = λ + λ² − λ² = λ。"
+          "question": "$X \\sim \\mathrm{Po}(\\lambda)$ の平均と分散を積率母関数から求めよ。",
+          "solution": "$M(t) = \\exp\\{\\lambda(e^t - 1)\\}$。\n$M'(t) = \\lambda e^t M(t)$ より $E[X] = M'(0) = \\lambda$。\n$M''(t) = \\lambda e^t M(t) + (\\lambda e^t)^2 M(t)$ より $E[X^2] = \\lambda + \\lambda^2$。\n$V[X] = \\lambda + \\lambda^2 - \\lambda^2 = \\lambda$。"
         }
       ]
     },
     {
       "id": "prob-l3",
       "title": "主要な分布とその関係",
-      "body": "分布どうしの関係を押さえると、個別の公式を丸暗記する必要が減ります。\n\n・ベルヌーイ試行の成功回数 → 二項分布。n → ∞, np = λ 一定の極限でポアソン分布。\n・初めて成功するまでの試行回数 → 幾何分布、r 回成功するまで → 負の二項分布。\n・ポアソン過程の到着間隔 → 指数分布、k 回目の到着時刻 → ガンマ分布。\n・指数分布と幾何分布は無記憶性をもつ唯一の（連続・離散）分布。\n・Z ~ N(0, 1) の 2 乗 → χ²(1)。独立な k 個の和 → χ²(k) = Ga(k/2, 1/2)。\n・Z / √(V/k)（V ~ χ²(k), 独立）→ t(k)。\n・(V₁/k₁)/(V₂/k₂)（独立なカイ二乗）→ F(k₁, k₂)。t(k)² は F(1, k)。\n・ベータ分布はガンマ分布の比：X ~ Ga(a, 1), Y ~ Ga(b, 1) 独立なら X/(X + Y) ~ Be(a, b)。",
+      "body": "分布どうしの関係を押さえると、個別の公式を丸暗記する必要が減ります。\n\n・ベルヌーイ試行の成功回数は二項分布。$n \\to \\infty,\\ np = \\lambda$ 一定の極限でポアソン分布。\n・初めて成功するまでの試行回数は幾何分布、$r$ 回成功するまでは負の二項分布。\n・ポアソン過程の到着間隔は指数分布、$k$ 回目の到着時刻はガンマ分布。\n・指数分布と幾何分布は無記憶性をもつ唯一の（連続・離散）分布。\n・$Z \\sim \\mathrm{N}(0, 1)$ の 2 乗は $\\chi^2(1)$。独立な $k$ 個の和は $\\chi^2(k) = \\mathrm{Ga}\\left(\\frac{k}{2}, \\frac{1}{2}\\right)$。\n・$V \\sim \\chi^2(k)$ と独立な $Z$ について $\\dfrac{Z}{\\sqrt{V/k}} \\sim t(k)$。\n・独立なカイ二乗について $\\dfrac{V_1/k_1}{V_2/k_2} \\sim F(k_1, k_2)$。$t(k)^2$ は $F(1, k)$ に従う。\n・ベータ分布はガンマ分布の比：$X \\sim \\mathrm{Ga}(a, 1),\\ Y \\sim \\mathrm{Ga}(b, 1)$ が独立なら $\\dfrac{X}{X + Y} \\sim \\mathrm{Be}(a, b)$。",
       "theorems": [
         {
           "title": "二項分布のポアソン近似",
-          "statement": "np = λ を一定に保って n → ∞ とすると、Bin(n, p) の確率 P(X = k) は e^(−λ) λ^k / k! に収束する。",
-          "proof": "p = λ/n とすると\nP(X = k) = n!/(k!(n − k)!) (λ/n)^k (1 − λ/n)^(n−k)\n= (λ^k / k!) · [n(n − 1)···(n − k + 1)/n^k] · (1 − λ/n)^n · (1 − λ/n)^(−k)。\nn → ∞ で角括弧は 1、(1 − λ/n)^n → e^(−λ)、(1 − λ/n)^(−k) → 1。よって極限は e^(−λ) λ^k / k!。"
+          "statement": "$np = \\lambda$ を一定に保って $n \\to \\infty$ とすると、$\\mathrm{Bin}(n, p)$ の確率 $P(X = k)$ は $\\dfrac{e^{-\\lambda}\\lambda^k}{k!}$ に収束する。",
+          "proof": "$p = \\frac{\\lambda}{n}$ とすると\n$$P(X = k) = \\frac{\\lambda^k}{k!} \\cdot \\frac{n(n-1)\\cdots(n-k+1)}{n^k} \\cdot \\left(1 - \\frac{\\lambda}{n}\\right)^n \\cdot \\left(1 - \\frac{\\lambda}{n}\\right)^{-k}$$\n$n \\to \\infty$ で第 2 因子は 1、$\\left(1 - \\frac{\\lambda}{n}\\right)^n \\to e^{-\\lambda}$、最後の因子は 1 に収束する。よって極限は $\\dfrac{e^{-\\lambda}\\lambda^k}{k!}$。"
         },
         {
           "title": "指数分布の無記憶性",
-          "statement": "X ~ Exp(λ) なら、任意の s, t > 0 について P(X > s + t | X > s) = P(X > t)。",
-          "proof": "P(X > x) = ∫_x^∞ λe^(−λu) du = e^(−λx)。\n{X > s + t} ⊂ {X > s} なので\nP(X > s + t | X > s) = P(X > s + t)/P(X > s) = e^(−λ(s+t))/e^(−λs) = e^(−λt) = P(X > t)。"
+          "statement": "$X \\sim \\mathrm{Exp}(\\lambda)$ なら、任意の $s, t > 0$ について $P(X > s + t \\mid X > s) = P(X > t)$。",
+          "proof": "$P(X > x) = \\int_x^\\infty \\lambda e^{-\\lambda u}\\,du = e^{-\\lambda x}$。$\\{X > s + t\\} \\subset \\{X > s\\}$ なので\n$$P(X > s + t \\mid X > s) = \\frac{P(X > s + t)}{P(X > s)} = \\frac{e^{-\\lambda(s+t)}}{e^{-\\lambda s}} = e^{-\\lambda t} = P(X > t)$$"
         },
         {
           "title": "指数分布の和はガンマ分布",
-          "statement": "X₁, …, Xₙ が独立に Exp(λ) に従うとき、ΣXᵢ ~ Ga(n, λ)（形状 n, 率 λ）。",
-          "proof": "Exp(λ) の積率母関数は ∫₀^∞ e^(tx) λe^(−λx) dx = λ/(λ − t)（t < λ）。\n独立和なので積をとり (λ/(λ − t))^n。これは Ga(n, λ) の積率母関数 (β/(β − t))^α で α = n, β = λ としたものに一致する。"
+          "statement": "$X_1, \\dots, X_n$ が独立に $\\mathrm{Exp}(\\lambda)$ に従うとき、$\\sum_i X_i \\sim \\mathrm{Ga}(n, \\lambda)$（形状 $n$、率 $\\lambda$）。",
+          "proof": "$\\mathrm{Exp}(\\lambda)$ の積率母関数は $\\int_0^\\infty e^{tx}\\lambda e^{-\\lambda x}\\,dx = \\dfrac{\\lambda}{\\lambda - t}\\ (t < \\lambda)$。\n独立和なので積をとり $\\left(\\dfrac{\\lambda}{\\lambda - t}\\right)^n$。これは $\\mathrm{Ga}(n, \\lambda)$ の積率母関数に一致する。"
         }
       ],
       "examples": [
         {
           "question": "ある窓口に客が平均 1 分に 2 人のポアソン過程で到着する。3 人目の客が到着するまでの時間の平均と分散を求めよ。",
-          "solution": "到着間隔は独立に Exp(2)。3 人目の到着時刻は Ga(3, 2) に従う。\n平均 = 3/2 = 1.5 分、分散 = 3/2² = 0.75。"
+          "solution": "到着間隔は独立に $\\mathrm{Exp}(2)$。3 人目の到着時刻は $\\mathrm{Ga}(3, 2)$ に従う。\n平均 $= \\frac{3}{2} = 1.5$ 分、分散 $= \\frac{3}{2^2} = 0.75$。"
         }
       ]
     },
     {
       "id": "prob-l4",
       "title": "条件付き期待値",
-      "body": "条件付き期待値 E[Y | X] は X の関数として定まる確率変数です。X = x での値は、条件付き分布による期待値 E[Y | X = x] です。\n\n重要な公式は次の 2 つです。\n・繰り返し期待値の法則（タワー則）：E[Y] = E[E[Y | X]]\n・全分散の公式：Var(Y) = E[Var(Y | X)] + Var(E[Y | X])\n\n全分散の公式は、全体のばらつきを「群内（条件付き分散の平均）」と「群間（条件付き平均のばらつき）」に分解するもので、分散分析の平方和分解や階層ベイズモデルの理解につながります。\n\nまた、E[Y | X] は X の関数の中で 2 乗誤差 E[(Y − g(X))²] を最小にする最良予測量です。回帰分析はこの E[Y | X] を推定する問題だと考えられます。",
+      "body": "条件付き期待値 $E[Y \\mid X]$ は $X$ の関数として定まる確率変数です。$X = x$ での値は、条件付き分布による期待値 $E[Y \\mid X = x]$ です。\n\n重要な公式は次の 2 つです。\n$$E[Y] = E\\big[E[Y \\mid X]\\big] \\quad \\text{(繰り返し期待値の法則・タワー則)}$$\n$$V[Y] = E\\big[V[Y \\mid X]\\big] + V\\big[E[Y \\mid X]\\big] \\quad \\text{(全分散の公式)}$$\n\n全分散の公式は、全体のばらつきを「群内（条件付き分散の平均）」と「群間（条件付き平均のばらつき）」に分解するもので、分散分析の平方和分解や階層ベイズモデルの理解につながります。\n\nまた、$E[Y \\mid X]$ は $X$ の関数の中で 2 乗誤差 $E\\left[(Y - g(X))^2\\right]$ を最小にする最良予測量です。回帰分析はこの $E[Y \\mid X]$ を推定する問題だと考えられます。",
       "theorems": [
         {
           "title": "繰り返し期待値の法則",
-          "statement": "E[E[Y | X]] = E[Y]",
-          "proof": "連続の場合を示す（離散では積分を和に置き換える）。\nE[E[Y | X]] = ∫ E[Y | X = x] f_X(x) dx = ∫ (∫ y f(y | x) dy) f_X(x) dx\n= ∫∫ y f(x, y) dy dx = E[Y]。\nここで f(y | x) f_X(x) = f(x, y) を用いた。"
+          "statement": "$$E\\big[E[Y \\mid X]\\big] = E[Y]$$",
+          "proof": "連続の場合を示す（離散では積分を和に置き換える）。$f(y \\mid x) f_X(x) = f(x, y)$ を用いると\n$$E\\big[E[Y \\mid X]\\big] = \\int \\left(\\int y\\,f(y \\mid x)\\,dy\\right) f_X(x)\\,dx = \\iint y\\,f(x, y)\\,dy\\,dx = E[Y]$$"
         },
         {
           "title": "全分散の公式",
-          "statement": "Var(Y) = E[Var(Y | X)] + Var(E[Y | X])",
-          "proof": "Var(Y | X) = E[Y² | X] − (E[Y | X])² の期待値をとると\nE[Var(Y | X)] = E[Y²] − E[(E[Y | X])²]。\n一方、タワー則より E[E[Y | X]] = E[Y] なので\nVar(E[Y | X]) = E[(E[Y | X])²] − (E[Y])²。\n2 式を足すと E[Y²] − (E[Y])² = Var(Y)。"
+          "statement": "$$V[Y] = E\\big[V[Y \\mid X]\\big] + V\\big[E[Y \\mid X]\\big]$$",
+          "proof": "$V[Y \\mid X] = E[Y^2 \\mid X] - (E[Y \\mid X])^2$ の期待値をとると\n$$E\\big[V[Y \\mid X]\\big] = E[Y^2] - E\\big[(E[Y \\mid X])^2\\big]$$\n一方、タワー則より $E\\big[E[Y \\mid X]\\big] = E[Y]$ なので\n$$V\\big[E[Y \\mid X]\\big] = E\\big[(E[Y \\mid X])^2\\big] - (E[Y])^2$$\n2 式を足すと $E[Y^2] - (E[Y])^2 = V[Y]$。"
         },
         {
           "title": "条件付き期待値は最良予測量",
-          "statement": "任意の関数 g について E[(Y − g(X))²] ≥ E[(Y − E[Y | X])²]。",
-          "proof": "m(X) = E[Y | X] とおくと\nE[(Y − g(X))²] = E[(Y − m(X))²] + E[(m(X) − g(X))²] + 2E[(Y − m(X))(m(X) − g(X))]。\n第 3 項は、X を条件付けると (m(X) − g(X)) は定数扱いで E[Y − m(X) | X] = 0 なので、タワー則により 0。\n第 2 項は非負なので主張が従う。"
+          "statement": "任意の関数 $g$ について $E\\left[(Y - g(X))^2\\right] \\ge E\\left[(Y - E[Y \\mid X])^2\\right]$。",
+          "proof": "$m(X) = E[Y \\mid X]$ とおくと\n$$E\\left[(Y - g(X))^2\\right] = E\\left[(Y - m(X))^2\\right] + E\\left[(m(X) - g(X))^2\\right] + 2E\\left[(Y - m(X))(m(X) - g(X))\\right]$$\n第 3 項は、$X$ を条件付けると $m(X) - g(X)$ は定数扱いで $E[Y - m(X) \\mid X] = 0$ なので、タワー則により 0。\n第 2 項は非負なので主張が従う。"
         }
       ],
       "examples": [
         {
-          "question": "N ~ Po(λ) 個の独立な確率変数 X₁, X₂, …（平均 μ, 分散 σ², N とも独立）の和 S = X₁ + … + X_N の平均と分散を求めよ。",
-          "solution": "E[S | N] = Nμ, Var(S | N) = Nσ²。\nE[S] = E[Nμ] = λμ。\nVar(S) = E[Nσ²] + Var(Nμ) = λσ² + λμ² = λ(σ² + μ²)。（複合ポアソン分布）"
+          "question": "$N \\sim \\mathrm{Po}(\\lambda)$ 個の独立な確率変数 $X_1, X_2, \\dots$（平均 $\\mu$、分散 $\\sigma^2$、$N$ とも独立）の和 $S = X_1 + \\cdots + X_N$ の平均と分散を求めよ。",
+          "solution": "$E[S \\mid N] = N\\mu,\\ V[S \\mid N] = N\\sigma^2$。\n$$E[S] = E[N\\mu] = \\lambda\\mu, \\qquad V[S] = E[N\\sigma^2] + V[N\\mu] = \\lambda\\sigma^2 + \\lambda\\mu^2 = \\lambda(\\sigma^2 + \\mu^2)$$\n（複合ポアソン分布）"
         }
       ]
     },
     {
       "id": "prob-l5",
       "title": "変数変換と標本分布",
-      "body": "X の密度が f_X で、y = g(x) が狭義単調かつ微分可能なら、Y = g(X) の密度は\n  f_Y(y) = f_X(g⁻¹(y)) |d g⁻¹(y)/dy|\nです。多変量では (Y₁, Y₂) = g(X₁, X₂) に対しヤコビアン |∂(x₁, x₂)/∂(y₁, y₂)| をかけます。単調でない変換（例：Y = X²）では、逆像の各枝の寄与を足し合わせます。\n\n正規母集団からの標本 X₁, …, Xₙ ~ N(μ, σ²) については次の結果が基本です。\n(1) X̄ ~ N(μ, σ²/n)\n(2) (n − 1)s²/σ² ~ χ²(n − 1)\n(3) X̄ と s² は独立\n(4) (X̄ − μ)/(s/√n) ~ t(n − 1)\n(3) は正規分布に特有の性質で、直交変換（ヘルマート変換）を用いて示されます。(4) は (1)–(3) と t 分布の定義から直ちに従います。",
+      "body": "$X$ の密度が $f_X$ で、$y = g(x)$ が狭義単調かつ微分可能なら、$Y = g(X)$ の密度は\n$$f_Y(y) = f_X\\left(g^{-1}(y)\\right) \\left|\\frac{d g^{-1}(y)}{dy}\\right|$$\nです。多変量では $(Y_1, Y_2) = g(X_1, X_2)$ に対しヤコビアン $\\left|\\frac{\\partial(x_1, x_2)}{\\partial(y_1, y_2)}\\right|$ をかけます。単調でない変換（例：$Y = X^2$）では、逆像の各枝の寄与を足し合わせます。\n\n正規母集団からの標本 $X_1, \\dots, X_n \\sim \\mathrm{N}(\\mu, \\sigma^2)$ については次の結果が基本です（$s^2$ は不偏分散）。\n(1) $\\bar{X} \\sim \\mathrm{N}\\left(\\mu, \\frac{\\sigma^2}{n}\\right)$\n(2) $\\dfrac{(n-1)s^2}{\\sigma^2} \\sim \\chi^2(n-1)$\n(3) $\\bar{X}$ と $s^2$ は独立\n(4) $\\dfrac{\\bar{X} - \\mu}{s/\\sqrt{n}} \\sim t(n-1)$\n(3) は正規分布に特有の性質で、直交変換（ヘルマート変換）を用いて示されます。(4) は (1)〜(3) と $t$ 分布の定義から直ちに従います。",
       "theorems": [
         {
           "title": "標準正規変数の 2 乗",
-          "statement": "Z ~ N(0, 1) なら Y = Z² の密度は f_Y(y) = (1/√(2πy)) e^(−y/2)（y > 0）であり、これは χ²(1) の密度である。",
-          "proof": "y > 0 について P(Y ≤ y) = P(−√y ≤ Z ≤ √y) = Φ(√y) − Φ(−√y)。\ny で微分すると f_Y(y) = φ(√y)·(1/(2√y)) + φ(−√y)·(1/(2√y)) = φ(√y)/√y = (1/√(2πy)) e^(−y/2)。\nこれは Ga(1/2, 1/2) の密度 (1/2)^(1/2) y^(−1/2) e^(−y/2)/Γ(1/2) に一致する（Γ(1/2) = √π）。"
+          "statement": "$Z \\sim \\mathrm{N}(0, 1)$ なら $Y = Z^2$ の密度は $f_Y(y) = \\dfrac{1}{\\sqrt{2\\pi y}} e^{-\\frac{y}{2}}\\ (y > 0)$ であり、これは $\\chi^2(1)$ の密度である。",
+          "proof": "$y > 0$ について $P(Y \\le y) = P(-\\sqrt{y} \\le Z \\le \\sqrt{y}) = \\Phi(\\sqrt{y}) - \\Phi(-\\sqrt{y})$。$y$ で微分すると\n$$f_Y(y) = \\phi(\\sqrt{y}) \\cdot \\frac{1}{2\\sqrt{y}} + \\phi(-\\sqrt{y}) \\cdot \\frac{1}{2\\sqrt{y}} = \\frac{\\phi(\\sqrt{y})}{\\sqrt{y}} = \\frac{1}{\\sqrt{2\\pi y}} e^{-\\frac{y}{2}}$$\nこれは $\\mathrm{Ga}\\left(\\frac{1}{2}, \\frac{1}{2}\\right)$ の密度 $\\dfrac{(1/2)^{1/2}}{\\Gamma(1/2)} y^{-\\frac{1}{2}} e^{-\\frac{y}{2}}$ に一致する（$\\Gamma\\left(\\frac{1}{2}\\right) = \\sqrt{\\pi}$）。"
         },
         {
-          "title": "t 統計量の分布",
-          "statement": "正規母集団からの標本について T = (X̄ − μ)/(s/√n) ~ t(n − 1)。",
-          "proof": "Z = (X̄ − μ)/(σ/√n) ~ N(0, 1)、V = (n − 1)s²/σ² ~ χ²(n − 1) であり、X̄ と s² の独立性から Z と V は独立。\nT = Z / √(V/(n − 1)) と書けるので、t 分布の定義より T ~ t(n − 1)。σ が約分されて消えることが、未知の σ に依存しない枢軸量になる理由である。"
+          "title": "$t$ 統計量の分布",
+          "statement": "正規母集団からの標本について $T = \\dfrac{\\bar{X} - \\mu}{s/\\sqrt{n}} \\sim t(n-1)$。",
+          "proof": "$Z = \\dfrac{\\bar{X} - \\mu}{\\sigma/\\sqrt{n}} \\sim \\mathrm{N}(0, 1)$、$V = \\dfrac{(n-1)s^2}{\\sigma^2} \\sim \\chi^2(n-1)$ であり、$\\bar{X}$ と $s^2$ の独立性から $Z$ と $V$ は独立。\n$T = \\dfrac{Z}{\\sqrt{V/(n-1)}}$ と書けるので、$t$ 分布の定義より $T \\sim t(n-1)$。$\\sigma$ が約分されて消えることが、未知の $\\sigma$ に依存しない枢軸量になる理由である。"
         }
       ],
       "examples": [
         {
-          "question": "X ~ U(0, 1) のとき Y = −2 log X の分布を求めよ。",
-          "solution": "g(x) = −2 log x は減少関数で、x = e^(−y/2)、|dx/dy| = (1/2)e^(−y/2)。\nf_Y(y) = 1 · (1/2)e^(−y/2)（y > 0）。これは率 1/2 の指数分布、すなわち χ²(2)。（フィッシャーの p 値統合法の基礎）"
+          "question": "$X \\sim \\mathrm{U}(0, 1)$ のとき $Y = -2\\log X$ の分布を求めよ。",
+          "solution": "$g(x) = -2\\log x$ は減少関数で、$x = e^{-\\frac{y}{2}}$、$\\left|\\frac{dx}{dy}\\right| = \\frac{1}{2}e^{-\\frac{y}{2}}$。\n$$f_Y(y) = 1 \\cdot \\frac{1}{2}e^{-\\frac{y}{2}} \\quad (y > 0)$$\nこれは率 $\\frac{1}{2}$ の指数分布、すなわち $\\chi^2(2)$。（フィッシャーの $p$ 値統合法の基礎）"
         }
       ]
     },
     {
       "id": "prob-l6",
       "title": "確率不等式と極限定理",
-      "body": "標本が大きいときの推測は極限定理に支えられています。\n\n・マルコフの不等式：X ≥ 0 なら P(X ≥ a) ≤ E[X]/a\n・チェビシェフの不等式：P(|X − μ| ≥ k) ≤ σ²/k²\n・大数の弱法則：X̄ₙ → μ（確率収束）\n・中心極限定理：√n(X̄ₙ − μ)/σ → N(0, 1)（分布収束）\n\n収束の種類：概収束 ⇒ 確率収束 ⇒ 分布収束。定数への分布収束は確率収束と同値です。\n\nスルツキーの定理：Xₙ →d X, Yₙ →p c なら Xₙ + Yₙ →d X + c, XₙYₙ →d cX。σ を一致推定量 s で置き換えても漸近分布が変わらないのはこの定理によります。",
+      "body": "標本が大きいときの推測は極限定理に支えられています。\n・マルコフの不等式：$X \\ge 0$ なら $P(X \\ge a) \\le \\dfrac{E[X]}{a}$\n・チェビシェフの不等式：$P(|X - \\mu| \\ge k) \\le \\dfrac{\\sigma^2}{k^2}$\n・大数の弱法則：$\\bar{X}_n \\xrightarrow{p} \\mu$（確率収束）\n・中心極限定理：$\\dfrac{\\sqrt{n}(\\bar{X}_n - \\mu)}{\\sigma} \\xrightarrow{d} \\mathrm{N}(0, 1)$（分布収束）\n\n収束の種類：概収束するなら確率収束し、確率収束するなら分布収束する（逆は一般に成り立たない）。定数への分布収束は確率収束と同値です。\n\nスルツキーの定理：$X_n \\xrightarrow{d} X,\\ Y_n \\xrightarrow{p} c$ なら $X_n + Y_n \\xrightarrow{d} X + c$、$X_n Y_n \\xrightarrow{d} cX$。$\\sigma$ を一致推定量 $s$ で置き換えても漸近分布が変わらないのはこの定理によります。",
       "theorems": [
         {
           "title": "チェビシェフの不等式",
-          "statement": "E[X] = μ, Var(X) = σ² のとき、任意の k > 0 について P(|X − μ| ≥ k) ≤ σ²/k²。",
-          "proof": "マルコフの不等式を示す：X ≥ 0 なら X ≥ a·1{X ≥ a} なので期待値をとって E[X] ≥ aP(X ≥ a)。\nこれを非負の確率変数 (X − μ)² と a = k² に適用すると\nP(|X − μ| ≥ k) = P((X − μ)² ≥ k²) ≤ E[(X − μ)²]/k² = σ²/k²。"
+          "statement": "$E[X] = \\mu,\\ V[X] = \\sigma^2$ のとき、任意の $k > 0$ について $P(|X - \\mu| \\ge k) \\le \\dfrac{\\sigma^2}{k^2}$。",
+          "proof": "マルコフの不等式を示す：$X \\ge 0$ なら $X \\ge a \\cdot 1\\{X \\ge a\\}$ なので、期待値をとって $E[X] \\ge a\\,P(X \\ge a)$。\nこれを非負の確率変数 $(X - \\mu)^2$ と $a = k^2$ に適用すると\n$$P(|X - \\mu| \\ge k) = P\\left((X - \\mu)^2 \\ge k^2\\right) \\le \\frac{E\\left[(X - \\mu)^2\\right]}{k^2} = \\frac{\\sigma^2}{k^2}$$"
         },
         {
           "title": "大数の弱法則",
-          "statement": "X₁, X₂, … が独立同分布で平均 μ、分散 σ² < ∞ なら、任意の ε > 0 について P(|X̄ₙ − μ| ≥ ε) → 0。",
-          "proof": "E[X̄ₙ] = μ, Var(X̄ₙ) = σ²/n。チェビシェフの不等式より\nP(|X̄ₙ − μ| ≥ ε) ≤ σ²/(nε²) → 0（n → ∞）。"
+          "statement": "$X_1, X_2, \\dots$ が独立同分布で平均 $\\mu$、分散 $\\sigma^2 < \\infty$ なら、任意の $\\varepsilon > 0$ について $P(|\\bar{X}_n - \\mu| \\ge \\varepsilon) \\to 0$。",
+          "proof": "$E[\\bar{X}_n] = \\mu,\\ V[\\bar{X}_n] = \\frac{\\sigma^2}{n}$。チェビシェフの不等式より\n$$P(|\\bar{X}_n - \\mu| \\ge \\varepsilon) \\le \\frac{\\sigma^2}{n\\varepsilon^2} \\to 0 \\quad (n \\to \\infty)$$"
         },
         {
           "title": "中心極限定理（積率母関数による略証）",
-          "statement": "X₁, X₂, … が独立同分布で平均 μ、分散 σ² をもち、積率母関数が 0 の近傍で存在するとき、Zₙ = √n(X̄ₙ − μ)/σ は N(0, 1) に分布収束する。",
-          "proof": "Yᵢ = (Xᵢ − μ)/σ とすると E[Yᵢ] = 0, E[Yᵢ²] = 1 で、Zₙ = ΣYᵢ/√n。\nYᵢ の積率母関数を M とすると、テイラー展開より M(s) = 1 + s²/2 + o(s²)。\nよって M_(Zₙ)(t) = M(t/√n)^n = (1 + t²/(2n) + o(1/n))^n → e^(t²/2)。\ne^(t²/2) は N(0, 1) の積率母関数なので、積率母関数の連続性定理より主張が従う。（一般の場合は特性関数を用いて同様に示される）"
+          "statement": "$X_1, X_2, \\dots$ が独立同分布で平均 $\\mu$、分散 $\\sigma^2$ をもち、積率母関数が 0 の近傍で存在するとき、$Z_n = \\dfrac{\\sqrt{n}(\\bar{X}_n - \\mu)}{\\sigma}$ は $\\mathrm{N}(0, 1)$ に分布収束する。",
+          "proof": "$Y_i = \\frac{X_i - \\mu}{\\sigma}$ とすると $E[Y_i] = 0,\\ E[Y_i^2] = 1$ で、$Z_n = \\frac{1}{\\sqrt{n}}\\sum_i Y_i$。\n$Y_i$ の積率母関数を $M$ とすると、テイラー展開より $M(s) = 1 + \\frac{s^2}{2} + o(s^2)$。よって\n$$M_{Z_n}(t) = M\\left(\\frac{t}{\\sqrt{n}}\\right)^n = \\left(1 + \\frac{t^2}{2n} + o\\left(\\frac{1}{n}\\right)\\right)^n \\to e^{\\frac{t^2}{2}}$$\n$e^{\\frac{t^2}{2}}$ は $\\mathrm{N}(0, 1)$ の積率母関数なので、積率母関数の連続性定理より主張が従う。（一般の場合は特性関数を用いて同様に示される）"
         }
       ],
       "examples": [
         {
-          "question": "表の出る確率 1/2 の硬貨を 400 回投げたとき、表の回数が 220 回以上となる確率を正規近似で求めよ（連続修正なし）。",
-          "solution": "平均 200、標準偏差 √(400·1/4) = 10。\nP(X ≥ 220) ≈ P(Z ≥ 2) ≈ 0.0228。"
+          "question": "表の出る確率 $\\frac{1}{2}$ の硬貨を 400 回投げたとき、表の回数が 220 回以上となる確率を正規近似で求めよ（連続修正なし）。",
+          "solution": "平均 200、標準偏差 $\\sqrt{400 \\cdot \\frac{1}{4}} = 10$。\n$$P(X \\ge 220) \\approx P(Z \\ge 2) \\approx 0.0228$$"
         }
       ]
+    }
+  ],
+  "formulas": [
+    {
+      "title": "主な離散分布",
+      "body": "$\\mathrm{Bin}(n, p)$：平均 $np$、分散 $np(1-p)$\n$\\mathrm{Po}(\\lambda)$：平均 $\\lambda$、分散 $\\lambda$\n幾何分布（試行回数）：平均 $\\dfrac{1}{p}$、分散 $\\dfrac{1-p}{p^2}$\n負の二項分布（失敗回数）：平均 $\\dfrac{r(1-p)}{p}$、分散 $\\dfrac{r(1-p)}{p^2}$"
+    },
+    {
+      "title": "主な連続分布",
+      "body": "$\\mathrm{Exp}(\\lambda)$：平均 $\\dfrac{1}{\\lambda}$、分散 $\\dfrac{1}{\\lambda^2}$\n$\\mathrm{Ga}(\\alpha, \\beta)$（率 $\\beta$）：平均 $\\dfrac{\\alpha}{\\beta}$、分散 $\\dfrac{\\alpha}{\\beta^2}$\n$\\mathrm{Be}(a, b)$：平均 $\\dfrac{a}{a+b}$、分散 $\\dfrac{ab}{(a+b)^2(a+b+1)}$\n$\\mathrm{U}(a, b)$：平均 $\\dfrac{a+b}{2}$、分散 $\\dfrac{(b-a)^2}{12}$"
+    },
+    {
+      "title": "積率母関数",
+      "body": "$\\mathrm{Bin}$：$(1 - p + pe^t)^n$、$\\mathrm{Po}$：$\\exp\\{\\lambda(e^t - 1)\\}$\n$\\mathrm{N}(\\mu, \\sigma^2)$：$\\exp\\left(\\mu t + \\frac{\\sigma^2 t^2}{2}\\right)$、$\\mathrm{Exp}(\\lambda)$：$\\dfrac{\\lambda}{\\lambda - t}$、$\\mathrm{Ga}(\\alpha, \\beta)$：$\\left(\\dfrac{\\beta}{\\beta - t}\\right)^\\alpha$"
+    },
+    {
+      "title": "条件付き期待値・分散",
+      "body": "$E[Y] = E\\big[E[Y \\mid X]\\big]$\n$V[Y] = E\\big[V[Y \\mid X]\\big] + V\\big[E[Y \\mid X]\\big]$"
+    },
+    {
+      "title": "2 変量正規分布",
+      "body": "$$Y \\mid X = x \\sim \\mathrm{N}\\left(\\mu_y + \\rho\\frac{\\sigma_y}{\\sigma_x}(x - \\mu_x),\\ \\sigma_y^2(1 - \\rho^2)\\right)$$"
+    },
+    {
+      "title": "変数変換",
+      "body": "$Y = g(X)$（単調）：$f_Y(y) = f_X(g^{-1}(y)) \\left|\\dfrac{dg^{-1}(y)}{dy}\\right|$\n多変量ではヤコビアンの絶対値をかける"
+    },
+    {
+      "title": "順序統計量（一様分布 U(0, 1) の n 個）",
+      "body": "$k$ 番目 $\\sim \\mathrm{Be}(k,\\ n - k + 1)$\n最大値の期待値 $\\dfrac{n}{n+1}$、最小値の期待値 $\\dfrac{1}{n+1}$"
     }
   ]
 }

@@ -18,6 +18,13 @@ data class Example(
     val solution: String,
 )
 
+/** 章末の公式まとめの 1 項目。 */
+@Serializable
+data class Formula(
+    val title: String,
+    val body: String,
+)
+
 @Serializable
 data class Lesson(
     val id: String,
@@ -27,12 +34,16 @@ data class Lesson(
     val examples: List<Example> = emptyList(),
 )
 
-/** 1 分野 = 1 章。assets/textbook/<category>.json に対応する。 */
+/**
+ * 1 分野 = 1 章。assets/textbook/<category>.json に対応する。
+ * 文字列中の数式は TeX 記法で、インラインは `$...$`、別行立ては `$$...$$` で囲む。
+ */
 @Serializable
 data class Chapter(
     val category: String,
     val intro: String,
     val lessons: List<Lesson>,
+    val formulas: List<Formula> = emptyList(),
 ) {
     val categoryEnum: Category get() = Category.fromId(category) ?: error("unknown category: $category")
 }

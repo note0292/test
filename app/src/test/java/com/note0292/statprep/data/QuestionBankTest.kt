@@ -30,10 +30,19 @@ class QuestionBankTest {
     }
 
     @Test
-    fun everyCategoryHasQuestionsAndNotes() {
+    fun everyCategoryHasQuestions() {
         Category.entries.forEach { c ->
             assertTrue("問題がない分野: ${c.label}", questions.count { it.category == c.id } >= 5)
-            assertTrue("ノートがない分野: ${c.label}", FormulaNotes.notes[c].orEmpty().isNotEmpty())
+        }
+    }
+
+    @Test
+    fun texDelimitersAreBalanced() {
+        // 数式は $...$ / $$...$$ で囲み、1 行の中で閉じる（詳細な文法チェックは tools/check-tex.js）
+        questions.flatMap { listOf(it.question, it.explanation) + it.choices }.forEach { text ->
+            text.lines().forEach { line ->
+                assertTrue("\$ の数が奇数: $line", line.count { it == '$' } % 2 == 0)
+            }
         }
     }
 }

@@ -5,99 +5,99 @@
     {
       "id": "mv-l1",
       "title": "多変量正規分布とマハラノビス距離",
-      "body": "p 次元確率ベクトル X の平均ベクトル μ = E[X]、分散共分散行列 Σ = E[(X − μ)(X − μ)ᵀ] は対称・半正定値です。1 次変換 Y = AX + b について E[Y] = Aμ + b、Var(Y) = AΣAᵀ が成り立ちます。\n\n多変量正規分布 Nₚ(μ, Σ) の密度は\n  f(x) = (2π)^(−p/2) |Σ|^(−1/2) exp(−(1/2)(x − μ)ᵀΣ⁻¹(x − μ))\nで、等高線は楕円です。性質：\n・1 次変換 AX + b も多変量正規\n・周辺分布・条件付き分布も正規\n・成分が無相関 ⇔ 独立（正規分布に特有）\n\nマハラノビス距離 D² = (x − μ)ᵀΣ⁻¹(x − μ) は、相関と尺度を考慮した距離です。Nₚ(μ, Σ) のもとで D² ~ χ²(p) となり、多変量の外れ値検出に使われます。",
+      "body": "$p$ 次元確率ベクトル $\\boldsymbol{X}$ の平均ベクトル $\\boldsymbol{\\mu} = E[\\boldsymbol{X}]$、分散共分散行列 $\\Sigma = E\\left[(\\boldsymbol{X} - \\boldsymbol{\\mu})(\\boldsymbol{X} - \\boldsymbol{\\mu})^\\top\\right]$ は対称・半正定値です。1 次変換 $\\boldsymbol{Y} = A\\boldsymbol{X} + \\boldsymbol{b}$ について $E[\\boldsymbol{Y}] = A\\boldsymbol{\\mu} + \\boldsymbol{b}$、$V[\\boldsymbol{Y}] = A\\Sigma A^\\top$ が成り立ちます。\n\n多変量正規分布 $\\mathrm{N}_p(\\boldsymbol{\\mu}, \\Sigma)$ の密度は\n$$f(\\boldsymbol{x}) = \\frac{1}{(2\\pi)^{p/2}|\\Sigma|^{1/2}}\\exp\\left\\{-\\frac{1}{2}(\\boldsymbol{x} - \\boldsymbol{\\mu})^\\top \\Sigma^{-1}(\\boldsymbol{x} - \\boldsymbol{\\mu})\\right\\}$$\nで、等高線は楕円です。性質：\n・1 次変換 $A\\boldsymbol{X} + \\boldsymbol{b}$ も多変量正規\n・周辺分布・条件付き分布も正規\n・成分が無相関なら独立（正規分布に特有）\n\nマハラノビス距離 $D^2 = (\\boldsymbol{x} - \\boldsymbol{\\mu})^\\top \\Sigma^{-1}(\\boldsymbol{x} - \\boldsymbol{\\mu})$ は、相関と尺度を考慮した距離です。$\\mathrm{N}_p(\\boldsymbol{\\mu}, \\Sigma)$ のもとで $D^2 \\sim \\chi^2(p)$ となり、多変量の外れ値検出に使われます。",
       "theorems": [
         {
           "title": "マハラノビス距離の分布",
-          "statement": "X ~ Nₚ(μ, Σ)（Σ 正定値）なら (X − μ)ᵀΣ⁻¹(X − μ) ~ χ²(p)。",
-          "proof": "Σ は正定値対称なので Σ^(−1/2) が存在する。Z = Σ^(−1/2)(X − μ) とおくと Z ~ Nₚ(0, Σ^(−1/2)ΣΣ^(−1/2)) = Nₚ(0, I)。\nZ の成分は独立に N(0, 1) に従い、(X − μ)ᵀΣ⁻¹(X − μ) = ZᵀZ = ΣZᵢ² ~ χ²(p)。"
+          "statement": "$\\boldsymbol{X} \\sim \\mathrm{N}_p(\\boldsymbol{\\mu}, \\Sigma)$（$\\Sigma$ 正定値）なら $(\\boldsymbol{X} - \\boldsymbol{\\mu})^\\top \\Sigma^{-1}(\\boldsymbol{X} - \\boldsymbol{\\mu}) \\sim \\chi^2(p)$。",
+          "proof": "$\\Sigma$ は正定値対称なので $\\Sigma^{-\\frac{1}{2}}$ が存在する。$\\boldsymbol{Z} = \\Sigma^{-\\frac{1}{2}}(\\boldsymbol{X} - \\boldsymbol{\\mu})$ とおくと\n$$\\boldsymbol{Z} \\sim \\mathrm{N}_p\\left(\\boldsymbol{0},\\ \\Sigma^{-\\frac{1}{2}}\\Sigma\\Sigma^{-\\frac{1}{2}}\\right) = \\mathrm{N}_p(\\boldsymbol{0}, I)$$\n$\\boldsymbol{Z}$ の成分は独立に $\\mathrm{N}(0, 1)$ に従い、$(\\boldsymbol{X} - \\boldsymbol{\\mu})^\\top \\Sigma^{-1}(\\boldsymbol{X} - \\boldsymbol{\\mu}) = \\boldsymbol{Z}^\\top \\boldsymbol{Z} = \\sum_i Z_i^2 \\sim \\chi^2(p)$。"
         }
       ],
       "examples": [
         {
-          "question": "X = (X₁, X₂) の分散がともに 1、相関 0.8 のとき、Y = X₁ − X₂ の分散を求めよ。",
-          "solution": "a = (1, −1) として Var(Y) = aᵀΣa = 1 + 1 − 2 × 0.8 = 0.4。"
+          "question": "$\\boldsymbol{X} = (X_1, X_2)^\\top$ の分散がともに 1、相関 0.8 のとき、$Y = X_1 - X_2$ の分散を求めよ。",
+          "solution": "$\\boldsymbol{a} = (1, -1)^\\top$ として\n$$V[Y] = \\boldsymbol{a}^\\top \\Sigma \\boldsymbol{a} = 1 + 1 - 2 \\times 0.8 = 0.4$$"
         }
       ]
     },
     {
       "id": "mv-l2",
       "title": "主成分分析",
-      "body": "主成分分析（PCA）は、分散が最大になる方向へ順に射影して、多数の変数を少数の合成変数に要約する手法です。\n\n第 1 主成分 z₁ = a₁ᵀx は、‖a₁‖ = 1 の制約のもとで Var(a₁ᵀx) = a₁ᵀΣa₁ を最大化します。解は Σ の最大固有値 λ₁ に対応する単位固有ベクトルで、Var(z₁) = λ₁ です。第 k 主成分は、それまでの主成分と無相関という条件のもとで分散を最大化し、第 k 固有値・固有ベクトルが対応します。\n\n・寄与率 λₖ/Σλⱼ、累積寄与率\n・主成分負荷量（元の変数と主成分の相関）：√λₖ aₖⱼ/σⱼ\n・主成分数の目安：累積寄与率 70〜80%、固有値 1 以上（相関行列の場合、カイザー基準）、スクリープロットの肘\n\n単位が異なる変数では相関行列（標準化データ）を用います。このとき固有値の和は変数の数 p になります。",
+      "body": "主成分分析（PCA）は、分散が最大になる方向へ順に射影して、多数の変数を少数の合成変数に要約する手法です。\n\n第 1 主成分 $z_1 = \\boldsymbol{a}_1^\\top \\boldsymbol{x}$ は、$\\|\\boldsymbol{a}_1\\| = 1$ の制約のもとで $V[\\boldsymbol{a}_1^\\top \\boldsymbol{x}] = \\boldsymbol{a}_1^\\top \\Sigma \\boldsymbol{a}_1$ を最大化します。解は $\\Sigma$ の最大固有値 $\\lambda_1$ に対応する単位固有ベクトルで、$V[z_1] = \\lambda_1$ です。第 $k$ 主成分は、それまでの主成分と無相関という条件のもとで分散を最大化し、第 $k$ 固有値・固有ベクトルが対応します。\n\n・寄与率 $\\dfrac{\\lambda_k}{\\sum_j \\lambda_j}$、累積寄与率\n・主成分負荷量（元の変数と主成分の相関）：$\\dfrac{\\sqrt{\\lambda_k}\\,a_{kj}}{\\sigma_j}$\n・主成分数の目安：累積寄与率 70〜80%、固有値 1 以上（相関行列の場合、カイザー基準）、スクリープロットの肘\n\n単位が異なる変数では相関行列（標準化データ）を用います。このとき固有値の和は変数の数 $p$ になります。",
       "theorems": [
         {
           "title": "第 1 主成分",
-          "statement": "‖a‖ = 1 のもとで aᵀΣa の最大値は Σ の最大固有値 λ₁ であり、最大を与える a は対応する単位固有ベクトルである。",
-          "proof": "ラグランジュ関数 aᵀΣa − λ(aᵀa − 1) を a で微分して 0 とおくと Σa = λa。\nよって極値を与える a は固有ベクトルで、そのとき aᵀΣa = λaᵀa = λ。\n最大値は最大固有値 λ₁。\n（別証）Σ = PΛPᵀ と対角化し b = Pᵀa とおくと ‖b‖ = 1 で aᵀΣa = Σλⱼbⱼ² ≤ λ₁Σbⱼ² = λ₁。"
+          "statement": "$\\|\\boldsymbol{a}\\| = 1$ のもとで $\\boldsymbol{a}^\\top \\Sigma \\boldsymbol{a}$ の最大値は $\\Sigma$ の最大固有値 $\\lambda_1$ であり、最大を与える $\\boldsymbol{a}$ は対応する単位固有ベクトルである。",
+          "proof": "ラグランジュ関数 $\\boldsymbol{a}^\\top \\Sigma \\boldsymbol{a} - \\lambda(\\boldsymbol{a}^\\top \\boldsymbol{a} - 1)$ を $\\boldsymbol{a}$ で微分して $\\boldsymbol{0}$ とおくと $\\Sigma\\boldsymbol{a} = \\lambda\\boldsymbol{a}$。\nよって極値を与える $\\boldsymbol{a}$ は固有ベクトルで、そのとき $\\boldsymbol{a}^\\top \\Sigma \\boldsymbol{a} = \\lambda\\boldsymbol{a}^\\top \\boldsymbol{a} = \\lambda$。最大値は最大固有値 $\\lambda_1$。\n（別証）$\\Sigma = P\\Lambda P^\\top$ と対角化し $\\boldsymbol{b} = P^\\top \\boldsymbol{a}$ とおくと $\\|\\boldsymbol{b}\\| = 1$ で\n$$\\boldsymbol{a}^\\top \\Sigma \\boldsymbol{a} = \\sum_j \\lambda_j b_j^2 \\le \\lambda_1 \\sum_j b_j^2 = \\lambda_1$$"
         },
         {
           "title": "主成分の分散の和",
-          "statement": "全主成分の分散の和は元の変数の分散の和に等しい：Σλⱼ = tr(Σ) = ΣVar(xⱼ)。",
-          "proof": "Σ = PΛPᵀ（P 直交）より tr(Σ) = tr(PΛPᵀ) = tr(ΛPᵀP) = tr(Λ) = Σλⱼ。\n相関行列では対角成分がすべて 1 なので Σλⱼ = p。"
+          "statement": "全主成分の分散の和は元の変数の分散の和に等しい：$\\sum_j \\lambda_j = \\mathrm{tr}(\\Sigma) = \\sum_j V[x_j]$。",
+          "proof": "$\\Sigma = P\\Lambda P^\\top$（$P$ 直交）より\n$$\\mathrm{tr}(\\Sigma) = \\mathrm{tr}(P\\Lambda P^\\top) = \\mathrm{tr}(\\Lambda P^\\top P) = \\mathrm{tr}(\\Lambda) = \\sum_j \\lambda_j$$\n相関行列では対角成分がすべて 1 なので $\\sum_j \\lambda_j = p$。"
         }
       ],
       "examples": [
         {
-          "question": "2 変数の相関行列 [[1, r], [r, 1]]（r > 0）の主成分を求めよ。",
-          "solution": "固有方程式 (1 − λ)² − r² = 0 より λ = 1 ± r。\nλ₁ = 1 + r の固有ベクトルは (1, 1)/√2、λ₂ = 1 − r は (1, −1)/√2。\n第 1 主成分は和（総合的な大きさ）、第 2 主成分は差（バランス）を表す。寄与率は (1 + r)/2。"
+          "question": "2 変数の相関行列 $\\begin{pmatrix} 1 & r \\\\ r & 1 \\end{pmatrix}$（$r > 0$）の主成分を求めよ。",
+          "solution": "固有方程式 $(1 - \\lambda)^2 - r^2 = 0$ より $\\lambda = 1 \\pm r$。\n$\\lambda_1 = 1 + r$ の固有ベクトルは $\\frac{1}{\\sqrt{2}}(1, 1)^\\top$、$\\lambda_2 = 1 - r$ は $\\frac{1}{\\sqrt{2}}(1, -1)^\\top$。\n第 1 主成分は和（総合的な大きさ）、第 2 主成分は差（バランス）を表す。第 1 主成分の寄与率は $\\frac{1 + r}{2}$。"
         }
       ]
     },
     {
       "id": "mv-l3",
       "title": "因子分析",
-      "body": "因子分析は、観測変数の相関を少数の潜在的な共通因子で説明するモデルです。\n  x = μ + Λf + ε\n（Λ: p × m 因子負荷行列、f: 共通因子 E[f] = 0, Var(f) = I、ε: 独自因子 Var(ε) = Ψ（対角）、f と ε は無相関）\nこのとき\n  Σ = ΛΛᵀ + Ψ\nです。変数 xⱼ の分散のうち Σₖ λⱼₖ² を共通性、ψⱼ を独自性（独自分散）といいます。標準化変数では 共通性 + 独自性 = 1。\n\n推定法：主因子法、最尤法など。最尤法では因子数の適合度検定ができます。\n\n回転の不定性：直交行列 T について ΛT も同じ Σ を与えるため、解釈しやすい回転を選びます。バリマックス回転（直交、負荷量の 2 乗の分散を最大化）、プロマックス回転（斜交、因子間相関を許す）など。\n\nPCA との違い：PCA は分散の要約（モデルなし、誤差項なし）、因子分析は潜在因子の構造モデル（独自因子を分離）です。",
+      "body": "因子分析は、観測変数の相関を少数の潜在的な共通因子で説明するモデルです。\n$$\\boldsymbol{x} = \\boldsymbol{\\mu} + \\Lambda\\boldsymbol{f} + \\boldsymbol{\\varepsilon}$$\n（$\\Lambda$：$p \\times m$ 因子負荷行列、$\\boldsymbol{f}$：共通因子 $E[\\boldsymbol{f}] = \\boldsymbol{0},\\ V[\\boldsymbol{f}] = I$、$\\boldsymbol{\\varepsilon}$：独自因子 $V[\\boldsymbol{\\varepsilon}] = \\Psi$（対角）、$\\boldsymbol{f}$ と $\\boldsymbol{\\varepsilon}$ は無相関）\nこのとき\n$$\\Sigma = \\Lambda\\Lambda^\\top + \\Psi$$\nです。変数 $x_j$ の分散のうち $\\sum_k \\lambda_{jk}^2$ を共通性、$\\psi_j$ を独自性（独自分散）といいます。標準化変数では 共通性 + 独自性 = 1。\n\n推定法：主因子法、最尤法など。最尤法では因子数の適合度検定ができます。\n\n回転の不定性：直交行列 $T$ について $\\Lambda T$ も同じ $\\Sigma$ を与えるため、解釈しやすい回転を選びます。バリマックス回転（直交、負荷量の 2 乗の分散を最大化）、プロマックス回転（斜交、因子間相関を許す）など。\n\n主成分分析との違い：主成分分析は分散の要約（モデルなし、誤差項なし）、因子分析は潜在因子の構造モデル（独自因子を分離）です。",
       "theorems": [
         {
           "title": "因子モデルの共分散構造",
-          "statement": "x = μ + Λf + ε で Var(f) = I, Var(ε) = Ψ, Cov(f, ε) = 0 なら Var(x) = ΛΛᵀ + Ψ。",
-          "proof": "Var(x) = Var(Λf + ε) = ΛVar(f)Λᵀ + Var(ε) + ΛCov(f, ε) + Cov(ε, f)Λᵀ = ΛΛᵀ + Ψ。"
+          "statement": "$\\boldsymbol{x} = \\boldsymbol{\\mu} + \\Lambda\\boldsymbol{f} + \\boldsymbol{\\varepsilon}$ で $V[\\boldsymbol{f}] = I,\\ V[\\boldsymbol{\\varepsilon}] = \\Psi,\\ \\mathrm{Cov}[\\boldsymbol{f}, \\boldsymbol{\\varepsilon}] = O$ なら $V[\\boldsymbol{x}] = \\Lambda\\Lambda^\\top + \\Psi$。",
+          "proof": "$$V[\\boldsymbol{x}] = V[\\Lambda\\boldsymbol{f} + \\boldsymbol{\\varepsilon}] = \\Lambda V[\\boldsymbol{f}]\\Lambda^\\top + V[\\boldsymbol{\\varepsilon}] + \\Lambda\\,\\mathrm{Cov}[\\boldsymbol{f}, \\boldsymbol{\\varepsilon}] + \\mathrm{Cov}[\\boldsymbol{\\varepsilon}, \\boldsymbol{f}]\\Lambda^\\top = \\Lambda\\Lambda^\\top + \\Psi$$"
         },
         {
           "title": "回転の不定性",
-          "statement": "任意の m 次直交行列 T について、Λ* = ΛT, f* = Tᵀf とおいたモデルも同じ共分散構造 Σ = Λ*Λ*ᵀ + Ψ を与え、共通性も変わらない。",
-          "proof": "Λ*f* = ΛTTᵀf = Λf なのでモデルそのものが同一。\nΛ*Λ*ᵀ = ΛTTᵀΛᵀ = ΛΛᵀ。\nまた Var(f*) = TᵀT = I。共通性は ΛΛᵀ の対角成分なので不変。"
+          "statement": "任意の $m$ 次直交行列 $T$ について、$\\Lambda^* = \\Lambda T,\\ \\boldsymbol{f}^* = T^\\top \\boldsymbol{f}$ とおいたモデルも同じ共分散構造 $\\Sigma = \\Lambda^*\\Lambda^{*\\top} + \\Psi$ を与え、共通性も変わらない。",
+          "proof": "$\\Lambda^*\\boldsymbol{f}^* = \\Lambda TT^\\top \\boldsymbol{f} = \\Lambda\\boldsymbol{f}$ なのでモデルそのものが同一。\n$\\Lambda^*\\Lambda^{*\\top} = \\Lambda TT^\\top \\Lambda^\\top = \\Lambda\\Lambda^\\top$。また $V[\\boldsymbol{f}^*] = T^\\top T = I$。\n共通性は $\\Lambda\\Lambda^\\top$ の対角成分なので不変。"
         }
       ],
       "examples": [
         {
-          "question": "1 因子モデルで標準化変数 x₁, x₂ の因子負荷量が 0.8, 0.6 のとき、x₁ と x₂ の相関と x₂ の独自性を求めよ。",
-          "solution": "相関 = λ₁λ₂ = 0.8 × 0.6 = 0.48。\nx₂ の共通性 0.36、独自性 1 − 0.36 = 0.64。"
+          "question": "1 因子モデルで標準化変数 $x_1, x_2$ の因子負荷量が 0.8, 0.6 のとき、$x_1$ と $x_2$ の相関と $x_2$ の独自性を求めよ。",
+          "solution": "相関 $= \\lambda_1\\lambda_2 = 0.8 \\times 0.6 = 0.48$。\n$x_2$ の共通性 $0.6^2 = 0.36$、独自性 $1 - 0.36 = 0.64$。"
         }
       ]
     },
     {
       "id": "mv-l4",
       "title": "判別分析",
-      "body": "判別分析は、所属群が既知の学習データから、新しい個体の群を予測する規則を作る手法です。\n\nフィッシャーの線形判別：射影 z = wᵀx の群間変動と群内変動の比\n  J(w) = (wᵀS_B w)/(wᵀS_W w)\nを最大化します。2 群では w ∝ S_W⁻¹(x̄₁ − x̄₂) で、射影後の値を 2 群の中点と比較して判別します。\n\n確率モデルによる判別：群 k の密度 f_k と事前確率 π_k から、事後確率 π_k f_k(x) が最大の群に分類する（ベイズ判別）と誤判別率が最小になります。\n・各群が多変量正規で共分散行列が共通 → 判別関数は x の 1 次式（線形判別、LDA）\n・共分散行列が異なる → 2 次式（2 次判別、QDA）\n\n評価：誤判別率、混同行列。学習データでの誤判別率は楽観的なので、交差検証（1 個抜き法など）で評価します。ロジスティック回帰も判別に使えます。",
+      "body": "判別分析は、所属群が既知の学習データから、新しい個体の群を予測する規則を作る手法です。\n\nフィッシャーの線形判別：射影 $z = \\boldsymbol{w}^\\top \\boldsymbol{x}$ の群間変動と群内変動の比\n$$J(\\boldsymbol{w}) = \\frac{\\boldsymbol{w}^\\top S_B \\boldsymbol{w}}{\\boldsymbol{w}^\\top S_W \\boldsymbol{w}}$$\nを最大化します。2 群では $\\boldsymbol{w} \\propto S_W^{-1}(\\bar{\\boldsymbol{x}}_1 - \\bar{\\boldsymbol{x}}_2)$ で、射影後の値を 2 群の中点と比較して判別します。\n\n確率モデルによる判別：群 $k$ の密度 $f_k$ と事前確率 $\\pi_k$ から、$\\pi_k f_k(\\boldsymbol{x})$ が最大の群に分類する（ベイズ判別）と誤判別率が最小になります。\n・各群が多変量正規で共分散行列が共通なら、判別関数は $\\boldsymbol{x}$ の 1 次式（線形判別、LDA）\n・共分散行列が異なるなら 2 次式（2 次判別、QDA）\n\n評価：誤判別率、混同行列。学習データでの誤判別率は楽観的なので、交差検証（1 個抜き法など）で評価します。ロジスティック回帰も判別に使えます。",
       "theorems": [
         {
           "title": "フィッシャーの判別方向（2 群）",
-          "statement": "J(w) = (wᵀ(x̄₁ − x̄₂))²/(wᵀS_W w) を最大にする w は S_W⁻¹(x̄₁ − x̄₂) に比例する。",
-          "proof": "d = x̄₁ − x̄₂、u = S_W^(1/2)w とおくと J = (uᵀS_W^(−1/2)d)²/(uᵀu)。\nコーシー・シュワルツの不等式より (uᵀv)² ≤ ‖u‖²‖v‖²（v = S_W^(−1/2)d）なので J ≤ ‖v‖² = dᵀS_W⁻¹d。\n等号は u ∝ v、すなわち w = S_W^(−1/2)u ∝ S_W⁻¹d のとき。"
+          "statement": "$\\boldsymbol{d} = \\bar{\\boldsymbol{x}}_1 - \\bar{\\boldsymbol{x}}_2$ として、$J(\\boldsymbol{w}) = \\dfrac{(\\boldsymbol{w}^\\top \\boldsymbol{d})^2}{\\boldsymbol{w}^\\top S_W \\boldsymbol{w}}$ を最大にする $\\boldsymbol{w}$ は $S_W^{-1}\\boldsymbol{d}$ に比例する。",
+          "proof": "$\\boldsymbol{u} = S_W^{\\frac{1}{2}}\\boldsymbol{w},\\ \\boldsymbol{v} = S_W^{-\\frac{1}{2}}\\boldsymbol{d}$ とおくと $J = \\dfrac{(\\boldsymbol{u}^\\top \\boldsymbol{v})^2}{\\boldsymbol{u}^\\top \\boldsymbol{u}}$。\nコーシー・シュワルツの不等式 $(\\boldsymbol{u}^\\top \\boldsymbol{v})^2 \\le \\|\\boldsymbol{u}\\|^2\\|\\boldsymbol{v}\\|^2$ より $J \\le \\|\\boldsymbol{v}\\|^2 = \\boldsymbol{d}^\\top S_W^{-1}\\boldsymbol{d}$。\n等号は $\\boldsymbol{u} \\propto \\boldsymbol{v}$、すなわち $\\boldsymbol{w} = S_W^{-\\frac{1}{2}}\\boldsymbol{u} \\propto S_W^{-1}\\boldsymbol{d}$ のとき。"
         },
         {
           "title": "等共分散正規モデルでの線形判別",
-          "statement": "群 k が N(μₖ, Σ)（Σ 共通）、事前確率 πₖ のとき、ベイズ判別の境界は x の 1 次式になる。",
-          "proof": "log πₖfₖ(x) = log πₖ − (1/2)(x − μₖ)ᵀΣ⁻¹(x − μₖ) + 定数\n= log πₖ + xᵀΣ⁻¹μₖ − (1/2)μₖᵀΣ⁻¹μₖ − (1/2)xᵀΣ⁻¹x + 定数。\n最後の 2 次の項は k によらないので、群間の比較では消え、判別関数は x の 1 次式になる。"
+          "statement": "群 $k$ が $\\mathrm{N}(\\boldsymbol{\\mu}_k, \\Sigma)$（$\\Sigma$ 共通）、事前確率 $\\pi_k$ のとき、ベイズ判別の境界は $\\boldsymbol{x}$ の 1 次式になる。",
+          "proof": "$$\\log\\pi_k f_k(\\boldsymbol{x}) = \\log\\pi_k + \\boldsymbol{x}^\\top \\Sigma^{-1}\\boldsymbol{\\mu}_k - \\frac{1}{2}\\boldsymbol{\\mu}_k^\\top \\Sigma^{-1}\\boldsymbol{\\mu}_k - \\frac{1}{2}\\boldsymbol{x}^\\top \\Sigma^{-1}\\boldsymbol{x} + \\text{定数}$$\n最後の 2 次の項は $k$ によらないので、群間の比較では消え、判別関数は $\\boldsymbol{x}$ の 1 次式になる。"
         }
       ],
       "examples": [
         {
-          "question": "1 次元で群 1 が N(0, 1)、群 2 が N(2, 1)、事前確率が等しいとき、判別の境界を求めよ。",
-          "solution": "密度が等しくなる点は中点 x = 1。x < 1 なら群 1、x > 1 なら群 2 に判別する。誤判別率は各群で P(Z > 1) ≈ 0.159。"
+          "question": "1 次元で群 1 が $\\mathrm{N}(0, 1)$、群 2 が $\\mathrm{N}(2, 1)$、事前確率が等しいとき、判別の境界を求めよ。",
+          "solution": "密度が等しくなる点は中点 $x = 1$。$x < 1$ なら群 1、$x > 1$ なら群 2 に判別する。誤判別率は各群で $P(Z > 1) \\approx 0.159$。"
         }
       ]
     },
     {
       "id": "mv-l5",
       "title": "クラスター分析",
-      "body": "クラスター分析は、群のラベルがないデータを似たもの同士にまとめる教師なし学習です。\n\n階層的方法：個体を 1 つずつのクラスターから始め、最も近いクラスター対を順に併合します。結果はデンドログラム（樹形図）で表されます。クラスター間距離の定め方\n・最短距離法（単連結）：最も近い個体間の距離。鎖状につながりやすい。\n・最長距離法（完全連結）：最も遠い個体間の距離。\n・群平均法：全個体対の距離の平均。\n・重心法：重心間の距離。\n・ウォード法：併合による群内平方和の増加量。まとまりのよいクラスターを作りやすい。\n\n非階層的方法（k-means 法）：クラスター数 k を指定し、(1) 各個体を最も近い重心に割り当て、(2) 重心を再計算する、を繰り返します。群内平方和は単調に減少して収束しますが、局所最適解なので初期値を変えて複数回実行します（k-means++ など）。\n\nk の選び方：エルボー法、シルエット係数、ギャップ統計量など。",
+      "body": "クラスター分析は、群のラベルがないデータを似たもの同士にまとめる教師なし学習です。\n\n階層的方法：個体を 1 つずつのクラスターから始め、最も近いクラスター対を順に併合します。結果はデンドログラム（樹形図）で表されます。クラスター間距離の定め方\n・最短距離法（単連結）：最も近い個体間の距離。鎖状につながりやすい。\n・最長距離法（完全連結）：最も遠い個体間の距離。\n・群平均法：全個体対の距離の平均。\n・重心法：重心間の距離。\n・ウォード法：併合による群内平方和の増加量。まとまりのよいクラスターを作りやすい。\n\n非階層的方法（k-means 法）：クラスター数 $k$ を指定し、(1) 各個体を最も近い重心に割り当て、(2) 重心を再計算する、を繰り返します。群内平方和は単調に減少して収束しますが、局所最適解なので初期値を変えて複数回実行します（k-means++ など）。\n\n$k$ の選び方：エルボー法、シルエット係数、ギャップ統計量など。",
       "theorems": [
         {
           "title": "k-means 法の単調性",
-          "statement": "k-means 法の各反復で群内平方和 W = Σₖ Σ_(i∈Cₖ) ‖xᵢ − mₖ‖² は増加しない。したがって有限回で収束する。",
-          "proof": "割り当てステップ：重心 mₖ を固定して各個体を最も近い重心に移すので、各項 ‖xᵢ − m_(c(i))‖² は増えない。\n更新ステップ：割り当てを固定すると、Σ_(i∈Cₖ)‖xᵢ − m‖² を最小にする m は群の平均（Σ‖xᵢ − m‖² = Σ‖xᵢ − x̄ₖ‖² + nₖ‖x̄ₖ − m‖²）なので W は増えない。\n割り当ての可能性は有限個であり、W が厳密に減る限り同じ割り当てには戻らないので、有限回で停止する。"
+          "statement": "k-means 法の各反復で群内平方和 $W = \\sum_k \\sum_{i \\in C_k}\\|\\boldsymbol{x}_i - \\boldsymbol{m}_k\\|^2$ は増加しない。したがって有限回で収束する。",
+          "proof": "割り当てステップ：重心 $\\boldsymbol{m}_k$ を固定して各個体を最も近い重心に移すので、各項は増えない。\n更新ステップ：割り当てを固定すると\n$$\\sum_{i \\in C_k}\\|\\boldsymbol{x}_i - \\boldsymbol{m}\\|^2 = \\sum_{i \\in C_k}\\|\\boldsymbol{x}_i - \\bar{\\boldsymbol{x}}_k\\|^2 + n_k\\|\\bar{\\boldsymbol{x}}_k - \\boldsymbol{m}\\|^2$$\nなので、これを最小にする $\\boldsymbol{m}$ は群の平均 $\\bar{\\boldsymbol{x}}_k$ であり、$W$ は増えない。\n割り当ての可能性は有限個であり、$W$ が厳密に減る限り同じ割り当てには戻らないので、有限回で停止する。"
         }
       ],
       "examples": [
@@ -110,20 +110,46 @@
     {
       "id": "mv-l6",
       "title": "多次元尺度構成法と正準相関分析",
-      "body": "多次元尺度構成法（MDS）は、個体間の距離（非類似度）行列 D だけから、距離をなるべく再現する低次元の座標を求めます。\n\n古典的 MDS：\n(1) 距離の 2 乗の行列 D⁽²⁾ を二重中心化して B = −(1/2)JD⁽²⁾J（J = I − 11ᵀ/n）を作る\n(2) B = XXᵀ を満たす X を B の固有値分解から求める（上位 k 個の固有値・固有ベクトルで k 次元布置）\nユークリッド距離の場合、結果は主成分得点と一致します。非計量 MDS は距離の順序だけを保つようにストレスを最小化します。\n\n正準相関分析：2 つの変数群 x（p 次元）, y（q 次元）について、相関 Corr(aᵀx, bᵀy) を最大にする a, b を求めます。最大の相関を第 1 正準相関といい、Σ_xx⁻¹Σ_xyΣ_yy⁻¹Σ_yx の最大固有値の平方根になります。\n\nコレスポンデンス分析（対応分析）は分割表の行と列のカテゴリを同じ平面に布置する手法で、カイ二乗距離に基づきます。",
+      "body": "多次元尺度構成法（MDS）は、個体間の距離（非類似度）行列 $D$ だけから、距離をなるべく再現する低次元の座標を求めます。\n\n古典的 MDS：\n(1) 距離の 2 乗を並べた行列 $D^{(2)}$ を二重中心化して $B = -\\frac{1}{2}JD^{(2)}J$（$J = I - \\frac{1}{n}\\boldsymbol{1}\\boldsymbol{1}^\\top$）を作る\n(2) $B = XX^\\top$ を満たす $X$ を $B$ の固有値分解から求める（上位 $k$ 個の固有値・固有ベクトルで $k$ 次元布置）\nユークリッド距離の場合、結果は主成分得点と一致します。非計量 MDS は距離の順序だけを保つようにストレスを最小化します。\n\n正準相関分析：2 つの変数群 $\\boldsymbol{x}$（$p$ 次元）、$\\boldsymbol{y}$（$q$ 次元）について、相関 $\\mathrm{Corr}[\\boldsymbol{a}^\\top \\boldsymbol{x}, \\boldsymbol{b}^\\top \\boldsymbol{y}]$ を最大にする $\\boldsymbol{a}, \\boldsymbol{b}$ を求めます。最大の相関を第 1 正準相関といい、$\\Sigma_{xx}^{-1}\\Sigma_{xy}\\Sigma_{yy}^{-1}\\Sigma_{yx}$ の最大固有値の平方根になります。\n\nコレスポンデンス分析（対応分析）は分割表の行と列のカテゴリを同じ平面に布置する手法で、カイ二乗距離に基づきます。",
       "theorems": [
         {
           "title": "古典的 MDS の二重中心化",
-          "statement": "点 x₁, …, xₙ の重心を原点としたとき、dᵢⱼ² = ‖xᵢ − xⱼ‖² から作った B = −(1/2)JD⁽²⁾J は内積行列 bᵢⱼ = xᵢᵀxⱼ に一致する。",
-          "proof": "dᵢⱼ² = ‖xᵢ‖² + ‖xⱼ‖² − 2xᵢᵀxⱼ なので D⁽²⁾ = c1ᵀ + 1cᵀ − 2XXᵀ（cᵢ = ‖xᵢ‖²）。\nJ1 = 0 より J(c1ᵀ)J = 0, J(1cᵀ)J = 0。\nよって B = −(1/2)J(−2XXᵀ)J = JXXᵀJ。重心が原点なら JX = X なので B = XXᵀ。"
+          "statement": "点 $\\boldsymbol{x}_1, \\dots, \\boldsymbol{x}_n$ の重心を原点としたとき、$d_{ij}^2 = \\|\\boldsymbol{x}_i - \\boldsymbol{x}_j\\|^2$ から作った $B = -\\frac{1}{2}JD^{(2)}J$ は内積行列 $b_{ij} = \\boldsymbol{x}_i^\\top \\boldsymbol{x}_j$ に一致する。",
+          "proof": "$d_{ij}^2 = \\|\\boldsymbol{x}_i\\|^2 + \\|\\boldsymbol{x}_j\\|^2 - 2\\boldsymbol{x}_i^\\top \\boldsymbol{x}_j$ なので、$c_i = \\|\\boldsymbol{x}_i\\|^2$ として\n$$D^{(2)} = \\boldsymbol{c}\\boldsymbol{1}^\\top + \\boldsymbol{1}\\boldsymbol{c}^\\top - 2XX^\\top$$\n$J\\boldsymbol{1} = \\boldsymbol{0}$ より $J(\\boldsymbol{c}\\boldsymbol{1}^\\top)J = O,\\ J(\\boldsymbol{1}\\boldsymbol{c}^\\top)J = O$。\nよって $B = -\\frac{1}{2}J(-2XX^\\top)J = JXX^\\top J$。重心が原点なら $JX = X$ なので $B = XX^\\top$。"
         }
       ],
       "examples": [
         {
-          "question": "正準相関分析で x, y がともに 1 変数のとき、第 1 正準相関は何に一致するか。",
-          "solution": "aᵀx, bᵀy はそれぞれ x, y の定数倍なので、正準相関は x と y の相関係数の絶対値 |ρ_xy| に一致する。"
+          "question": "正準相関分析で $\\boldsymbol{x}, \\boldsymbol{y}$ がともに 1 変数のとき、第 1 正準相関は何に一致するか。",
+          "solution": "$\\boldsymbol{a}^\\top \\boldsymbol{x},\\ \\boldsymbol{b}^\\top \\boldsymbol{y}$ はそれぞれ $x, y$ の定数倍なので、正準相関は $x$ と $y$ の相関係数の絶対値 $|\\rho_{xy}|$ に一致する。"
         }
       ]
+    }
+  ],
+  "formulas": [
+    {
+      "title": "主成分分析",
+      "body": "$\\Sigma$ の固有値 $\\lambda_1 \\ge \\cdots \\ge \\lambda_p$ と固有ベクトル\n第 $k$ 主成分の分散 $= \\lambda_k$、寄与率 $= \\dfrac{\\lambda_k}{\\sum_j \\lambda_j}$\n相関行列なら $\\sum_j \\lambda_j = p$"
+    },
+    {
+      "title": "因子分析",
+      "body": "$\\boldsymbol{x} = \\Lambda\\boldsymbol{f} + \\boldsymbol{\\varepsilon}, \\quad \\Sigma = \\Lambda\\Lambda^\\top + \\Psi$\n標準化時：共通性 + 独自性 = 1\n回転：バリマックス（直交）、プロマックス（斜交）"
+    },
+    {
+      "title": "マハラノビス距離",
+      "body": "$D^2 = (\\boldsymbol{x} - \\boldsymbol{\\mu})^\\top \\Sigma^{-1}(\\boldsymbol{x} - \\boldsymbol{\\mu})$\n多変量正規なら $D^2 \\sim \\chi^2(p)$"
+    },
+    {
+      "title": "判別分析",
+      "body": "フィッシャー：$\\boldsymbol{w} \\propto S_W^{-1}(\\bar{\\boldsymbol{x}}_1 - \\bar{\\boldsymbol{x}}_2)$\n共分散が等しければ線形判別、異なれば 2 次判別"
+    },
+    {
+      "title": "クラスター分析",
+      "body": "階層的：最短距離法・最長距離法・群平均法・ウォード法\n非階層的：k-means（初期値に依存）"
+    },
+    {
+      "title": "その他",
+      "body": "正準相関分析：2 群の線形結合の相関を最大化\nMDS：距離行列から座標を復元（$B = -\\frac{1}{2}JD^{(2)}J$）\n対応分析：分割表の行・列を同時に布置"
     }
   ]
 }

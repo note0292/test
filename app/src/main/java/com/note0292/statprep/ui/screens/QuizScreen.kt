@@ -1,6 +1,10 @@
 package com.note0292.statprep.ui.screens
 
 import androidx.compose.foundation.BorderStroke
+import com.note0292.statprep.ui.math.MathText
+import androidx.compose.runtime.key
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -45,7 +49,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -173,7 +176,8 @@ private fun QuizQuestion(
                     Spacer(Modifier.width(12.dp))
                     AssistChip(onClick = {}, label = { Text(question.categoryEnum.label) })
                 }
-                Text(question.question, style = MaterialTheme.typography.bodyLarge)
+                // 選択肢を切り替えても再描画しないよう、問題ごとに key を分ける
+                key(question.id) { MathText(question.question, fontSizePx = 17) }
 
                 item.choices.forEachIndexed { i, choice ->
                     ChoiceCard(
@@ -239,7 +243,21 @@ private fun ChoiceCard(text: String, selected: Boolean, revealed: Boolean, isAns
                 else -> RadioButton(selected = selected, onClick = onClick, enabled = !revealed)
             }
             Spacer(Modifier.width(8.dp))
-            Text(text, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
+            // WebView はタップを横取りするので、上に透明な層を重ねてカード全体で選択できるようにする
+            Box(Modifier.weight(1f)) {
+                MathText(text)
+                if (!revealed) {
+                    Box(
+                        Modifier
+                            .matchParentSize()
+                            .clickable(
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = null,
+                                onClick = onClick,
+                            ),
+                    )
+                }
+            }
         }
     }
 }
@@ -274,7 +292,7 @@ private fun ExplanationCard(
                 color = if (correct) CorrectColor else WrongColor,
             )
             Text("解説", style = MaterialTheme.typography.labelLarge)
-            Text(explanation, style = MaterialTheme.typography.bodyMedium)
+            MathText(explanation, fontSizePx = 15)
             TextButton(onClick = { onOpenChapter(category) }) { Text("テキストで復習する（${category.label}）") }
         }
     }
@@ -370,8 +388,7 @@ private fun ReviewRow(
                 )
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    "問$number　${item.question.question}",
-                    maxLines = if (expanded) Int.MAX_VALUE else 2,
+                    "問$number　${item.question.categoryEnum.label}",
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.weight(1f),
                 )
@@ -383,11 +400,15 @@ private fun ReviewRow(
                 }
             }
             if (expanded) {
+                MathText(item.question.question, fontSizePx = 15)
                 if (!correct && chosen != null) {
-                    Text("あなたの解答: ${item.choices[chosen]}", color = WrongColor, style = MaterialTheme.typography.bodyMedium)
+                    Text("あなたの解答", color = WrongColor, style = MaterialTheme.typography.labelLarge)
+                    MathText(item.choices[chosen], fontSizePx = 15)
                 }
-                Text("正解: ${item.choices[item.answer]}", color = CorrectColor, style = MaterialTheme.typography.bodyMedium)
-                Text(item.question.explanation, style = MaterialTheme.typography.bodyMedium, color = Color.Unspecified)
+                Text("正解", color = CorrectColor, style = MaterialTheme.typography.labelLarge)
+                MathText(item.choices[item.answer], fontSizePx = 15)
+                Text("解説", style = MaterialTheme.typography.labelLarge)
+                MathText(item.question.explanation, fontSizePx = 15)
                 TextButton(onClick = onOpenChapter) { Text("テキストで復習する") }
             }
         }

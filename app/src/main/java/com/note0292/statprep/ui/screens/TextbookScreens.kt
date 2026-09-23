@@ -13,9 +13,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.selection.SelectionContainer
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
@@ -23,10 +20,8 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.outlined.Circle
-import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
@@ -35,10 +30,10 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -49,11 +44,13 @@ import androidx.compose.ui.unit.dp
 import com.note0292.statprep.data.Category
 import com.note0292.statprep.data.CategoryKind
 import com.note0292.statprep.data.Chapter
-import com.note0292.statprep.data.Example
-import com.note0292.statprep.data.FormulaNotes
+import com.note0292.statprep.data.Formula
+import com.note0292.statprep.data.Lesson
 import com.note0292.statprep.data.Progress
 import com.note0292.statprep.data.TextbookRepository
-import com.note0292.statprep.data.Theorem
+import com.note0292.statprep.ui.math.MathBlock
+import com.note0292.statprep.ui.math.MathHtml
+import com.note0292.statprep.ui.math.MathPage
 import com.note0292.statprep.ui.theme.CorrectColor
 
 private fun chapterLabel(category: Category): String =
@@ -168,11 +165,8 @@ fun ChapterScreen(
                             Icon(if (formulasOpen) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore, contentDescription = null)
                         }
                         if (formulasOpen) {
-                            FormulaNotes.notes[category].orEmpty().forEach { formula ->
-                                HorizontalDivider(Modifier.padding(vertical = 8.dp))
-                                Text(formula.title, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
-                                Text(formula.body, style = MaterialTheme.typography.bodyMedium)
-                            }
+                            Spacer(Modifier.height(4.dp))
+                            MathBlock(formulasHtml(chapter?.formulas.orEmpty()), fontSizePx = 15)
                         }
                     }
                 }
@@ -183,6 +177,29 @@ fun ChapterScreen(
                 }
             }
         }
+    }
+}
+
+private fun formulasHtml(formulas: List<Formula>): String = formulas.joinToString("") { f ->
+    "<div class=\"formula-title\">${MathHtml.escape(f.title)}</div><div>${MathHtml.escape(f.body)}</div>"
+}
+
+/** レッスン本文・定理と証明・例題を 1 枚の HTML にまとめる。証明と解答は折りたたんでおく。 */
+private fun lessonHtml(number: String, lesson: Lesson): String = buildString {
+    append("<h1>").append(MathHtml.escape("$number　${lesson.title}")).append("</h1>")
+    append("<div>").append(MathHtml.escape(lesson.body)).append("</div>")
+    lesson.theorems.forEachIndexed { i, t ->
+        append("<div class=\"card thm\"><div class=\"label\">")
+        append(MathHtml.escape("定理 $number.${i + 1}（${t.title}）"))
+        append("</div><div>").append(MathHtml.escape(t.statement)).append("</div>")
+        append("<details><summary>証明を見る</summary><div>")
+        append(MathHtml.escape(t.proof)).append("<span class=\"qed\">∎</span></div></details></div>")
+    }
+    lesson.examples.forEachIndexed { i, e ->
+        append("<div class=\"card ex\"><div class=\"label\">例題 ${i + 1}</div><div>")
+        append(MathHtml.escape(e.question)).append("</div>")
+        append("<details><summary>解答を見る</summary><div>")
+        append(MathHtml.escape(e.solution)).append("</div></details></div>")
     }
 }
 
@@ -200,24 +217,16 @@ fun LessonScreen(
     val category = chapter.categoryEnum
     val number = "${category.number}.${index + 1}"
     LaunchedEffect(lesson.id) { onRead(lesson.id) }
+    val html = remember(lesson.id) { lessonHtml(number, lesson) }
 
     Scaffold(topBar = { BackTopBar(category.label, onBack) }) { padding ->
-        Column(
-            Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .verticalScroll(rememberScrollState())
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            Text("$number　${lesson.title}", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
-            SelectionContainer { Text(lesson.body, style = MaterialTheme.typography.bodyLarge) }
-
-            lesson.theorems.forEachIndexed { i, theorem -> TheoremCard("$number.${i + 1}", theorem) }
-            lesson.examples.forEachIndexed { i, example -> ExampleCard(i + 1, example) }
-
+        Column(Modifier.fillMaxSize().padding(padding)) {
+            MathPage(html, Modifier.weight(1f).fillMaxWidth().padding(horizontal = 16.dp))
             HorizontalDivider()
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth().padding(16.dp),
+            ) {
                 val prev = chapter.lessons.getOrNull(index - 1)
                 val next = chapter.lessons.getOrNull(index + 1)
                 OutlinedButton(onClick = { prev?.let { onOpenLesson(it.id) } }, enabled = prev != null, modifier = Modifier.weight(1f)) {
@@ -232,49 +241,6 @@ fun LessonScreen(
                 } else {
                     Button(onClick = onPractice, modifier = Modifier.weight(1f)) { Text("練習問題へ") }
                 }
-            }
-        }
-    }
-}
-
-@Composable
-private fun TheoremCard(number: String, theorem: Theorem) {
-    var showProof by rememberSaveable(number) { mutableStateOf(false) }
-    Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("定理 $number（${theorem.title}）", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
-            SelectionContainer { Text(theorem.statement, style = MaterialTheme.typography.bodyMedium) }
-            TextButton(onClick = { showProof = !showProof }) {
-                Text(if (showProof) "証明を閉じる" else "証明を見る")
-            }
-            if (showProof) {
-                HorizontalDivider()
-                Text("証明", style = MaterialTheme.typography.labelLarge)
-                SelectionContainer { Text(theorem.proof + "　∎", style = MaterialTheme.typography.bodyMedium) }
-            }
-        }
-    }
-}
-
-@Composable
-private fun ExampleCard(number: Int, example: Example) {
-    var showSolution by rememberSaveable(example.question) { mutableStateOf(false) }
-    Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer),
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            AssistChip(onClick = {}, label = { Text("例題 $number") })
-            SelectionContainer { Text(example.question, style = MaterialTheme.typography.bodyMedium) }
-            TextButton(onClick = { showSolution = !showSolution }) {
-                Text(if (showSolution) "解答を閉じる" else "解答を見る")
-            }
-            if (showSolution) {
-                HorizontalDivider()
-                SelectionContainer { Text(example.solution, style = MaterialTheme.typography.bodyMedium) }
             }
         }
     }

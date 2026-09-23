@@ -5,175 +5,201 @@
     {
       "id": "la-l1",
       "title": "ベクトルと内積【高校】",
-      "body": "n 個の数を縦に並べたものを n 次元（列）ベクトルといいます。x = (x₁, …, xₙ)ᵀ（ᵀ は転置、横に書いたものを縦にする記号）。\n\n・和とスカラー倍：成分ごとに計算\n・内積：x·y = xᵀy = Σxᵢyᵢ\n・ノルム（長さ）：‖x‖ = √(xᵀx) = √(Σxᵢ²)\n・なす角 θ：cos θ = xᵀy/(‖x‖‖y‖)\n・直交：xᵀy = 0\n\nコーシー・シュワルツの不等式 |xᵀy| ≤ ‖x‖‖y‖ により、cos θ は −1 以上 1 以下になります。\n\n【統計での使いどころ】データ x₁, …, xₙ を n 次元ベクトルとみなします。\n・平均からの偏差ベクトル x̃ = (x₁ − x̄, …, xₙ − x̄)\n・偏差平方和 = ‖x̃‖²、標準偏差 = ‖x̃‖/√n（または √(n − 1)）\n・共分散 = x̃ᵀỹ/n\n・相関係数 r = x̃ᵀỹ/(‖x̃‖‖ỹ‖) = 偏差ベクトルのなす角の cos\nしたがって |r| ≤ 1 はコーシー・シュワルツの不等式そのもので、r = 0（無相関）は偏差ベクトルが直交することを意味します。回帰分析の残差が説明変数と直交すること（Xᵀe = 0）も同じ見方で理解できます。",
+      "body": "$n$ 個の数を縦に並べたものを $n$ 次元（列）ベクトルといいます。\n$$\\boldsymbol{x} = \\begin{pmatrix} x_1 \\\\ \\vdots \\\\ x_n \\end{pmatrix} = (x_1, \\dots, x_n)^\\top$$\n（$\\top$ は転置。横に書いたものを縦にする記号）\n\n・和とスカラー倍：成分ごとに計算\n・内積：$\\boldsymbol{x} \\cdot \\boldsymbol{y} = \\boldsymbol{x}^\\top \\boldsymbol{y} = \\sum_{i} x_i y_i$\n・ノルム（長さ）：$\\|\\boldsymbol{x}\\| = \\sqrt{\\boldsymbol{x}^\\top \\boldsymbol{x}} = \\sqrt{\\sum_i x_i^2}$\n・なす角 $\\theta$：$\\cos\\theta = \\dfrac{\\boldsymbol{x}^\\top \\boldsymbol{y}}{\\|\\boldsymbol{x}\\|\\,\\|\\boldsymbol{y}\\|}$\n・直交：$\\boldsymbol{x}^\\top \\boldsymbol{y} = 0$\n\nコーシー・シュワルツの不等式 $|\\boldsymbol{x}^\\top \\boldsymbol{y}| \\le \\|\\boldsymbol{x}\\|\\,\\|\\boldsymbol{y}\\|$ により、$\\cos\\theta$ は $-1$ 以上 $1$ 以下になります。\n\n【統計での使いどころ】データ $x_1, \\dots, x_n$ を $n$ 次元ベクトルとみなします。\n・平均からの偏差ベクトル $\\tilde{\\boldsymbol{x}} = (x_1 - \\bar{x}, \\dots, x_n - \\bar{x})^\\top$\n・偏差平方和 $= \\|\\tilde{\\boldsymbol{x}}\\|^2$、共分散 $= \\frac{1}{n}\\tilde{\\boldsymbol{x}}^\\top \\tilde{\\boldsymbol{y}}$\n・相関係数は偏差ベクトルのなす角の $\\cos$：\n$$r = \\frac{\\tilde{\\boldsymbol{x}}^\\top \\tilde{\\boldsymbol{y}}}{\\|\\tilde{\\boldsymbol{x}}\\|\\,\\|\\tilde{\\boldsymbol{y}}\\|}$$\nしたがって $|r| \\le 1$ はコーシー・シュワルツの不等式そのもので、$r = 0$（無相関）は偏差ベクトルが直交することを意味します。回帰分析の残差が説明変数と直交すること（$X^\\top \\boldsymbol{e} = \\boldsymbol{0}$）も同じ見方で理解できます。",
       "theorems": [
         {
           "title": "コーシー・シュワルツの不等式",
-          "statement": "任意のベクトル x, y について (xᵀy)² ≤ ‖x‖²‖y‖²。等号は一方が他方の定数倍（または零ベクトル）のときに限る。",
-          "proof": "y = 0 なら自明。y ≠ 0 のとき、任意の実数 t について ‖x − ty‖² ≥ 0 なので\n‖x‖² − 2t xᵀy + t²‖y‖² ≥ 0。\nt の 2 次式が常に非負なので判別式は 0 以下：(xᵀy)² − ‖x‖²‖y‖² ≤ 0。\n等号は ‖x − ty‖ = 0 となる t があるとき、すなわち x = ty のとき。"
+          "statement": "任意のベクトル $\\boldsymbol{x}, \\boldsymbol{y}$ について $(\\boldsymbol{x}^\\top \\boldsymbol{y})^2 \\le \\|\\boldsymbol{x}\\|^2 \\|\\boldsymbol{y}\\|^2$。等号は一方が他方の定数倍（または零ベクトル）のときに限る。",
+          "proof": "$\\boldsymbol{y} = \\boldsymbol{0}$ なら自明。$\\boldsymbol{y} \\neq \\boldsymbol{0}$ のとき、任意の実数 $t$ について $\\|\\boldsymbol{x} - t\\boldsymbol{y}\\|^2 \\ge 0$ なので\n$$\\|\\boldsymbol{x}\\|^2 - 2t\\,\\boldsymbol{x}^\\top \\boldsymbol{y} + t^2 \\|\\boldsymbol{y}\\|^2 \\ge 0$$\n$t$ の 2 次式が常に非負なので判別式は 0 以下：$(\\boldsymbol{x}^\\top \\boldsymbol{y})^2 - \\|\\boldsymbol{x}\\|^2 \\|\\boldsymbol{y}\\|^2 \\le 0$。\n等号は $\\|\\boldsymbol{x} - t\\boldsymbol{y}\\| = 0$ となる $t$ があるとき、すなわち $\\boldsymbol{x} = t\\boldsymbol{y}$ のとき。"
         }
       ],
       "examples": [
         {
-          "question": "x = (1, 2, 3), y = (2, 4, 7) の相関係数を、偏差ベクトルのなす角として求めよ。",
-          "solution": "x̄ = 2, ȳ = 13/3。x̃ = (−1, 0, 1)、ỹ = (−7/3, −1/3, 8/3)。\nx̃ᵀỹ = 7/3 + 0 + 8/3 = 5。‖x̃‖² = 2、‖ỹ‖² = (49 + 1 + 64)/9 = 114/9。\nr = 5/√(2 × 114/9) = 5/(√228/3) = 15/√228 ≈ 0.993。"
+          "question": "$\\boldsymbol{x} = (1, 2, 3)^\\top,\\ \\boldsymbol{y} = (2, 4, 7)^\\top$ の相関係数を、偏差ベクトルのなす角として求めよ。",
+          "solution": "$\\bar{x} = 2,\\ \\bar{y} = \\frac{13}{3}$。$\\tilde{\\boldsymbol{x}} = (-1, 0, 1)^\\top$、$\\tilde{\\boldsymbol{y}} = \\left(-\\frac{7}{3}, -\\frac{1}{3}, \\frac{8}{3}\\right)^\\top$。\n$$\\tilde{\\boldsymbol{x}}^\\top \\tilde{\\boldsymbol{y}} = \\frac{7}{3} + 0 + \\frac{8}{3} = 5, \\qquad \\|\\tilde{\\boldsymbol{x}}\\|^2 = 2, \\qquad \\|\\tilde{\\boldsymbol{y}}\\|^2 = \\frac{49 + 1 + 64}{9} = \\frac{114}{9}$$\n$$r = \\frac{5}{\\sqrt{2 \\times \\frac{114}{9}}} = \\frac{15}{\\sqrt{228}} \\approx 0.993$$"
         }
       ]
     },
     {
       "id": "la-l2",
       "title": "行列の演算【高校〜大学】",
-      "body": "m × n 行列 A = (aᵢⱼ) は m 行 n 列に数を並べたものです。\n\n・積：A（m × n）と B（n × p）の積 AB は m × p 行列で (AB)ᵢⱼ = Σₖ aᵢₖbₖⱼ。一般に AB ≠ BA\n・転置 Aᵀ：(Aᵀ)ᵢⱼ = aⱼᵢ。(AB)ᵀ = BᵀAᵀ\n・単位行列 I：対角成分が 1、他は 0。AI = IA = A\n・対称行列：Aᵀ = A\n・トレース tr(A) = Σaᵢᵢ（正方行列の対角成分の和）。tr(AB) = tr(BA)\n・二次形式：xᵀAx = ΣΣaᵢⱼxᵢxⱼ（スカラー）\n\n連立方程式は行列で Ax = b と書けます。\n\n【統計での使いどころ】\n・データ行列 X（n 個体 × p 変数）\n・重回帰モデル y = Xβ + ε\n・分散共分散行列 S = (1/n)X̃ᵀX̃（X̃ は各列から平均を引いた行列）。対角成分が各変数の分散、非対角成分が共分散で、対称行列\n・1 次変換 Y = AX の分散共分散行列は AΣAᵀ（和の分散公式の行列版）\n・E[xᵀAx] = tr(AΣ) + μᵀAμ は残差平方和の期待値の計算に使う\n・ハット行列の自由度 tr(H) = p + 1 は tr(AB) = tr(BA) から",
+      "body": "$m \\times n$ 行列 $A = (a_{ij})$ は $m$ 行 $n$ 列に数を並べたものです。\n\n・積：$A$（$m \\times n$）と $B$（$n \\times p$）の積 $AB$ は $m \\times p$ 行列で $(AB)_{ij} = \\sum_k a_{ik} b_{kj}$。一般に $AB \\neq BA$\n・転置 $A^\\top$：$(A^\\top)_{ij} = a_{ji}$。$(AB)^\\top = B^\\top A^\\top$\n・単位行列 $I$：対角成分が 1、他は 0。$AI = IA = A$\n・対称行列：$A^\\top = A$\n・トレース $\\mathrm{tr}(A) = \\sum_i a_{ii}$（正方行列の対角成分の和）。$\\mathrm{tr}(AB) = \\mathrm{tr}(BA)$\n・二次形式：$\\boldsymbol{x}^\\top A \\boldsymbol{x} = \\sum_i \\sum_j a_{ij} x_i x_j$（スカラー）\n\n連立方程式は行列で $A\\boldsymbol{x} = \\boldsymbol{b}$ と書けます。\n\n【統計での使いどころ】\n・データ行列 $X$（$n$ 個体 × $p$ 変数）、重回帰モデル $\\boldsymbol{y} = X\\boldsymbol{\\beta} + \\boldsymbol{\\varepsilon}$\n・分散共分散行列 $S = \\frac{1}{n}\\tilde{X}^\\top \\tilde{X}$（$\\tilde{X}$ は各列から平均を引いた行列）。対角成分が各変数の分散、非対角成分が共分散で、対称行列\n・1 次変換 $\\boldsymbol{Y} = A\\boldsymbol{X}$ の分散共分散行列は $A \\Sigma A^\\top$（和の分散公式の行列版）\n・$E[\\boldsymbol{x}^\\top A \\boldsymbol{x}] = \\mathrm{tr}(A\\Sigma) + \\boldsymbol{\\mu}^\\top A \\boldsymbol{\\mu}$ は残差平方和の期待値の計算に使う\n・ハット行列の自由度 $\\mathrm{tr}(H) = p + 1$ は $\\mathrm{tr}(AB) = \\mathrm{tr}(BA)$ から",
       "theorems": [
         {
           "title": "積の転置",
-          "statement": "(AB)ᵀ = BᵀAᵀ",
-          "proof": "((AB)ᵀ)ᵢⱼ = (AB)ⱼᵢ = Σₖ aⱼₖbₖᵢ。\n(BᵀAᵀ)ᵢⱼ = Σₖ (Bᵀ)ᵢₖ(Aᵀ)ₖⱼ = Σₖ bₖᵢaⱼₖ。\n両者は一致する。"
+          "statement": "$$(AB)^\\top = B^\\top A^\\top$$",
+          "proof": "$$\\left((AB)^\\top\\right)_{ij} = (AB)_{ji} = \\sum_k a_{jk} b_{ki}, \\qquad (B^\\top A^\\top)_{ij} = \\sum_k (B^\\top)_{ik} (A^\\top)_{kj} = \\sum_k b_{ki} a_{jk}$$\n両者は一致する。"
         },
         {
           "title": "トレースの巡回性",
-          "statement": "A が m × n、B が n × m のとき tr(AB) = tr(BA)。",
-          "proof": "tr(AB) = Σᵢ(AB)ᵢᵢ = ΣᵢΣₖ aᵢₖbₖᵢ。\ntr(BA) = Σₖ(BA)ₖₖ = ΣₖΣᵢ bₖᵢaᵢₖ。\n和の順序を入れ替えれば同じ値。スカラー xᵀAx = tr(xᵀAx) = tr(Axxᵀ) の変形にもよく使う。"
+          "statement": "$A$ が $m \\times n$、$B$ が $n \\times m$ のとき $\\mathrm{tr}(AB) = \\mathrm{tr}(BA)$。",
+          "proof": "$$\\mathrm{tr}(AB) = \\sum_i (AB)_{ii} = \\sum_i \\sum_k a_{ik} b_{ki}, \\qquad \\mathrm{tr}(BA) = \\sum_k (BA)_{kk} = \\sum_k \\sum_i b_{ki} a_{ik}$$\n和の順序を入れ替えれば同じ値。スカラーの変形 $\\boldsymbol{x}^\\top A \\boldsymbol{x} = \\mathrm{tr}(\\boldsymbol{x}^\\top A \\boldsymbol{x}) = \\mathrm{tr}(A \\boldsymbol{x} \\boldsymbol{x}^\\top)$ にもよく使う。"
         },
         {
           "title": "1 次変換の分散共分散行列",
-          "statement": "確率ベクトル X の平均 μ、分散共分散行列 Σ のとき、Y = AX + b について E[Y] = Aμ + b、Var(Y) = AΣAᵀ。",
-          "proof": "期待値の線形性より E[Y] = AE[X] + b。\nY − E[Y] = A(X − μ) なので\nVar(Y) = E[(Y − E[Y])(Y − E[Y])ᵀ] = E[A(X − μ)(X − μ)ᵀAᵀ] = AΣAᵀ（積の転置を用いた）。\n特に a を定数ベクトルとして Var(aᵀX) = aᵀΣa。"
+          "statement": "確率ベクトル $\\boldsymbol{X}$ の平均 $\\boldsymbol{\\mu}$、分散共分散行列 $\\Sigma$ のとき、$\\boldsymbol{Y} = A\\boldsymbol{X} + \\boldsymbol{b}$ について $E[\\boldsymbol{Y}] = A\\boldsymbol{\\mu} + \\boldsymbol{b}$、$V[\\boldsymbol{Y}] = A \\Sigma A^\\top$。",
+          "proof": "期待値の線形性より $E[\\boldsymbol{Y}] = A E[\\boldsymbol{X}] + \\boldsymbol{b}$。$\\boldsymbol{Y} - E[\\boldsymbol{Y}] = A(\\boldsymbol{X} - \\boldsymbol{\\mu})$ なので\n$$V[\\boldsymbol{Y}] = E\\left[(\\boldsymbol{Y} - E[\\boldsymbol{Y}])(\\boldsymbol{Y} - E[\\boldsymbol{Y}])^\\top\\right] = E\\left[A(\\boldsymbol{X} - \\boldsymbol{\\mu})(\\boldsymbol{X} - \\boldsymbol{\\mu})^\\top A^\\top\\right] = A\\Sigma A^\\top$$\n（積の転置を用いた）。特に $\\boldsymbol{a}$ を定数ベクトルとして $V[\\boldsymbol{a}^\\top \\boldsymbol{X}] = \\boldsymbol{a}^\\top \\Sigma \\boldsymbol{a}$。"
         }
       ],
       "examples": [
         {
-          "question": "A = [[1, 2], [3, 4]], B = [[0, 1], [1, 0]] のとき AB と BA を求めよ。",
-          "solution": "AB = [[2, 1], [4, 3]]（列の入れ替え）、BA = [[3, 4], [1, 2]]（行の入れ替え）。AB ≠ BA。\ntr(AB) = 5 = tr(BA) は一致する。"
+          "question": "$A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix},\\ B = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$ のとき $AB$ と $BA$ を求めよ。",
+          "solution": "$$AB = \\begin{pmatrix} 2 & 1 \\\\ 4 & 3 \\end{pmatrix} \\ \\text{(列の入れ替え)}, \\qquad BA = \\begin{pmatrix} 3 & 4 \\\\ 1 & 2 \\end{pmatrix} \\ \\text{(行の入れ替え)}$$\n$AB \\neq BA$ だが、$\\mathrm{tr}(AB) = 5 = \\mathrm{tr}(BA)$ は一致する。"
         },
         {
-          "question": "X₁, X₂ の分散が 4, 9、共分散が 2 のとき、X₁ + X₂ と X₁ − X₂ の共分散を求めよ。",
-          "solution": "A = [[1, 1], [1, −1]] として AΣAᵀ の (1, 2) 成分を求める。\nCov(X₁ + X₂, X₁ − X₂) = Var(X₁) − Var(X₂) = 4 − 9 = −5（共分散の項は打ち消し合う）。"
+          "question": "$X_1, X_2$ の分散が $4, 9$、共分散が $2$ のとき、$X_1 + X_2$ と $X_1 - X_2$ の共分散を求めよ。",
+          "solution": "$A = \\begin{pmatrix} 1 & 1 \\\\ 1 & -1 \\end{pmatrix}$ として $A\\Sigma A^\\top$ の $(1, 2)$ 成分を求める。\n$$\\mathrm{Cov}[X_1 + X_2,\\ X_1 - X_2] = V[X_1] - V[X_2] = 4 - 9 = -5$$\n（共分散の項は打ち消し合う）"
         }
       ]
     },
     {
       "id": "la-l3",
       "title": "行列式・逆行列・ランク【大学】",
-      "body": "2 × 2 行列 A = [[a, b], [c, d]] の行列式は det A = ad − bc で、det A ≠ 0 なら逆行列\n  A⁻¹ = (1/(ad − bc)) [[d, −b], [−c, a]]\nが存在します（AA⁻¹ = A⁻¹A = I）。3 × 3 はサラスの方法、一般には余因子展開で計算します。\n\n行列式の性質\n・det(AB) = det A · det B、det Aᵀ = det A、det(cA) = cⁿ det A（n 次）\n・det A ≠ 0 ⇔ A は逆行列をもつ（正則）⇔ 列ベクトルが 1 次独立 ⇔ Ax = 0 の解は x = 0 のみ\n・幾何学的には、列ベクトルが張る平行四辺形（平行六面体）の符号付き面積（体積）\n\n逆行列の性質：(AB)⁻¹ = B⁻¹A⁻¹、(Aᵀ)⁻¹ = (A⁻¹)ᵀ。対称行列の逆行列も対称。\n\nランク（階数）：1 次独立な列（行）ベクトルの最大個数。n × p 行列 X（n ≥ p）のランクが p（フルランク）なら XᵀX は正則です。\n\n【統計での使いどころ】\n・最小二乗推定量 β̂ = (XᵀX)⁻¹Xᵀy。説明変数に完全な多重共線性（ある変数が他の 1 次結合）があると X はフルランクでなく、XᵀX の逆行列が存在しない（ダミー変数の罠）\n・多変量正規分布の密度の |Σ|^(−1/2) と Σ⁻¹\n・変数変換のヤコビアン（行列式の絶対値）",
+      "body": "2 × 2 行列 $A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$ の行列式は $\\det A = ad - bc$ で、$\\det A \\neq 0$ なら逆行列\n$$A^{-1} = \\frac{1}{ad - bc} \\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$$\nが存在します（$AA^{-1} = A^{-1}A = I$）。3 × 3 はサラスの方法、一般には余因子展開で計算します。\n\n行列式の性質\n・$\\det(AB) = \\det A \\cdot \\det B$、$\\det A^\\top = \\det A$、$\\det(cA) = c^n \\det A$（$n$ 次）\n・$\\det A \\neq 0 \\iff A$ は逆行列をもつ（正則）$\\iff$ 列ベクトルが 1 次独立 $\\iff$ $A\\boldsymbol{x} = \\boldsymbol{0}$ の解は $\\boldsymbol{x} = \\boldsymbol{0}$ のみ\n・幾何学的には、列ベクトルが張る平行四辺形（平行六面体）の符号付き面積（体積）\n\n逆行列の性質：$(AB)^{-1} = B^{-1}A^{-1}$、$(A^\\top)^{-1} = (A^{-1})^\\top$。対称行列の逆行列も対称。\n\nランク（階数）：1 次独立な列（行）ベクトルの最大個数。$n \\times p$ 行列 $X$（$n \\ge p$）のランクが $p$（フルランク）なら $X^\\top X$ は正則です。\n\n【統計での使いどころ】\n・最小二乗推定量 $\\hat{\\boldsymbol{\\beta}} = (X^\\top X)^{-1} X^\\top \\boldsymbol{y}$。説明変数に完全な多重共線性（ある変数が他の 1 次結合）があると $X$ はフルランクでなく、$X^\\top X$ の逆行列が存在しない（ダミー変数の罠）\n・多変量正規分布の密度に現れる $|\\Sigma|^{-\\frac{1}{2}}$ と $\\Sigma^{-1}$\n・変数変換のヤコビアン（行列式の絶対値）",
       "theorems": [
         {
           "title": "2 × 2 行列の逆行列",
-          "statement": "ad − bc ≠ 0 のとき、A = [[a, b], [c, d]] の逆行列は (1/(ad − bc))[[d, −b], [−c, a]]。",
-          "proof": "[[a, b], [c, d]]·[[d, −b], [−c, a]] = [[ad − bc, −ab + ba], [cd − dc, −cb + da]] = (ad − bc)I。\nよって (1/(ad − bc)) をかけた行列が右逆行列。逆順の積も同様に (ad − bc)I となるので逆行列である。"
+          "statement": "$ad - bc \\neq 0$ のとき、$A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$ の逆行列は $\\dfrac{1}{ad - bc}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$。",
+          "proof": "$$\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} \\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix} = \\begin{pmatrix} ad - bc & -ab + ba \\\\ cd - dc & -cb + da \\end{pmatrix} = (ad - bc) I$$\nよって $\\frac{1}{ad - bc}$ をかけた行列が右逆行列。逆順の積も同様に $(ad - bc)I$ となるので逆行列である。"
         },
         {
           "title": "積の逆行列",
-          "statement": "A, B が正則なら AB も正則で (AB)⁻¹ = B⁻¹A⁻¹。",
-          "proof": "(AB)(B⁻¹A⁻¹) = A(BB⁻¹)A⁻¹ = AA⁻¹ = I。(B⁻¹A⁻¹)(AB) = B⁻¹(A⁻¹A)B = I。\nよって B⁻¹A⁻¹ が AB の逆行列。"
+          "statement": "$A, B$ が正則なら $AB$ も正則で $(AB)^{-1} = B^{-1}A^{-1}$。",
+          "proof": "$$(AB)(B^{-1}A^{-1}) = A(BB^{-1})A^{-1} = AA^{-1} = I, \\qquad (B^{-1}A^{-1})(AB) = B^{-1}(A^{-1}A)B = I$$\nよって $B^{-1}A^{-1}$ が $AB$ の逆行列。"
         },
         {
-          "title": "XᵀX の正則性",
-          "statement": "n × p 行列 X の列が 1 次独立（ランク p）なら、XᵀX は正則である。",
-          "proof": "XᵀXv = 0 とすると vᵀXᵀXv = ‖Xv‖² = 0 なので Xv = 0。\n列が 1 次独立なので v = 0。\nよって XᵀXv = 0 の解は v = 0 のみで、XᵀX は正則。"
+          "title": "$X^\top X$ の正則性",
+          "statement": "$n \\times p$ 行列 $X$ の列が 1 次独立（ランク $p$）なら、$X^\\top X$ は正則である。",
+          "proof": "$X^\\top X \\boldsymbol{v} = \\boldsymbol{0}$ とすると $\\boldsymbol{v}^\\top X^\\top X \\boldsymbol{v} = \\|X\\boldsymbol{v}\\|^2 = 0$ なので $X\\boldsymbol{v} = \\boldsymbol{0}$。\n列が 1 次独立なので $\\boldsymbol{v} = \\boldsymbol{0}$。よって $X^\\top X \\boldsymbol{v} = \\boldsymbol{0}$ の解は $\\boldsymbol{v} = \\boldsymbol{0}$ のみで、$X^\\top X$ は正則。"
         }
       ],
       "examples": [
         {
-          "question": "連立方程式 2x + y = 5, x + 3y = 5 を逆行列で解け。",
-          "solution": "A = [[2, 1], [1, 3]]、det A = 5。A⁻¹ = (1/5)[[3, −1], [−1, 2]]。\n(x, y) = A⁻¹(5, 5) = (1/5)(15 − 5, −5 + 10) = (2, 1)。"
+          "question": "連立方程式 $2x + y = 5,\\ x + 3y = 5$ を逆行列で解け。",
+          "solution": "$A = \\begin{pmatrix} 2 & 1 \\\\ 1 & 3 \\end{pmatrix}$、$\\det A = 5$。\n$$\\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\frac{1}{5}\\begin{pmatrix} 3 & -1 \\\\ -1 & 2 \\end{pmatrix}\\begin{pmatrix} 5 \\\\ 5 \\end{pmatrix} = \\frac{1}{5}\\begin{pmatrix} 10 \\\\ 5 \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix}$$"
         },
         {
           "question": "切片と、男性ダミー・女性ダミーの両方を説明変数に入れると最小二乗推定量が求まらない理由を説明せよ。",
-          "solution": "男性ダミー + 女性ダミー = 1（切片の列）となり、X の列が 1 次従属になる。X はフルランクでなく、XᵀX の逆行列が存在しない。どちらか一方のダミーを除けば解決する。"
+          "solution": "男性ダミー + 女性ダミー = 1（切片の列）となり、$X$ の列が 1 次従属になる。$X$ はフルランクでなく、$X^\\top X$ の逆行列が存在しない。どちらか一方のダミーを除けば解決する。"
         }
       ]
     },
     {
       "id": "la-l4",
       "title": "固有値と固有ベクトル【大学】",
-      "body": "正方行列 A について、零でないベクトル v と数 λ が\n  Av = λv\nを満たすとき、λ を固有値、v を固有ベクトルといいます。A をかけても向きが変わらず、λ 倍に伸び縮みするだけの方向です。\n\n求め方：(A − λI)v = 0 が非自明な解をもつ条件 det(A − λI) = 0（固有方程式）を解いて λ を求め、各 λ について v を求めます。\n\n性質（n × n 行列、固有値 λ₁, …, λₙ）\n・Σλᵢ = tr(A)、Πλᵢ = det A\n・Aᵏ の固有値は λᵢᵏ、A⁻¹ の固有値は 1/λᵢ（固有ベクトルは共通）\n\n実対称行列（統計で扱う行列の多く）の性質\n・固有値はすべて実数\n・異なる固有値の固有ベクトルは直交する\n・スペクトル分解：A = PΛPᵀ = Σλᵢvᵢvᵢᵀ（P は正規直交な固有ベクトルを並べた直交行列、Λ は固有値の対角行列）\n\n【統計での使いどころ】\n・主成分分析：分散共分散行列の固有ベクトルが主成分の方向、固有値が主成分の分散\n・因子分析・正準相関・判別分析・古典的 MDS も固有値問題\n・マルコフ連鎖の定常分布：πP = π は P の固有値 1 の（左）固有ベクトル\n・AR(p) の定常条件（特性方程式の根）",
+      "body": "正方行列 $A$ について、零でないベクトル $\\boldsymbol{v}$ と数 $\\lambda$ が\n$$A\\boldsymbol{v} = \\lambda \\boldsymbol{v}$$\nを満たすとき、$\\lambda$ を固有値、$\\boldsymbol{v}$ を固有ベクトルといいます。$A$ をかけても向きが変わらず、$\\lambda$ 倍に伸び縮みするだけの方向です。\n\n求め方：$(A - \\lambda I)\\boldsymbol{v} = \\boldsymbol{0}$ が非自明な解をもつ条件 $\\det(A - \\lambda I) = 0$（固有方程式）を解いて $\\lambda$ を求め、各 $\\lambda$ について $\\boldsymbol{v}$ を求めます。\n\n性質（$n \\times n$ 行列、固有値 $\\lambda_1, \\dots, \\lambda_n$）\n$$\\sum_i \\lambda_i = \\mathrm{tr}(A), \\qquad \\prod_i \\lambda_i = \\det A$$\n$A^k$ の固有値は $\\lambda_i^k$、$A^{-1}$ の固有値は $\\frac{1}{\\lambda_i}$（固有ベクトルは共通）。\n\n実対称行列（統計で扱う行列の多く）の性質\n・固有値はすべて実数\n・異なる固有値の固有ベクトルは直交する\n・スペクトル分解：$P$ を正規直交な固有ベクトルを並べた直交行列、$\\Lambda$ を固有値の対角行列として\n$$A = P \\Lambda P^\\top = \\sum_i \\lambda_i \\boldsymbol{v}_i \\boldsymbol{v}_i^\\top$$\n\n【統計での使いどころ】\n・主成分分析：分散共分散行列の固有ベクトルが主成分の方向、固有値が主成分の分散\n・因子分析・正準相関・判別分析・古典的 MDS も固有値問題\n・マルコフ連鎖の定常分布：$\\boldsymbol{\\pi} P = \\boldsymbol{\\pi}$ は $P$ の固有値 1 の（左）固有ベクトル\n・AR(p) の定常条件（特性方程式の根）",
       "theorems": [
         {
           "title": "2 × 2 行列の固有値の和と積",
-          "statement": "2 × 2 行列 A の固有値 λ₁, λ₂ について λ₁ + λ₂ = tr A、λ₁λ₂ = det A。",
-          "proof": "A = [[a, b], [c, d]] の固有方程式は det(A − λI) = (a − λ)(d − λ) − bc = λ² − (a + d)λ + (ad − bc) = 0。\n解と係数の関係より λ₁ + λ₂ = a + d = tr A、λ₁λ₂ = ad − bc = det A。"
+          "statement": "2 × 2 行列 $A$ の固有値 $\\lambda_1, \\lambda_2$ について $\\lambda_1 + \\lambda_2 = \\mathrm{tr}\\,A$、$\\lambda_1 \\lambda_2 = \\det A$。",
+          "proof": "$A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$ の固有方程式は\n$$\\det(A - \\lambda I) = (a - \\lambda)(d - \\lambda) - bc = \\lambda^2 - (a + d)\\lambda + (ad - bc) = 0$$\n解と係数の関係より $\\lambda_1 + \\lambda_2 = a + d = \\mathrm{tr}\\,A$、$\\lambda_1 \\lambda_2 = ad - bc = \\det A$。"
         },
         {
           "title": "対称行列の固有ベクトルの直交性",
-          "statement": "A が実対称行列で Av₁ = λ₁v₁, Av₂ = λ₂v₂, λ₁ ≠ λ₂ なら v₁ᵀv₂ = 0。",
-          "proof": "λ₁v₁ᵀv₂ = (Av₁)ᵀv₂ = v₁ᵀAᵀv₂ = v₁ᵀAv₂ = λ₂v₁ᵀv₂（Aᵀ = A を用いた）。\nよって (λ₁ − λ₂)v₁ᵀv₂ = 0 で、λ₁ ≠ λ₂ より v₁ᵀv₂ = 0。"
+          "statement": "$A$ が実対称行列で $A\\boldsymbol{v}_1 = \\lambda_1 \\boldsymbol{v}_1,\\ A\\boldsymbol{v}_2 = \\lambda_2 \\boldsymbol{v}_2,\\ \\lambda_1 \\neq \\lambda_2$ なら $\\boldsymbol{v}_1^\\top \\boldsymbol{v}_2 = 0$。",
+          "proof": "$A^\\top = A$ を用いると\n$$\\lambda_1 \\boldsymbol{v}_1^\\top \\boldsymbol{v}_2 = (A\\boldsymbol{v}_1)^\\top \\boldsymbol{v}_2 = \\boldsymbol{v}_1^\\top A^\\top \\boldsymbol{v}_2 = \\boldsymbol{v}_1^\\top A \\boldsymbol{v}_2 = \\lambda_2 \\boldsymbol{v}_1^\\top \\boldsymbol{v}_2$$\nよって $(\\lambda_1 - \\lambda_2)\\boldsymbol{v}_1^\\top \\boldsymbol{v}_2 = 0$ で、$\\lambda_1 \\neq \\lambda_2$ より $\\boldsymbol{v}_1^\\top \\boldsymbol{v}_2 = 0$。"
         },
         {
           "title": "対称行列の固有値は実数",
           "statement": "実対称行列の固有値はすべて実数である。",
-          "proof": "Av = λv（v は複素ベクトルでもよい）とし、v̄ を成分ごとの複素共役とする。\nv̄ᵀAv = λv̄ᵀv。両辺の複素共役をとると、A は実行列なので vᵀAv̄ = λ̄vᵀv̄。\n左辺はスカラーなので転置しても同じで、Aᵀ = A より vᵀAv̄ = v̄ᵀAv。また vᵀv̄ = v̄ᵀv = Σ|vᵢ|² > 0。\nよって λ = λ̄、すなわち λ は実数。"
+          "proof": "$A\\boldsymbol{v} = \\lambda \\boldsymbol{v}$（$\\boldsymbol{v}$ は複素ベクトルでもよい）とし、$\\bar{\\boldsymbol{v}}$ を成分ごとの複素共役とする。\n$\\bar{\\boldsymbol{v}}^\\top A \\boldsymbol{v} = \\lambda\\,\\bar{\\boldsymbol{v}}^\\top \\boldsymbol{v}$。両辺の複素共役をとると、$A$ は実行列なので $\\boldsymbol{v}^\\top A \\bar{\\boldsymbol{v}} = \\bar{\\lambda}\\,\\boldsymbol{v}^\\top \\bar{\\boldsymbol{v}}$。\n左辺はスカラーなので転置しても同じで、$A^\\top = A$ より $\\boldsymbol{v}^\\top A \\bar{\\boldsymbol{v}} = \\bar{\\boldsymbol{v}}^\\top A \\boldsymbol{v}$。また $\\boldsymbol{v}^\\top \\bar{\\boldsymbol{v}} = \\bar{\\boldsymbol{v}}^\\top \\boldsymbol{v} = \\sum_i |v_i|^2 > 0$。\nよって $\\lambda = \\bar{\\lambda}$、すなわち $\\lambda$ は実数。"
         }
       ],
       "examples": [
         {
-          "question": "A = [[2, 1], [1, 2]] の固有値と正規化した固有ベクトルを求め、スペクトル分解せよ。",
-          "solution": "λ² − 4λ + 3 = 0 より λ = 3, 1。\nλ = 3：v = (1, 1)/√2、λ = 1：v = (1, −1)/√2（直交している）。\nA = 3·(1/2)[[1, 1], [1, 1]] + 1·(1/2)[[1, −1], [−1, 1]] = [[2, 1], [1, 2]]。"
+          "question": "$A = \\begin{pmatrix} 2 & 1 \\\\ 1 & 2 \\end{pmatrix}$ の固有値と正規化した固有ベクトルを求め、スペクトル分解せよ。",
+          "solution": "$\\lambda^2 - 4\\lambda + 3 = 0$ より $\\lambda = 3, 1$。\n$\\lambda = 3$：$\\boldsymbol{v} = \\frac{1}{\\sqrt{2}}(1, 1)^\\top$、$\\lambda = 1$：$\\boldsymbol{v} = \\frac{1}{\\sqrt{2}}(1, -1)^\\top$（直交している）。\n$$A = 3 \\cdot \\frac{1}{2}\\begin{pmatrix} 1 & 1 \\\\ 1 & 1 \\end{pmatrix} + 1 \\cdot \\frac{1}{2}\\begin{pmatrix} 1 & -1 \\\\ -1 & 1 \\end{pmatrix} = \\begin{pmatrix} 2 & 1 \\\\ 1 & 2 \\end{pmatrix}$$"
         },
         {
-          "question": "3 変数の分散共分散行列の固有値が 5, 2, 1 のとき、第 1 主成分の寄与率を求めよ。",
-          "solution": "5/(5 + 2 + 1) = 0.625。固有値の和 8 は各変数の分散の和（トレース）に等しい。"
+          "question": "3 変数の分散共分散行列の固有値が $5, 2, 1$ のとき、第 1 主成分の寄与率を求めよ。",
+          "solution": "$\\dfrac{5}{5 + 2 + 1} = 0.625$。固有値の和 8 は各変数の分散の和（トレース）に等しい。"
         }
       ]
     },
     {
       "id": "la-l5",
       "title": "二次形式と正定値行列【大学】",
-      "body": "対称行列 A について\n・正定値：零でないすべての x で xᵀAx > 0\n・半正定値：すべての x で xᵀAx ≥ 0\nといいます。対称行列が正定値 ⇔ すべての固有値が正 です（半正定値 ⇔ すべて 0 以上）。2 × 2 では、a > 0 かつ det A > 0 が正定値の条件です。\n\n正定値行列の平方根：スペクトル分解 A = PΛPᵀ を用いて A^(1/2) = PΛ^(1/2)Pᵀ、A^(−1/2) = PΛ^(−1/2)Pᵀ と定義できます（A^(1/2)A^(1/2) = A）。\n\n行列の平方完成：A が正定値対称なら\n  xᵀAx − 2bᵀx = (x − A⁻¹b)ᵀA(x − A⁻¹b) − bᵀA⁻¹b\nで、x = A⁻¹b のとき最小になります。\n\n【統計での使いどころ】\n・分散共分散行列は常に半正定値（Var(aᵀX) = aᵀΣa ≥ 0）\n・多変量正規分布の密度の指数部 −(1/2)(x − μ)ᵀΣ⁻¹(x − μ)、マハラノビス距離\n・Z = Σ^(−1/2)(X − μ) による標準化（白色化）で成分が無相関・分散 1 になる\n・最小二乗法：RSS = ‖y − Xβ‖² を平方完成すると β̂ = (XᵀX)⁻¹Xᵀy\n・ベイズの正規・正規モデルの事後分布の導出（平方完成）\n・対数尤度のヘッセ行列が負定値 ⇒ 最大値",
+      "body": "対称行列 $A$ について\n・正定値：零でないすべての $\\boldsymbol{x}$ で $\\boldsymbol{x}^\\top A \\boldsymbol{x} > 0$\n・半正定値：すべての $\\boldsymbol{x}$ で $\\boldsymbol{x}^\\top A \\boldsymbol{x} \\ge 0$\nといいます。対称行列が正定値 $\\iff$ すべての固有値が正 です（半正定値 $\\iff$ すべて 0 以上）。2 × 2 では、$a_{11} > 0$ かつ $\\det A > 0$ が正定値の条件です。\n\n正定値行列の平方根：スペクトル分解 $A = P\\Lambda P^\\top$ を用いて\n$$A^{\\frac{1}{2}} = P \\Lambda^{\\frac{1}{2}} P^\\top, \\qquad A^{-\\frac{1}{2}} = P \\Lambda^{-\\frac{1}{2}} P^\\top$$\nと定義できます（$A^{\\frac{1}{2}} A^{\\frac{1}{2}} = A$）。\n\n行列の平方完成：$A$ が正定値対称なら\n$$\\boldsymbol{x}^\\top A \\boldsymbol{x} - 2\\boldsymbol{b}^\\top \\boldsymbol{x} = (\\boldsymbol{x} - A^{-1}\\boldsymbol{b})^\\top A (\\boldsymbol{x} - A^{-1}\\boldsymbol{b}) - \\boldsymbol{b}^\\top A^{-1} \\boldsymbol{b}$$\nで、$\\boldsymbol{x} = A^{-1}\\boldsymbol{b}$ のとき最小になります。\n\n【統計での使いどころ】\n・分散共分散行列は常に半正定値（$V[\\boldsymbol{a}^\\top \\boldsymbol{X}] = \\boldsymbol{a}^\\top \\Sigma \\boldsymbol{a} \\ge 0$）\n・多変量正規分布の密度の指数部 $-\\frac{1}{2}(\\boldsymbol{x} - \\boldsymbol{\\mu})^\\top \\Sigma^{-1} (\\boldsymbol{x} - \\boldsymbol{\\mu})$、マハラノビス距離\n・$\\boldsymbol{Z} = \\Sigma^{-\\frac{1}{2}}(\\boldsymbol{X} - \\boldsymbol{\\mu})$ による標準化（白色化）で成分が無相関・分散 1 になる\n・最小二乗法：$\\|\\boldsymbol{y} - X\\boldsymbol{\\beta}\\|^2$ を平方完成すると $\\hat{\\boldsymbol{\\beta}} = (X^\\top X)^{-1} X^\\top \\boldsymbol{y}$\n・ベイズの正規・正規モデルの事後分布の導出（平方完成）\n・対数尤度のヘッセ行列が負定値なら最大値",
       "theorems": [
         {
           "title": "分散共分散行列は半正定値",
-          "statement": "任意の確率ベクトル X の分散共分散行列 Σ は半正定値である。",
-          "proof": "任意の定数ベクトル a について、スカラー aᵀX の分散は aᵀΣa（レッスン「行列の演算」の定理）。\n分散は非負なので aᵀΣa ≥ 0。\n等号となる a ≠ 0 があれば aᵀX は定数（変数間に完全な 1 次関係がある）で、そのとき Σ は正則でない。"
+          "statement": "任意の確率ベクトル $\\boldsymbol{X}$ の分散共分散行列 $\\Sigma$ は半正定値である。",
+          "proof": "任意の定数ベクトル $\\boldsymbol{a}$ について、スカラー $\\boldsymbol{a}^\\top \\boldsymbol{X}$ の分散は $\\boldsymbol{a}^\\top \\Sigma \\boldsymbol{a}$（レッスン「行列の演算」の定理）。\n分散は非負なので $\\boldsymbol{a}^\\top \\Sigma \\boldsymbol{a} \\ge 0$。\n等号となる $\\boldsymbol{a} \\neq \\boldsymbol{0}$ があれば $\\boldsymbol{a}^\\top \\boldsymbol{X}$ は定数（変数間に完全な 1 次関係がある）で、そのとき $\\Sigma$ は正則でない。"
         },
         {
           "title": "正定値と固有値",
-          "statement": "対称行列 A が正定値 ⇔ A の固有値がすべて正。",
-          "proof": "A = PΛPᵀ（P は直交行列）とし、y = Pᵀx とおく。P は正則なので x ≠ 0 ⇔ y ≠ 0。\nxᵀAx = yᵀΛy = Σλᵢyᵢ²。\n(⇐) すべての λᵢ > 0 なら y ≠ 0 で Σλᵢyᵢ² > 0。\n(⇒) 固有ベクトル vᵢ を x に選ぶと xᵀAx = λᵢ‖vᵢ‖² > 0 より λᵢ > 0。"
+          "statement": "対称行列 $A$ が正定値 $\\iff$ $A$ の固有値がすべて正。",
+          "proof": "$A = P\\Lambda P^\\top$（$P$ は直交行列）とし、$\\boldsymbol{y} = P^\\top \\boldsymbol{x}$ とおく。$P$ は正則なので $\\boldsymbol{x} \\neq \\boldsymbol{0} \\iff \\boldsymbol{y} \\neq \\boldsymbol{0}$。\n$$\\boldsymbol{x}^\\top A \\boldsymbol{x} = \\boldsymbol{y}^\\top \\Lambda \\boldsymbol{y} = \\sum_i \\lambda_i y_i^2$$\n（十分性）すべての $\\lambda_i > 0$ なら $\\boldsymbol{y} \\neq \\boldsymbol{0}$ で $\\sum_i \\lambda_i y_i^2 > 0$。\n（必要性）固有ベクトル $\\boldsymbol{v}_i$ を $\\boldsymbol{x}$ に選ぶと $\\boldsymbol{x}^\\top A \\boldsymbol{x} = \\lambda_i \\|\\boldsymbol{v}_i\\|^2 > 0$ より $\\lambda_i > 0$。"
         }
       ],
       "examples": [
         {
-          "question": "Σ = [[4, 2], [2, 3]] が正定値であることを確かめ、x = (1, −1) の二次形式の値を求めよ。",
-          "solution": "4 > 0、det Σ = 12 − 4 = 8 > 0 なので正定値。\nxᵀΣx = 4 − 2·2 + 3 = 3（= Var(X₁ − X₂) = 4 + 3 − 2·2）。"
+          "question": "$\\Sigma = \\begin{pmatrix} 4 & 2 \\\\ 2 & 3 \\end{pmatrix}$ が正定値であることを確かめ、$\\boldsymbol{x} = (1, -1)^\\top$ の二次形式の値を求めよ。",
+          "solution": "$4 > 0$、$\\det\\Sigma = 12 - 4 = 8 > 0$ なので正定値。\n$$\\boldsymbol{x}^\\top \\Sigma \\boldsymbol{x} = 4 - 2 \\cdot 2 + 3 = 3$$\n（$= V[X_1 - X_2] = 4 + 3 - 2 \\cdot 2$）"
         },
         {
-          "question": "相関係数 ρ の 2 変数の相関行列 [[1, ρ], [ρ, 1]] が正定値となる ρ の範囲を求めよ。",
-          "solution": "固有値は 1 + ρ, 1 − ρ。ともに正となるのは −1 < ρ < 1。ρ = ±1 では半正定値（完全な 1 次関係）になる。"
+          "question": "相関係数 $\\rho$ の 2 変数の相関行列 $\\begin{pmatrix} 1 & \\rho \\\\ \\rho & 1 \\end{pmatrix}$ が正定値となる $\\rho$ の範囲を求めよ。",
+          "solution": "固有値は $1 + \\rho,\\ 1 - \\rho$。ともに正となるのは $-1 < \\rho < 1$。$\\rho = \\pm 1$ では半正定値（完全な 1 次関係）になる。"
         }
       ]
     },
     {
       "id": "la-l6",
       "title": "射影行列とベクトル・行列の微分【大学】",
-      "body": "射影行列：P² = P（べき等）かつ Pᵀ = P（対称）を満たす行列は、ある部分空間への直交射影を表します。\n・Py は y を部分空間へ「影を落とした」ベクトル、(I − P)y はそれに直交する成分\n・固有値は 0 か 1 のみ、tr(P) = rank(P)（射影先の次元）\n・I − P も射影行列\n例：H = X(XᵀX)⁻¹Xᵀ（X の列空間への射影）、J = I − (1/n)11ᵀ（平均を引く中心化行列）。\n\nベクトルによる微分：スカラー関数 f(x) の勾配 ∂f/∂x = (∂f/∂x₁, …, ∂f/∂xₙ)ᵀ。\n・∂(aᵀx)/∂x = a\n・∂(xᵀAx)/∂x = (A + Aᵀ)x（A が対称なら 2Ax）\n・∂²(xᵀAx)/∂x∂xᵀ = A + Aᵀ（ヘッセ行列）\n\n【統計での使いどころ】\n・最小二乗法：S(β) = yᵀy − 2βᵀXᵀy + βᵀXᵀXβ を β で微分して −2Xᵀy + 2XᵀXβ = 0（正規方程式）\n・ハット行列 H と残差を作る I − H は射影行列。tr(I − H) = n − p − 1 が残差の自由度\n・偏差平方和 Σ(xᵢ − x̄)² = xᵀJx、J のランク n − 1 が不偏分散の分母 n − 1 の由来\n・コクランの定理：正規ベクトルの射影による平方和はカイ二乗分布に従い、自由度は射影のランク",
+      "body": "射影行列：$P^2 = P$（べき等）かつ $P^\\top = P$（対称）を満たす行列は、ある部分空間への直交射影を表します。\n・$P\\boldsymbol{y}$ は $\\boldsymbol{y}$ を部分空間へ「影を落とした」ベクトル、$(I - P)\\boldsymbol{y}$ はそれに直交する成分\n・固有値は 0 か 1 のみ、$\\mathrm{tr}(P) = \\mathrm{rank}(P)$（射影先の次元）\n・$I - P$ も射影行列\n例：ハット行列 $H = X(X^\\top X)^{-1}X^\\top$（$X$ の列空間への射影）、中心化行列 $J = I - \\frac{1}{n}\\boldsymbol{1}\\boldsymbol{1}^\\top$（平均を引く操作）。\n\nベクトルによる微分：スカラー関数 $f(\\boldsymbol{x})$ の勾配を $\\frac{\\partial f}{\\partial \\boldsymbol{x}} = \\left(\\frac{\\partial f}{\\partial x_1}, \\dots, \\frac{\\partial f}{\\partial x_n}\\right)^\\top$ とすると\n$$\\frac{\\partial (\\boldsymbol{a}^\\top \\boldsymbol{x})}{\\partial \\boldsymbol{x}} = \\boldsymbol{a}, \\qquad \\frac{\\partial (\\boldsymbol{x}^\\top A \\boldsymbol{x})}{\\partial \\boldsymbol{x}} = (A + A^\\top)\\boldsymbol{x}, \\qquad \\frac{\\partial^2 (\\boldsymbol{x}^\\top A \\boldsymbol{x})}{\\partial \\boldsymbol{x}\\,\\partial \\boldsymbol{x}^\\top} = A + A^\\top$$\n$A$ が対称なら 2 つ目は $2A\\boldsymbol{x}$ です。\n\n【統計での使いどころ】\n・最小二乗法：$S(\\boldsymbol{\\beta}) = \\boldsymbol{y}^\\top \\boldsymbol{y} - 2\\boldsymbol{\\beta}^\\top X^\\top \\boldsymbol{y} + \\boldsymbol{\\beta}^\\top X^\\top X \\boldsymbol{\\beta}$ を微分して $-2X^\\top \\boldsymbol{y} + 2X^\\top X \\boldsymbol{\\beta} = \\boldsymbol{0}$（正規方程式）\n・ハット行列 $H$ と残差を作る $I - H$ は射影行列。$\\mathrm{tr}(I - H) = n - p - 1$ が残差の自由度\n・偏差平方和 $\\sum_i (x_i - \\bar{x})^2 = \\boldsymbol{x}^\\top J \\boldsymbol{x}$、$J$ のランク $n - 1$ が不偏分散の分母 $n - 1$ の由来\n・コクランの定理：正規ベクトルの射影による平方和はカイ二乗分布に従い、自由度は射影のランク",
       "theorems": [
         {
           "title": "射影行列の固有値",
-          "statement": "P² = P なら P の固有値は 0 か 1 である。さらに P が対称なら tr(P) = rank(P)。",
-          "proof": "Pv = λv（v ≠ 0）とすると P²v = λPv = λ²v。P² = P より λ²v = λv、すなわち λ(λ − 1)v = 0。v ≠ 0 なので λ = 0 または 1。\nP が対称ならスペクトル分解 P = QΛQᵀ ができ、Λ の対角成分は 0 か 1。rank(P) は 1 の個数、tr(P) = tr(Λ) も 1 の個数に等しい。"
+          "statement": "$P^2 = P$ なら $P$ の固有値は 0 か 1 である。さらに $P$ が対称なら $\\mathrm{tr}(P) = \\mathrm{rank}(P)$。",
+          "proof": "$P\\boldsymbol{v} = \\lambda \\boldsymbol{v}\\ (\\boldsymbol{v} \\neq \\boldsymbol{0})$ とすると $P^2\\boldsymbol{v} = \\lambda P\\boldsymbol{v} = \\lambda^2 \\boldsymbol{v}$。$P^2 = P$ より $\\lambda^2 \\boldsymbol{v} = \\lambda \\boldsymbol{v}$、すなわち $\\lambda(\\lambda - 1)\\boldsymbol{v} = \\boldsymbol{0}$。$\\boldsymbol{v} \\neq \\boldsymbol{0}$ なので $\\lambda = 0$ または $1$。\n$P$ が対称ならスペクトル分解 $P = Q\\Lambda Q^\\top$ ができ、$\\Lambda$ の対角成分は 0 か 1。$\\mathrm{rank}(P)$ は 1 の個数で、$\\mathrm{tr}(P) = \\mathrm{tr}(\\Lambda)$ も 1 の個数に等しい。"
         },
         {
           "title": "二次形式の微分",
-          "statement": "∂(xᵀAx)/∂x = (A + Aᵀ)x",
-          "proof": "xᵀAx = ΣᵢΣⱼ aᵢⱼxᵢxⱼ を xₖ で偏微分すると、i = k の項から Σⱼ aₖⱼxⱼ、j = k の項から Σᵢ aᵢₖxᵢ が出る。\n∂/∂xₖ = (Ax)ₖ + (Aᵀx)ₖ。\nすべての k について並べると (A + Aᵀ)x。"
+          "statement": "$$\\frac{\\partial (\\boldsymbol{x}^\\top A \\boldsymbol{x})}{\\partial \\boldsymbol{x}} = (A + A^\\top)\\boldsymbol{x}$$",
+          "proof": "$\\boldsymbol{x}^\\top A \\boldsymbol{x} = \\sum_i \\sum_j a_{ij} x_i x_j$ を $x_k$ で偏微分すると、$i = k$ の項から $\\sum_j a_{kj} x_j$、$j = k$ の項から $\\sum_i a_{ik} x_i$ が出る。\n$$\\frac{\\partial}{\\partial x_k} = (A\\boldsymbol{x})_k + (A^\\top \\boldsymbol{x})_k$$\nすべての $k$ について並べると $(A + A^\\top)\\boldsymbol{x}$。"
         },
         {
           "title": "中心化行列",
-          "statement": "J = I − (1/n)11ᵀ は対称な射影行列で、xᵀJx = Σ(xᵢ − x̄)²、rank(J) = n − 1。",
-          "proof": "Jᵀ = J は明らか。1ᵀ1 = n より J² = I − (2/n)11ᵀ + (1/n²)1(1ᵀ1)1ᵀ = I − (1/n)11ᵀ = J。\nJx = x − x̄1 は偏差ベクトルなので xᵀJx = xᵀJᵀJx = ‖Jx‖² = Σ(xᵢ − x̄)²。\nrank(J) = tr(J) = n − (1/n)·n = n − 1。"
+          "statement": "$J = I - \\frac{1}{n}\\boldsymbol{1}\\boldsymbol{1}^\\top$ は対称な射影行列で、$\\boldsymbol{x}^\\top J \\boldsymbol{x} = \\sum_i (x_i - \\bar{x})^2$、$\\mathrm{rank}(J) = n - 1$。",
+          "proof": "$J^\\top = J$ は明らか。$\\boldsymbol{1}^\\top \\boldsymbol{1} = n$ より\n$$J^2 = I - \\frac{2}{n}\\boldsymbol{1}\\boldsymbol{1}^\\top + \\frac{1}{n^2}\\boldsymbol{1}(\\boldsymbol{1}^\\top \\boldsymbol{1})\\boldsymbol{1}^\\top = I - \\frac{1}{n}\\boldsymbol{1}\\boldsymbol{1}^\\top = J$$\n$J\\boldsymbol{x} = \\boldsymbol{x} - \\bar{x}\\boldsymbol{1}$ は偏差ベクトルなので $\\boldsymbol{x}^\\top J \\boldsymbol{x} = \\boldsymbol{x}^\\top J^\\top J \\boldsymbol{x} = \\|J\\boldsymbol{x}\\|^2 = \\sum_i (x_i - \\bar{x})^2$。\n$\\mathrm{rank}(J) = \\mathrm{tr}(J) = n - \\frac{1}{n} \\cdot n = n - 1$。"
         }
       ],
       "examples": [
         {
-          "question": "S(β) = ‖y − Xβ‖² を β で微分して、最小二乗推定量を導け。",
-          "solution": "S(β) = yᵀy − 2(Xᵀy)ᵀβ + βᵀ(XᵀX)β。\n∂S/∂β = −2Xᵀy + 2XᵀXβ（XᵀX は対称）。0 とおいて XᵀXβ = Xᵀy。XᵀX が正則なら β̂ = (XᵀX)⁻¹Xᵀy。\nヘッセ行列 2XᵀX は正定値なので最小。"
+          "question": "$S(\\boldsymbol{\\beta}) = \\|\\boldsymbol{y} - X\\boldsymbol{\\beta}\\|^2$ を $\\boldsymbol{\\beta}$ で微分して、最小二乗推定量を導け。",
+          "solution": "$$S(\\boldsymbol{\\beta}) = \\boldsymbol{y}^\\top \\boldsymbol{y} - 2(X^\\top \\boldsymbol{y})^\\top \\boldsymbol{\\beta} + \\boldsymbol{\\beta}^\\top (X^\\top X)\\boldsymbol{\\beta}$$\n$$\\frac{\\partial S}{\\partial \\boldsymbol{\\beta}} = -2X^\\top \\boldsymbol{y} + 2X^\\top X \\boldsymbol{\\beta} \\quad (X^\\top X \\text{ は対称})$$\n0 とおいて $X^\\top X \\boldsymbol{\\beta} = X^\\top \\boldsymbol{y}$。$X^\\top X$ が正則なら $\\hat{\\boldsymbol{\\beta}} = (X^\\top X)^{-1} X^\\top \\boldsymbol{y}$。ヘッセ行列 $2X^\\top X$ は正定値なので最小。"
         },
         {
-          "question": "n = 3 のとき中心化行列 J を書き、x = (1, 2, 6) について Jx と xᵀJx を求めよ。",
-          "solution": "J = I − (1/3)11ᵀ = (1/3)[[2, −1, −1], [−1, 2, −1], [−1, −1, 2]]。\nx̄ = 3 なので Jx = (−2, −1, 3)、xᵀJx = 4 + 1 + 9 = 14。"
+          "question": "$n = 3$ のとき中心化行列 $J$ を書き、$\\boldsymbol{x} = (1, 2, 6)^\\top$ について $J\\boldsymbol{x}$ と $\\boldsymbol{x}^\\top J \\boldsymbol{x}$ を求めよ。",
+          "solution": "$$J = I - \\frac{1}{3}\\boldsymbol{1}\\boldsymbol{1}^\\top = \\frac{1}{3}\\begin{pmatrix} 2 & -1 & -1 \\\\ -1 & 2 & -1 \\\\ -1 & -1 & 2 \\end{pmatrix}$$\n$\\bar{x} = 3$ なので $J\\boldsymbol{x} = (-2, -1, 3)^\\top$、$\\boldsymbol{x}^\\top J \\boldsymbol{x} = 4 + 1 + 9 = 14$。"
         }
       ]
+    }
+  ],
+  "formulas": [
+    {
+      "title": "内積と相関",
+      "body": "$\\boldsymbol{x}^\\top \\boldsymbol{y} = \\sum_i x_i y_i, \\quad \\|\\boldsymbol{x}\\| = \\sqrt{\\boldsymbol{x}^\\top \\boldsymbol{x}}$\n$|\\boldsymbol{x}^\\top \\boldsymbol{y}| \\le \\|\\boldsymbol{x}\\|\\,\\|\\boldsymbol{y}\\|, \\quad r = \\dfrac{\\tilde{\\boldsymbol{x}}^\\top \\tilde{\\boldsymbol{y}}}{\\|\\tilde{\\boldsymbol{x}}\\|\\,\\|\\tilde{\\boldsymbol{y}}\\|}$"
+    },
+    {
+      "title": "行列の演算",
+      "body": "$(AB)^\\top = B^\\top A^\\top, \\quad (AB)^{-1} = B^{-1}A^{-1}$\n$\\mathrm{tr}(AB) = \\mathrm{tr}(BA), \\quad V[A\\boldsymbol{X}] = A\\Sigma A^\\top$"
+    },
+    {
+      "title": "2 × 2 の逆行列",
+      "body": "$$\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}^{-1} = \\frac{1}{ad - bc}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$$"
+    },
+    {
+      "title": "固有値",
+      "body": "$A\\boldsymbol{v} = \\lambda \\boldsymbol{v}, \\quad \\det(A - \\lambda I) = 0$\n$\\sum_i \\lambda_i = \\mathrm{tr}\\,A, \\quad \\prod_i \\lambda_i = \\det A$\n対称行列：$A = P\\Lambda P^\\top$（実固有値・直交する固有ベクトル）"
+    },
+    {
+      "title": "正定値",
+      "body": "$\\boldsymbol{x}^\\top A \\boldsymbol{x} > 0\\ (\\boldsymbol{x} \\neq \\boldsymbol{0}) \\iff$ 固有値がすべて正\n分散共分散行列は半正定値"
+    },
+    {
+      "title": "射影・微分",
+      "body": "$P^2 = P,\\ P^\\top = P \\Rightarrow$ 固有値は 0 か 1、$\\mathrm{tr}\\,P = \\mathrm{rank}\\,P$\n$J = I - \\frac{1}{n}\\boldsymbol{1}\\boldsymbol{1}^\\top, \\quad \\boldsymbol{x}^\\top J \\boldsymbol{x} = \\sum_i (x_i - \\bar{x})^2$\n$\\dfrac{\\partial (\\boldsymbol{a}^\\top \\boldsymbol{x})}{\\partial \\boldsymbol{x}} = \\boldsymbol{a}, \\quad \\dfrac{\\partial (\\boldsymbol{x}^\\top A \\boldsymbol{x})}{\\partial \\boldsymbol{x}} = (A + A^\\top)\\boldsymbol{x}$"
     }
   ]
 }

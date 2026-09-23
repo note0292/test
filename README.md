@@ -1,6 +1,11 @@
-# 統計検定準1級 対策アプリ（Android）
+# 統計検定準1級 対策アプリ（Android・TeX 版）
 
 統計検定準1級の合格を目指すための、オフラインで使える学習用 Android アプリです。
+
+数式は TeX 記法で書かれ、同梱の [KaTeX](https://katex.org/) で教科書と同じ見た目（分数・添字・行列など）に描画します。
+
+- アプリ名「準1級 TeX版」、アプリ ID `com.note0292.statprep.tex`
+- 数式を Unicode 文字で表記していた旧版（アプリ ID `com.note0292.statprep`、コミット `4f41618`）とは別アプリなので、同じ端末に両方インストールできます。学習記録はそれぞれ別に保存されます
 
 ## 機能
 
@@ -29,8 +34,8 @@
 ## インストール
 
 1. GitHub の **Actions** タブ → 最新の「Android build」実行を開く
-2. Artifacts の `statprep-debug-apk` をダウンロードして解凍
-3. `app-debug.apk` を Android 端末に転送してインストール（「提供元不明のアプリ」の許可が必要）
+2. Artifacts の `statprep-tex-apk` をダウンロードして解凍
+3. `statprep-tex-debug.apk` を Android 端末に転送してインストール（「提供元不明のアプリ」の許可が必要）
 
 Android 8.0（API 26）以上に対応しています。
 
@@ -38,6 +43,7 @@ Android 8.0（API 26）以上に対応しています。
 
 ```sh
 ./gradlew testDebugUnitTest   # 問題データの検証とロジックのテスト
+npm install --no-save katex@0.16.22 && node tools/check-tex.js   # 全数式を KaTeX で検証
 ./gradlew assembleDebug       # APK のビルド
 ```
 
@@ -51,8 +57,8 @@ Kotlin + Jetpack Compose（Material 3）。学習記録は端末内（SharedPref
 {
   "id": "prob-013",
   "category": "probability",
-  "question": "問題文",
-  "choices": ["選択肢1", "選択肢2", "選択肢3", "選択肢4"],
+  "question": "問題文（数式は $\\bar{X}$ のように TeX で書く）",
+  "choices": ["$\\dfrac{1}{n}$", "選択肢2", "選択肢3", "選択肢4"],
   "answer": 0,
   "explanation": "解説"
 }
@@ -60,7 +66,8 @@ Kotlin + Jetpack Compose（Material 3）。学習記録は端末内（SharedPref
 
 - `answer` は正解の選択肢の番号（0 始まり）。表示時に選択肢はシャッフルされます
 - `category` は `Category`（`data/Question.kt`）の `id` のいずれか
-- `QuestionBankTest` が id の重複や `answer` の範囲などを検査します
+- 数式はインライン `$...$`、別行立て `$$...$$` で囲み、1 行の中で閉じます（JSON 内ではバックスラッシュを `\\` と書きます）
+- `QuestionBankTest` が id の重複や `answer` の範囲などを、`tools/check-tex.js` が数式の文法と数式外に残った記号を検査します
 
 ### テキストの編集
 

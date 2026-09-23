@@ -31,6 +31,7 @@ class TextbookTest {
         chapters.forEach { ch ->
             assertTrue("導入が空: ${ch.category}", ch.intro.isNotBlank())
             assertTrue("レッスンが少ない: ${ch.category}", ch.lessons.size >= 4)
+            assertTrue("公式まとめがない: ${ch.category}", ch.formulas.isNotEmpty())
             ch.lessons.forEach { l ->
                 assertTrue("本文が空: ${l.id}", l.body.isNotBlank())
                 assertTrue("定理がない: ${l.id}", l.theorems.isNotEmpty())
