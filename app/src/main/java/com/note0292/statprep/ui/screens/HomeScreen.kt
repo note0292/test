@@ -18,19 +18,15 @@ import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Replay
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,7 +40,6 @@ import com.note0292.statprep.ui.MOCK_COUNT
 import com.note0292.statprep.ui.RANDOM_COUNT
 import java.time.LocalDate
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     questions: List<Question>,
@@ -55,7 +50,7 @@ fun HomeScreen(
     onCategories: () -> Unit,
     onTextbook: () -> Unit,
     onStats: () -> Unit,
-    onSettings: () -> Unit,
+    onBack: () -> Unit,
 ) {
     val answered = questions.count { progress.stat(it.id).attempts > 0 }
     val totalCorrect = questions.sumOf { progress.stat(it.id).correct }
@@ -66,12 +61,7 @@ fun HomeScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("統計検定準1級 対策") },
-                actions = {
-                    IconButton(onClick = onSettings) { Icon(Icons.Filled.Settings, contentDescription = "設定") }
-                },
-            )
+            BackTopBar("自習モード", onBack)
         },
     ) { padding ->
         Column(

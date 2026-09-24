@@ -219,7 +219,7 @@ private fun QuizQuestion(
 }
 
 @Composable
-private fun ChoiceCard(text: String, selected: Boolean, revealed: Boolean, isAnswer: Boolean, onClick: () -> Unit) {
+internal fun ChoiceCard(text: String, selected: Boolean, revealed: Boolean, isAnswer: Boolean, onClick: () -> Unit) {
     val borderColor = when {
         revealed && isAnswer -> CorrectColor
         revealed && selected -> WrongColor
@@ -274,11 +274,11 @@ private fun ResultIcon(correct: Boolean) {
 }
 
 @Composable
-private fun ExplanationCard(
+internal fun ExplanationCard(
     correct: Boolean,
     explanation: String,
     category: Category,
-    onOpenChapter: (Category) -> Unit,
+    onOpenChapter: ((Category) -> Unit)?,
 ) {
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
@@ -293,7 +293,9 @@ private fun ExplanationCard(
             )
             Text("解説", style = MaterialTheme.typography.labelLarge)
             MathText(explanation, fontSizePx = 15)
-            TextButton(onClick = { onOpenChapter(category) }) { Text("テキストで復習する（${category.label}）") }
+            if (onOpenChapter != null) {
+                TextButton(onClick = { onOpenChapter(category) }) { Text("テキストで復習する（${category.label}）") }
+            }
         }
     }
 }

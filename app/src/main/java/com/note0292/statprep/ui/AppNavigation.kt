@@ -15,6 +15,11 @@ import com.note0292.statprep.data.ProgressStore
 import com.note0292.statprep.data.QuestionRepository
 import com.note0292.statprep.data.QuizMode
 import com.note0292.statprep.data.TextbookRepository
+import com.note0292.statprep.data.game.Curriculum
+import com.note0292.statprep.ui.game.BadgesScreen
+import com.note0292.statprep.ui.game.GameHomeScreen
+import com.note0292.statprep.ui.game.MapScreen
+import com.note0292.statprep.ui.game.StageScreen
 import com.note0292.statprep.ui.screens.CategoryScreen
 import com.note0292.statprep.ui.screens.ChapterScreen
 import com.note0292.statprep.ui.screens.HomeScreen
@@ -23,12 +28,17 @@ import com.note0292.statprep.ui.screens.QuizScreen
 import com.note0292.statprep.ui.screens.SettingsScreen
 import com.note0292.statprep.ui.screens.StatsScreen
 import com.note0292.statprep.ui.screens.TextbookScreen
+import java.time.LocalDate
 
 const val RANDOM_COUNT = 10
 const val MOCK_COUNT = 30
 
 object Routes {
     const val HOME = "home"
+    const val LIBRARY = "library"
+    const val MAP = "map"
+    const val BADGES = "badges"
+    const val STAGE = "stage/{day}"
     const val CATEGORIES = "categories"
     const val STATS = "stats"
     const val SETTINGS = "settings"
@@ -37,6 +47,7 @@ object Routes {
     const val LESSON = "lesson/{lesson}"
     const val QUIZ = "quiz/{mode}?arg={arg}"
 
+    fun stage(day: Int) = "stage/$day"
     fun chapter(category: Category) = "chapter/${category.id}"
     fun lesson(id: String) = "lesson/$id"
     fun quiz(mode: String, arg: String = "") = "quiz/$mode?arg=$arg"
@@ -55,6 +66,10 @@ fun AppNavigation(repository: QuestionRepository, textbook: TextbookRepository, 
     val nav = rememberNavController()
     val progress by store.progress.collectAsStateWithLifecycle()
     val includeOptional by store.includeOptional.collectAsStateWithLifecycle()
+    val game by store.game.collectAsStateWithLifecycle()
+    val curriculum = remember { Curriculum.build(textbook.allChapters(), repository.questions) }
+    // 日付が変わっても画面に戻れば更新されるよう、再コンポーズのたびに取り直す
+    val today = LocalDate.now()
 
     // 発展分野が無効なときは、その分野の問題・章をすべての画面から除外する
     val categories = remember(includeOptional) { Category.active(includeOptional) }
@@ -69,6 +84,32 @@ fun AppNavigation(repository: QuestionRepository, textbook: TextbookRepository, 
 
     NavHost(navController = nav, startDestination = Routes.HOME) {
         composable(Routes.HOME) {
+            GameHomeScreen(
+                state = game,
+                curriculum = curriculum,
+                today = today,
+                onBegin = store::startGame,
+                onPlay = { day -> nav.navigate(Routes.stage(day)) },
+                onMap = { nav.navigate(Routes.MAP) },
+                onBadges = { nav.navigate(Routes.BADGES) },
+                onLibrary = { nav.navigate(Routes.LIBRARY) },
+                onSettings = { nav.navigate(Routes.SETTINGS) },
+            )
+        }
+        composable(
+            Routes.STAGE,
+            arguments = listOf(navArgument("day") { type = NavType.IntType }),
+        ) { entry ->
+            StageScreen(
+                day = entry.arguments?.getInt("day") ?: Curriculum.BONUS_DAY,
+                curriculum = curriculum,
+                store = store,
+                onExit = { nav.popBackStack(Routes.HOME, inclusive = false) },
+            )
+        }
+        composable(Routes.MAP) { MapScreen(game, curriculum, onBack = { nav.popBackStack() }) }
+        composable(Routes.BADGES) { BadgesScreen(game, onBack = { nav.popBackStack() }) }
+        composable(Routes.LIBRARY) {
             HomeScreen(
                 questions = questions,
                 progress = progress,
@@ -78,7 +119,7 @@ fun AppNavigation(repository: QuestionRepository, textbook: TextbookRepository, 
                 onCategories = { nav.navigate(Routes.CATEGORIES) },
                 onTextbook = { nav.navigate(Routes.TEXTBOOK) },
                 onStats = { nav.navigate(Routes.STATS) },
-                onSettings = { nav.navigate(Routes.SETTINGS) },
+                onBack = { nav.popBackStack() },
             )
         }
         composable(Routes.TEXTBOOK) {
@@ -150,6 +191,7 @@ fun AppNavigation(repository: QuestionRepository, textbook: TextbookRepository, 
             SettingsScreen(
                 includeOptional = includeOptional,
                 onIncludeOptionalChange = store::setIncludeOptional,
+                onResetGame = store::resetGame,
                 onBack = { nav.popBackStack() },
             )
         }
@@ -171,7 +213,9 @@ fun AppNavigation(repository: QuestionRepository, textbook: TextbookRepository, 
                 progress = progress,
                 store = store,
                 onOpenChapter = openChapter,
-                onExit = { nav.popBackStack(Routes.HOME, inclusive = false) },
+                onExit = {
+                    if (!nav.popBackStack(Routes.LIBRARY, inclusive = false)) nav.popBackStack()
+                },
             )
         }
     }

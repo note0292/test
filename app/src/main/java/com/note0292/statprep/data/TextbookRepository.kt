@@ -17,6 +17,8 @@ class TextbookRepository(context: Context) {
 
     fun chapter(category: Category): Chapter? = chapters[category]
 
+    fun allChapters(): List<Chapter> = chapters.values.sortedBy { it.categoryEnum.ordinal }
+
     /** レッスンと、それを含む章・章内の位置。 */
     fun lesson(id: String): Pair<Chapter, Int>? = lessonIndex[id]
 

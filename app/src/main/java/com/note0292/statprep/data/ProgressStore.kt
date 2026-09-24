@@ -1,6 +1,7 @@
 package com.note0292.statprep.data
 
 import android.content.Context
+import com.note0292.statprep.data.game.GameState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,6 +24,25 @@ class ProgressStore(context: Context) {
         _includeOptional.value = value
         prefs.edit().putBoolean(KEY_OPTIONAL, value).apply()
     }
+
+    private val _game = MutableStateFlow(loadGame())
+
+    /** ゲーム（180 日の冒険）の進行状況。 */
+    val game: StateFlow<GameState> = _game.asStateFlow()
+
+    private fun loadGame(): GameState {
+        val raw = prefs.getString(KEY_GAME, null) ?: return GameState()
+        return runCatching { json.decodeFromString<GameState>(raw) }.getOrDefault(GameState())
+    }
+
+    fun setGame(state: GameState) {
+        _game.value = state
+        prefs.edit().putString(KEY_GAME, json.encodeToString(GameState.serializer(), state)).apply()
+    }
+
+    fun startGame() = setGame(GameState(startDate = LocalDate.now().toString()))
+
+    fun resetGame() = setGame(GameState())
 
     private fun load(): Progress {
         val raw = prefs.getString(KEY, null) ?: return Progress()
@@ -47,5 +67,6 @@ class ProgressStore(context: Context) {
     private companion object {
         const val KEY = "progress_v1"
         const val KEY_OPTIONAL = "include_optional"
+        const val KEY_GAME = "game_v1"
     }
 }

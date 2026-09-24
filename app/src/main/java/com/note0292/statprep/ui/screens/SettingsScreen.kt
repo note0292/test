@@ -8,7 +8,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
@@ -22,8 +28,19 @@ import androidx.compose.ui.unit.dp
 fun SettingsScreen(
     includeOptional: Boolean,
     onIncludeOptionalChange: (Boolean) -> Unit,
+    onResetGame: () -> Unit,
     onBack: () -> Unit,
 ) {
+    var confirmReset by remember { mutableStateOf(false) }
+    if (confirmReset) {
+        AlertDialog(
+            onDismissRequest = { confirmReset = false },
+            title = { Text("冒険を最初からやり直しますか？") },
+            text = { Text("Day・XP・バッジ・復習の記録が消えます。自習モードの学習記録は残ります。") },
+            confirmButton = { TextButton(onClick = { confirmReset = false; onResetGame() }) { Text("やり直す") } },
+            dismissButton = { TextButton(onClick = { confirmReset = false }) { Text("キャンセル") } },
+        )
+    }
     Scaffold(topBar = { BackTopBar("設定", onBack) }) { padding ->
         Column(
             Modifier.fillMaxSize().padding(padding).padding(16.dp),
@@ -42,6 +59,16 @@ fun SettingsScreen(
                     }
                     Spacer(Modifier.width(12.dp))
                     Switch(checked = includeOptional, onCheckedChange = onIncludeOptionalChange)
+                }
+            }
+            Card(onClick = { confirmReset = true }, modifier = Modifier.fillMaxWidth()) {
+                Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text("冒険を最初からやり直す", style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        "ゲームの進行（Day 1 から）をリセットします。発展分野はゲームには含まれず、自習モードで学べます。",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
                 }
             }
         }

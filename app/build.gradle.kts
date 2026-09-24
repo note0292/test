@@ -6,7 +6,7 @@ plugins {
 }
 
 base {
-    archivesName.set("statprep-tex")
+    archivesName.set("statprep-quest")
 }
 
 android {
@@ -14,12 +14,12 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        // 旧版（Unicode 表記, タグ unicode-v1）と同じ端末に共存できるよう別のアプリ ID にする
-        applicationId = "com.note0292.statprep.tex"
+        // 旧版（Unicode 表記版・TeX 版）と同じ端末に共存できるよう別のアプリ ID にする
+        applicationId = "com.note0292.statprep.quest"
         minSdk = 26
         targetSdk = 35
-        versionCode = 2
-        versionName = "2.0.0-tex"
+        versionCode = 3
+        versionName = "3.0.0-quest"
     }
 
     buildTypes {
